@@ -1,0 +1,48 @@
+> HEADER PANEL
+TxtOrderNo
+EditBoxScanItem
+BtnSearch
+BtnSettings
+BtnAccount
+BtnLogout
+
+> BODY PANEL
+ItemTable
+ItemTableSubTotal
+    TxtTotalItems
+    TxtSubTotal
+ItemTablePPN
+    TxtPPN
+ItemTableGrandTotal
+    TxtGrandTotal
+
+> PAYMENT PANEL
+BtnVoid
+BtnReprint
+BtnDebitCard
+BtnCreditCard
+
+BtnHoldHistory
+BtnHold
+BtnLoyalty
+BtnEwallet
+BtnCash
+
+> TENDERED PANEL
+EditBoxTendered
+BtnNominalOption1
+BtnNominalOption2
+TxtChanges
+
+BtnKeypad1
+BtnKeypad2
+BtnKeypad3
+BtnKeypad4
+BtnKeypad5
+BtnKeypad6
+BtnKeypad7
+BtnKeypad8
+BtnKeypad9
+BtnKeypadBS
+BtnKeypad0
+BtnKeypadPoint

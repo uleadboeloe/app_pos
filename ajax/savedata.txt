@@ -1,0 +1,6 @@
+2025-06-17 17:12:58#simpan_log.php#UPDATE temp_transaksi 
+            SET qty = :qty, total_harga = :total_harga 
+            WHERE order_no = :order_no AND kode_barang = :kode_barang and uom = :uom AND status = 'CURRENT'
+2025-06-17 17:12:58#simpan_log.php#UPDATE temp_transaksi 
+            SET qty = :qty
+            WHERE order_no = :order_no AND kode_barang = :kode_barang AND status = 'CURRENT'

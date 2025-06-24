@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteRule ^kasir$ kasir.php [L]
+RewriteRule ^displaystruk!([^/]+)$ preview.kasir.php?nobon=$1 [L]
+RewriteRule ^reprint!([^/]+)$ preview.kasir.php?reprint=true&nobon=$1 [L]

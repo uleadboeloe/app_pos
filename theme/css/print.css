@@ -1,0 +1,107 @@
+.labelMenuHeader {
+  font-size: 10px;
+  font-weight: 800;
+  color: #ff9900;
+  padding: 10px;
+}
+.labelMenuInformation {
+  font-size: 8px;
+  color: #ff9900;
+}
+/*********************************************/
+#tableHeader {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid #ddd;
+  font-size: 10px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#tableHeader td {
+  border: 1px solid #ddd;
+  padding: 2px;
+}
+
+#tableHeader tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#tableHeader tr:hover {
+  background-color: #ddd;
+}
+
+#tableHeader th {
+  padding: 10px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: black;
+}
+/*********************************************/
+/*********************************************/
+#tableData {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid #ddd;
+  font-size: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 2px;
+}
+
+#tableData td {
+  border: 1px solid #ddd;
+  font-size: 8px;
+  padding: 5px;
+}
+
+#tableData tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#tableData tr:hover {
+  background-color: #ddd;
+}
+
+#tableData th {
+  padding: 10px;
+  text-align: left;
+  color: black;
+}
+/*********************************************/
+/*********************************************/
+#tableFooter {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid #ddd;
+  font-size: 10px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#tableFooter td {
+  padding: 2px;
+}
+
+#tableFooter tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#tableFooter tr:hover {
+  background-color: #ddd;
+}
+
+#tableFooter th {
+  padding: 10px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: black;
+}
+/*********************************************/
+.TextMiring {
+  position: absolute;
+  top: 2%;
+  left: 40%;
+  z-index: 50;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: rotate(45deg);
+  transform-origin: 0 0; /* Menentukan titik rotasi (sudut kiri atas) */
+}

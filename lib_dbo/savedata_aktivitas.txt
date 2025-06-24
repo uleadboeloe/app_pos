@@ -1,0 +1,419 @@
+#simpan_log.php#-#-#-#dlg_search_item
+#simpan_log.php#999#Cari Barang: kurma khalass#NORMAL#dlg_search_item
+#simpan_log.php#999#Cari Barang: kecap manis#INFO#dlg_search_item
+2025-06-14 11:07:22#simpan_log.php#999#Cari Barang: madurasa#INFO#dlg_search_item
+2025-06-14 12:39:42#simpan_log.php#999#Scan Barcode Barang: 1000007#INFO#kasir
+2025-06-14 12:40:50#simpan_log.php#999#Scan Barcode Barang: 1000008Barcode: 28992772403061#INFO#kasir
+2025-06-14 12:41:00#simpan_log.php#999#Scan Barcode Barang: 1000008Barcode: 28992772403061#INFO#kasir
+2025-06-14 12:41:09#simpan_log.php#999#Scan Barcode Barang: 1000008Barcode: 28992772403061#INFO#kasir
+2025-06-14 12:42:52#simpan_log.php#999#TENDER CASH: A102-999-000006#INFO#kasir
+2025-06-14 12:44:48#simpan_log.php#999#Scan Barcode Barang: 1000011Barcode: 8990007870015#INFO#kasir
+2025-06-14 12:44:57#simpan_log.php#999#Scan Barcode Barang: 1000014Barcode: 8990007870176#INFO#kasir
+2025-06-14 12:45:05#simpan_log.php#999#Scan Barcode Barang: 1000014Barcode: 8990007870176#INFO#kasir
+2025-06-14 12:45:07#simpan_log.php#999#Scan Barcode Barang: 1000014Barcode: 8990007870176#INFO#kasir
+2025-06-14 12:45:09#simpan_log.php#999#Scan Barcode Barang: 1000014Barcode: 8990007870176#INFO#kasir
+2025-06-14 12:45:11#simpan_log.php#999#Scan Barcode Barang: 1000014Barcode: 8990007870176#INFO#kasir
+2025-06-14 12:45:13#simpan_log.php#999#Scan Barcode Barang: 1000014Barcode: 8990007870176#INFO#kasir
+2025-06-14 12:45:16#simpan_log.php#999#Scan Barcode Barang: 1000014Barcode: 8990007870176#INFO#kasir
+2025-06-14 12:59:13#simpan_log.php#999#Scan Barcode Barang: 1000010 Barcode: 8990007870022#INFO#kasir
+2025-06-14 12:59:16#simpan_log.php#999#Open Edit Line: 1000010#WARNING#kasir
+2025-06-14 12:59:52#simpan_log.php#999#TENDER CREDIT CARD: A102-999-000008#INFO#kasir
+2025-06-14 13:00:46#simpan_log.php#999#Scan Barcode Barang: 1000009 Barcode: 8992772233064#INFO#kasir
+2025-06-14 13:00:53#simpan_log.php#999#Scan Barcode Barang: 1000010 Barcode: 8990007870022#INFO#kasir
+2025-06-14 13:01:00#simpan_log.php#999#Scan Barcode Barang: 1000012 Barcode: 8990007870053#INFO#kasir
+2025-06-14 13:01:03#simpan_log.php#999#Open Edit Line: 1000010 No Struk: A102-999-000009#WARNING#kasir
+2025-06-14 13:01:38#simpan_log.php#999#TENDER CREDIT CARD: A102-999-000009#INFO#kasir
+2025-06-14 13:40:32#simpan_log.php#999#Scan Barcode Barang: 1000381 Barcode: 8992936662488#INFO#kasir
+2025-06-14 13:40:57#simpan_log.php#999#Scan Barcode Barang: 1000382 Barcode: 8992936115045#INFO#kasir
+2025-06-14 13:41:02#simpan_log.php#999#Scan Barcode Barang: 1000385 Barcode: 8992936115069#INFO#kasir
+2025-06-14 13:41:06#simpan_log.php#999#Scan Barcode Barang: 1000388 Barcode: 8992936661870#INFO#kasir
+2025-06-14 13:41:10#simpan_log.php#999#Scan Barcode Barang: 1003160 Barcode: 8997209101558#INFO#kasir
+2025-06-14 13:41:14#simpan_log.php#999#TENDER CASH: A102-999-000010#INFO#kasir
+2025-06-14 13:56:45#simpan_log.php#999#Cari Barang: abc#INFO#dlg_search_item
+2025-06-14 13:56:55#simpan_log.php#999#Cari Barang: nanas#INFO#dlg_search_item
+2025-06-14 13:57:11#simpan_log.php#999#Hapus Transaksi: 1001643#DANGER#dlg_spv_approval
+2025-06-14 14:00:23#simpan_log.php#999#Cari Barang: kurma#INFO#dlg_search_item
+2025-06-14 14:00:34#simpan_log.php#999#TENDER QRIS: A102-999-000011#SUCCESS#kasir
+2025-06-14 14:42:09#simpan_log.php#999#Scan Barcode Barang: 1004166 Barcode: 8993200666263#INFO#kasir
+2025-06-14 14:44:21#simpan_log.php#999#Scan Barcode Barang: 1002054 Barcode: 89686570113#INFO#kasir
+2025-06-14 14:44:55#simpan_log.php#999#Scan Barcode Barang: 1002052 Barcode: 89686648065#INFO#kasir
+2025-06-14 14:45:04#simpan_log.php#999#Scan Barcode Barang: 1002059 Barcode: 89686700008#INFO#kasir
+2025-06-14 14:45:08#simpan_log.php#999#Scan Barcode Barang: 1002056 Barcode: 89686640014#INFO#kasir
+2025-06-14 14:45:13#simpan_log.php#999#Scan Barcode Barang: 1002058 Barcode: 89686640083#INFO#kasir
+2025-06-14 14:45:21#simpan_log.php#999#Scan Barcode Barang: 1002057 Barcode: 89686640007#INFO#kasir
+2025-06-14 14:45:42#simpan_log.php#999#TENDER CASH: A102-999-000012#SUCCESS#kasir
+2025-06-14 14:58:09#simpan_log.php#999#Scan Barcode Barang: 2700601 Barcode: 8993492102463#INFO#kasir
+2025-06-14 14:58:18#simpan_log.php#999#Scan Barcode Barang: 2700602 Barcode: 8993492102470#INFO#kasir
+2025-06-14 14:58:21#simpan_log.php#999#Scan Barcode Barang: 2700602 Barcode: 8993492102470#INFO#kasir
+2025-06-14 14:58:22#simpan_log.php#999#Scan Barcode Barang: 2700602 Barcode: 8993492102470#INFO#kasir
+2025-06-14 14:58:23#simpan_log.php#999#Scan Barcode Barang: 2700602 Barcode: 8993492102470#INFO#kasir
+2025-06-14 14:58:24#simpan_log.php#999#Scan Barcode Barang: 2700602 Barcode: 8993492102470#INFO#kasir
+2025-06-14 14:58:25#simpan_log.php#999#Scan Barcode Barang: 2700602 Barcode: 8993492102470#INFO#kasir
+2025-06-14 14:58:27#simpan_log.php#999#Scan Barcode Barang: 2700602 Barcode: 8993492102470#INFO#kasir
+2025-06-14 14:58:28#simpan_log.php#999#Scan Barcode Barang: 2700602 Barcode: 8993492102470#INFO#kasir
+2025-06-14 14:58:29#simpan_log.php#999#Scan Barcode Barang: 2700602 Barcode: 8993492102470#INFO#kasir
+2025-06-14 14:58:30#simpan_log.php#999#Scan Barcode Barang: 2700602 Barcode: 8993492102470#INFO#kasir
+2025-06-14 14:59:24#simpan_log.php#999#Cari Barang: melon#INFO#dlg_search_item
+2025-06-14 14:59:32#simpan_log.php#999#Cari Barang: melon sky#INFO#dlg_search_item
+2025-06-14 14:59:54#simpan_log.php#999#Open Edit Line: 20058 No Struk: A102-999-000013#WARNING#kasir
+2025-06-14 15:00:51#simpan_log.php#999#Cari Barang: buah naga#INFO#dlg_search_item
+2025-06-14 15:01:16#simpan_log.php#999#Scan Barcode Barang: 20011 Barcode: 220011000300#INFO#kasir
+2025-06-14 15:01:23#simpan_log.php#999#Scan Barcode Barang: 20011 Barcode: 220011000650#INFO#kasir
+2025-06-14 15:01:29#simpan_log.php#999#Scan Barcode Barang: 20011 Barcode: 220011000400#INFO#kasir
+2025-06-14 15:02:06#simpan_log.php#999#TENDER CASH: A102-999-000013#SUCCESS#kasir
+2025-06-14 15:14:01#simpan_log.php#999#Scan Barcode Barang: 3000801 Barcode: 8992727008631#INFO#kasir
+2025-06-14 15:14:16#simpan_log.php#999#Scan Barcode Barang: 1000869 Barcode: 8997021220253#INFO#kasir
+2025-06-14 15:14:49#simpan_log.php#999#Cari Barang: nutella#INFO#dlg_search_item
+2025-06-14 15:15:28#simpan_log.php#999#Hapus Transaksi: 1000869 Qty: PRONAS ABON DAGING SAPI BAWANG PCH 100GR UOM: PCS#DANGER#dlg_spv_approval
+2025-06-14 15:16:02#simpan_log.php#999#TENDER CREDIT CARD: A102-999-000014#SUCCESS#kasir
+2025-06-14 15:18:35#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:18:48#simpan_log.php#999#Cari Barang: attack matic#INFO#dlg_search_item
+2025-06-14 15:19:10#simpan_log.php#999#TENDER QRIS: A102-999-000015#SUCCESS#kasir
+2025-06-14 15:21:39#simpan_log.php#999#Scan Barcode Barang: 1000869 Barcode: 8997021220253#INFO#kasir
+2025-06-14 15:21:49#simpan_log.php#999#Scan Barcode Barang: 1000867 Barcode: 8997021220154#INFO#kasir
+2025-06-14 15:21:58#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:22:27#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:22:34#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:22:45#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:22:47#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:22:49#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:22:51#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:22:52#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:22:54#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:22:56#simpan_log.php#999#Scan Barcode Barang: 1002516 Barcode: 8888200700515#INFO#kasir
+2025-06-14 15:23:53#simpan_log.php#999#TENDER CASH: A102-999-000016#SUCCESS#kasir
+2025-06-14 15:25:16#simpan_log.php#999#Cari Barang: daging fresh#INFO#dlg_search_item
+2025-06-14 15:25:46#simpan_log.php#999#Cari Barang: kurma khalas#INFO#dlg_search_item
+2025-06-14 15:26:12#simpan_log.php#999#Scan Barcode Barang: 1000009 Barcode: 8992772233064#INFO#kasir
+2025-06-14 15:27:20#simpan_log.php#999#Hapus Transaksi: 30084 Qty: KURMA KHALAS/KG UOM: KG#DANGER#dlg_spv_approval
+2025-06-14 15:27:54#simpan_log.php#999#Hapus Transaksi: 1000009 Qty: VEGETA SCRUBBER JERUK 6S UOM: PCS#DANGER#dlg_spv_approval
+2025-06-14 15:28:35#simpan_log.php#999#Cari Barang: anggur#INFO#dlg_search_item
+2025-06-14 15:29:07#simpan_log.php#999#Open Edit Line: 1001419 No Struk: A102-999-000017#WARNING#kasir
+2025-06-14 15:29:36#simpan_log.php#999#Cari Barang: kurma#INFO#dlg_search_item
+2025-06-14 15:29:46#simpan_log.php#999#Open Edit Line: 1002548 No Struk: A102-999-000017#WARNING#kasir
+2025-06-14 15:30:29#simpan_log.php#999#TENDER CASH: A102-999-000017#SUCCESS#kasir
+2025-06-14 22:47:11#simpan_log.php#999#Cari Barang: 30096#INFO#dlg_search_item
+2025-06-14 22:47:20#simpan_log.php#999#Cari Barang: KURMA DC KHALAS#INFO#dlg_search_item
+2025-06-14 22:47:39#simpan_log.php#999#Scan Barcode Barang: 30096 Barcode: 230096000500#INFO#kasir
+2025-06-14 23:00:47#simpan_log.php#999#TENDER QRIS: A102-999-000018#SUCCESS#kasir
+2025-06-16 13:50:51#simpan_log.php#999#Scan Barcode Barang: 1003198 Barcode: 8000500224281#INFO#kasir
+2025-06-16 13:51:07#simpan_log.php#999#Scan Barcode Barang: 1003197 Barcode: 8000500227848#INFO#kasir
+2025-06-16 13:51:13#simpan_log.php#999#Scan Barcode Barang: 1003197 Barcode: 8000500227848#INFO#kasir
+2025-06-16 13:51:16#simpan_log.php#999#Scan Barcode Barang: 1003197 Barcode: 8000500227848#INFO#kasir
+2025-06-16 18:51:38#simpan_log.php#999#Scan Barcode Barang: 1000868 Barcode: 8997021220161#INFO#kasir
+2025-06-16 18:52:57#simpan_log.php#999#TENDER QRIS: A102-999-000019#SUCCESS#kasir
+2025-06-16 18:55:52#simpan_log.php#888#Cari Barang: kurma#INFO#dlg_search_item
+2025-06-16 18:55:57#simpan_log.php#888#Cari Barang: madu#INFO#dlg_search_item
+2025-06-16 18:56:02#simpan_log.php#888#TENDER CASH: A102-888-000001#SUCCESS#kasir
+2025-06-16 20:58:42#simpan_log.php#999#Scan Barcode Barang: 1003732 Barcode: 8995227500261#INFO#kasir
+2025-06-16 21:01:45#simpan_log.php#999#Hapus Transaksi: 1003732 Qty: CAP KAKI TIGA LARUTAN ORIGINAL 500ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-16 21:01:47#simpan_log.php#999#Scan Barcode Barang: 1003732 Barcode: 8995227500261#INFO#kasir
+2025-06-16 21:02:10#simpan_log.php#999#Scan Barcode Barang: 1003732 Barcode: 8995227500261#INFO#kasir
+2025-06-16 21:02:20#simpan_log.php#999#Hapus Transaksi: 1003732 Qty: CAP KAKI TIGA LARUTAN ORIGINAL 500ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-16 21:02:26#simpan_log.php#999#Scan Barcode Barang: 1003732 Barcode: 8995227500261#INFO#kasir
+2025-06-16 21:16:36#simpan_log.php#999#Scan Barcode Barang: 1000079 Barcode: 8999510953000#INFO#kasir
+2025-06-16 21:19:18#simpan_log.php#999#TENDER CASH: A102-999-000021#SUCCESS#kasir
+2025-06-16 21:38:34#simpan_log.php#999#Scan Barcode Barang: 1003732 Barcode: 8995227500261#INFO#kasir
+2025-06-16 21:38:38#simpan_log.php#999#TENDER CASH: A102-999-000022#SUCCESS#kasir
+2025-06-16 21:40:41#simpan_log.php#999#Scan Barcode Barang: 1000007 Barcode: 8997239630097#INFO#kasir
+2025-06-16 21:40:46#simpan_log.php#999#Scan Barcode Barang: 1000005 Barcode: 8992772123068#INFO#kasir
+2025-06-16 21:40:50#simpan_log.php#999#Scan Barcode Barang: 1000004 Barcode: 8992772586016#INFO#kasir
+2025-06-16 21:40:54#simpan_log.php#999#Scan Barcode Barang: 1000002 Barcode: 8992772586030#INFO#kasir
+2025-06-16 21:42:46#simpan_log.php#999#Scan Barcode Barang: 1000001 Barcode: 8992772586023#INFO#kasir
+2025-06-16 21:42:54#simpan_log.php#999#Scan Barcode Barang: 1000021 Barcode: 8992918401487#INFO#kasir
+2025-06-16 21:43:18#simpan_log.php#999#Cari Barang: madurasa#INFO#dlg_search_item
+2025-06-16 21:44:41#simpan_log.php#999#Hapus Transaksi: 1000007 Qty: ADEM SARI C. LMN TEA PET 350ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-16 21:44:44#simpan_log.php#999#Hapus Transaksi: 1000005 Qty: ADEM SARI DUS 5SX7GR UOM: PCS#DANGER#dlg_spv_approval
+2025-06-16 21:44:47#simpan_log.php#999#Hapus Transaksi: 1000004 Qty: ADEM SARI CHINGKU HERBAL LEMON CAN 320ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-16 21:44:50#simpan_log.php#999#Hapus Transaksi: 1000002 Qty: ADEM SARI CHINGKU SPARKLING LEMON 320ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-16 21:44:52#simpan_log.php#999#Hapus Transaksi: 1000001 Qty: ADEM SARI CHINGKU HERBAL TEA CAN 320ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-16 21:44:55#simpan_log.php#999#Hapus Transaksi: 1000021 Qty: HONEY MILK TBA 200ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-16 21:46:50#simpan_log.php#999#Cari Barang: 8886030812842#INFO#dlg_search_item
+2025-06-16 21:47:29#simpan_log.php#999#Cari Barang: 8886030812842#INFO#dlg_search_item
+2025-06-16 21:48:26#simpan_log.php#999#Cari Barang: 8886030812842#INFO#dlg_search_item
+2025-06-16 21:49:53#simpan_log.php#999#Cari Barang: kumis#INFO#dlg_search_item
+2025-06-16 21:50:00#simpan_log.php#999#Cari Barang: hello#INFO#dlg_search_item
+2025-06-16 21:50:07#simpan_log.php#999#Cari Barang: 8886030223815#INFO#dlg_search_item
+2025-06-16 21:50:14#simpan_log.php#999#Cari Barang: 8886030233012#INFO#dlg_search_item
+2025-06-16 21:50:18#simpan_log.php#999#Cari Barang: 8886030223839#INFO#dlg_search_item
+2025-06-16 21:50:24#simpan_log.php#999#Cari Barang: 8886030812842#INFO#dlg_search_item
+2025-06-16 21:50:38#simpan_log.php#999#Cari Barang: 8886030223839#INFO#dlg_search_item
+2025-06-16 21:50:44#simpan_log.php#999#Cari Barang: 8886030223815#INFO#dlg_search_item
+2025-06-16 21:50:49#simpan_log.php#999#Cari Barang: 8886030819957#INFO#dlg_search_item
+2025-06-16 21:52:57#simpan_log.php#999#Cari Barang: 8886030812842#INFO#dlg_search_item
+2025-06-16 21:56:03#simpan_log.php#999#TENDER CASH: A102-999-000023#SUCCESS#kasir
+2025-06-16 21:58:57#simpan_log.php#999#Scan Barcode Barang: 3002060 Barcode: 8886030223839#INFO#kasir
+2025-06-16 21:59:00#simpan_log.php#999#Scan Barcode Barang: 3002057 Barcode: 8886030229930#INFO#kasir
+2025-06-16 21:59:01#simpan_log.php#999#Scan Barcode Barang: 3002064 Barcode: 8886030812842#INFO#kasir
+2025-06-16 21:59:02#simpan_log.php#999#Scan Barcode Barang: 3002062 Barcode: 8886030819940#INFO#kasir
+2025-06-16 21:59:04#simpan_log.php#999#Scan Barcode Barang: 3002065 Barcode: 8886030233012#INFO#kasir
+2025-06-16 21:59:05#simpan_log.php#999#Scan Barcode Barang: 3002059 Barcode: 8886030223815#INFO#kasir
+2025-06-16 21:59:07#simpan_log.php#999#Scan Barcode Barang: 3002061 Barcode: 8886030223860#INFO#kasir
+2025-06-16 21:59:44#simpan_log.php#999#TENDER CREDIT CARD: A102-999-000024#SUCCESS#kasir
+2025-06-17 11:46:35#simpan_log.php#888#Scan Barcode Barang: 1001410 Barcode: 8991688890101#INFO#kasir
+2025-06-17 11:46:44#simpan_log.php#888#Scan Barcode Barang: 2700502 Barcode: 8997226414020#INFO#kasir
+2025-06-17 11:46:50#simpan_log.php#888#Scan Barcode Barang: 2700497 Barcode: 8997226412149#INFO#kasir
+2025-06-17 11:46:56#simpan_log.php#888#Scan Barcode Barang: 2700495 Barcode: 8997226412033#INFO#kasir
+2025-06-17 11:47:02#simpan_log.php#888#Scan Barcode Barang: 2700504 Barcode: 8997226414044#INFO#kasir
+2025-06-17 11:47:07#simpan_log.php#888#Scan Barcode Barang: 2700500 Barcode: 8997226414051#INFO#kasir
+2025-06-17 11:47:12#simpan_log.php#888#Scan Barcode Barang: 2700493 Barcode: 8997226412019#INFO#kasir
+2025-06-17 11:47:20#simpan_log.php#888#Scan Barcode Barang: 2700693 Barcode: 8997014450216#INFO#kasir
+2025-06-17 11:47:27#simpan_log.php#888#Scan Barcode Barang: 2700697 Barcode: 8997014450155#INFO#kasir
+2025-06-17 11:47:32#simpan_log.php#888#Scan Barcode Barang: 2700696 Barcode: 8997014450421#INFO#kasir
+2025-06-17 11:47:38#simpan_log.php#888#Scan Barcode Barang: 1002622 Barcode: 8997206771365#INFO#kasir
+2025-06-17 11:47:45#simpan_log.php#888#Scan Barcode Barang: 1002370 Barcode: 8997206772065#INFO#kasir
+2025-06-17 11:49:17#simpan_log.php#888#Scan Barcode Barang: 1002924 Barcode: 8990007870220#INFO#kasir
+2025-06-17 11:49:28#simpan_log.php#888#Scan Barcode Barang: 1003676 Barcode: 8995177108883#INFO#kasir
+2025-06-17 11:49:34#simpan_log.php#888#Scan Barcode Barang: 1003688 Barcode: 8992946121005#INFO#kasir
+2025-06-17 11:49:40#simpan_log.php#888#Scan Barcode Barang: 1001781 Barcode: 8992946534409#INFO#kasir
+2025-06-17 11:55:20#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:15:07#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:15:11#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:27:18#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:27:20#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:27:22#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:27:23#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:27:26#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:27:27#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:27:29#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:33:35#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:38:16#simpan_log.php#888#Hapus Transaksi: 1001670 Qty: JOYDAY DOUBLE SCOOP STRAWBERRY VANILLA 100ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:38:29#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:38:34#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:38:35#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:41:30#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:43:03#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:43:09#simpan_log.php#888#Hapus Transaksi: 1001670 Qty: JOYDAY DOUBLE SCOOP STRAWBERRY VANILLA 100ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:43:15#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:43:23#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:43:24#simpan_log.php#888#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 13:43:49#simpan_log.php#888#Scan Barcode Barang: 2700248 Barcode: 8993110003646#INFO#kasir
+2025-06-17 13:43:58#simpan_log.php#888#Scan Barcode Barang: 2700747 Barcode: 8993110003714#INFO#kasir
+2025-06-17 13:44:12#simpan_log.php#888#Hapus Transaksi: 1001410 Qty: BURUNG DARA MIE TELOR RENTENG 131G UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:14#simpan_log.php#888#Hapus Transaksi: 2700502 Qty: EMINA SLICE CHEESE MOZZA 5S UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:16#simpan_log.php#888#Hapus Transaksi: 2700497 Qty: EMINA BLOCK CHEESE SHRED 160G UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:19#simpan_log.php#888#Hapus Transaksi: 2700495 Qty: EMINA BLOCK CHEESE MOZZA 165G UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:21#simpan_log.php#888#Hapus Transaksi: 2700504 Qty: EMINA SLICE MOZZA 10S UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:23#simpan_log.php#888#Hapus Transaksi: 2700500 Qty: EMINA SLICE CHEESE CEDDA 10S UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:25#simpan_log.php#888#Hapus Transaksi: 2700493 Qty: EMINA BLOCK CHEESE MILD 165G UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:27#simpan_log.php#888#Hapus Transaksi: 2700693 Qty: PROCHIZ GOLD 160G UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:29#simpan_log.php#888#Hapus Transaksi: 2700697 Qty: PROCHIZ SPREADY 160G UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:31#simpan_log.php#888#Hapus Transaksi: 2700696 Qty: PROCHIZ GOLD SLICE 12S UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:33#simpan_log.php#888#Hapus Transaksi: 1002622 Qty: KEWPIE SALAD DRESSING DG YOGURT 150GR UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:38#simpan_log.php#888#Hapus Transaksi: 1002370 Qty: KEWPIE SAUS SIRAM WIJEN SANGRAI 200ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:40#simpan_log.php#888#Hapus Transaksi: 1002924 Qty: RAJA BUAH DURIAN BERAS PATAH SUPER 5KG UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:41#simpan_log.php#888#Hapus Transaksi: 1003676 Qty: GULAKU TEBU 500GR UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:43#simpan_log.php#888#Hapus Transaksi: 1003688 Qty: TROPICAL MINYAK GORENG BTL 1L UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:46#simpan_log.php#888#Hapus Transaksi: 1001781 Qty: FORVITA MARGARIN TUBE 200G UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:48#simpan_log.php#888#Hapus Transaksi: 1001670 Qty: JOYDAY DOUBLE SCOOP STRAWBERRY VANILLA 100ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:50#simpan_log.php#888#Hapus Transaksi: 2700248 Qty: SONICE SOSIS PREMIUM HOT 55 G UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:44:53#simpan_log.php#888#Hapus Transaksi: 2700747 Qty: SO GOOD CHICKEN NUGGET MAC CHEESE 400G UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:51:15#simpan_log.php#888#Scan Barcode Barang: 1001040 Barcode: 089686010015#INFO#kasir
+2025-06-17 13:52:36#simpan_log.php#888#Scan Barcode Barang: 1001040 Barcode: 089686010015#INFO#kasir
+2025-06-17 13:52:43#simpan_log.php#888#Hapus Transaksi: 1001040 Qty: INDOMIE AYAM BAWANG 69GR UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:52:45#simpan_log.php#888#Scan Barcode Barang: 1001040 Barcode: 089686010015#INFO#kasir
+2025-06-17 13:53:02#simpan_log.php#888#Hapus Transaksi: 1001040 Qty: INDOMIE AYAM BAWANG 69GR UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 13:53:05#simpan_log.php#888#Scan Barcode Barang: 1001040 Barcode: 089686010015#INFO#kasir
+2025-06-17 14:00:11#simpan_log.php#888#Scan Barcode Barang: 2700147 Barcode: 8991728000699#INFO#kasir
+2025-06-17 14:00:21#simpan_log.php#888#Scan Barcode Barang: 2700245 Barcode: 8993110002557#INFO#kasir
+2025-06-17 14:00:29#simpan_log.php#888#Scan Barcode Barang: 2700246 Barcode: 8993110002564#INFO#kasir
+2025-06-17 14:00:35#simpan_log.php#888#Scan Barcode Barang: 2700247 Barcode: 8993110002571#INFO#kasir
+2025-06-17 14:00:40#simpan_log.php#888#Scan Barcode Barang: 2700248 Barcode: 8993110003646#INFO#kasir
+2025-06-17 14:00:45#simpan_log.php#888#Scan Barcode Barang: 1003688 Barcode: 8992946121005#INFO#kasir
+2025-06-17 14:01:16#simpan_log.php#888#TENDER CASH: A102-888-000002#SUCCESS#kasir
+2025-06-17 14:38:18#simpan_log.php#777#Scan Barcode Barang: 1001410 Barcode: 8991688890101#INFO#kasir
+2025-06-17 14:38:21#simpan_log.php#777#Scan Barcode Barang: 1001410 Barcode: 8991688890101#INFO#kasir
+2025-06-17 14:38:23#simpan_log.php#777#Scan Barcode Barang: 1001410 Barcode: 8991688890101#INFO#kasir
+2025-06-17 14:38:25#simpan_log.php#777#Scan Barcode Barang: 1001410 Barcode: 8991688890101#INFO#kasir
+2025-06-17 14:38:27#simpan_log.php#777#Scan Barcode Barang: 1001410 Barcode: 8991688890101#INFO#kasir
+2025-06-17 14:38:28#simpan_log.php#777#Scan Barcode Barang: 1001410 Barcode: 8991688890101#INFO#kasir
+2025-06-17 14:38:29#simpan_log.php#777#Scan Barcode Barang: 1001410 Barcode: 8991688890101#INFO#kasir
+2025-06-17 14:38:31#simpan_log.php#777#Scan Barcode Barang: 1001410 Barcode: 8991688890101#INFO#kasir
+2025-06-17 14:38:32#simpan_log.php#777#Scan Barcode Barang: 1001410 Barcode: 8991688890101#INFO#kasir
+2025-06-17 14:38:58#simpan_log.php#777#Cari Barang: 8991688890101#INFO#dlg_search_item
+2025-06-17 14:39:26#simpan_log.php#777#Cari Barang: 8991688890101#INFO#dlg_search_item
+2025-06-17 14:41:40#simpan_log.php#777#Cari Barang: INDOMIE#INFO#dlg_search_item
+2025-06-17 14:41:49#simpan_log.php#777#Cari Barang: 1001040#INFO#dlg_search_item
+2025-06-17 14:45:10#simpan_log.php#777#Cari Barang: indomie ayam bawang#INFO#dlg_search_item
+2025-06-17 14:47:08#simpan_log.php#777#Cari Barang: indomie goreng#INFO#dlg_search_item
+2025-06-17 14:47:12#simpan_log.php#777#Cari Barang: indomie goreng spesial#INFO#dlg_search_item
+2025-06-17 14:47:16#simpan_log.php#777#Cari Barang: indomie goreng spe#INFO#dlg_search_item
+2025-06-17 14:47:44#simpan_log.php#777#Cari Barang: hello panda#INFO#dlg_search_item
+2025-06-17 14:48:12#simpan_log.php#777#Cari Barang: indomie soto#INFO#dlg_search_item
+2025-06-17 14:48:34#simpan_log.php#777#Cari Barang: ayam utuh#INFO#dlg_search_item
+2025-06-17 14:49:52#simpan_log.php#777#TENDER CASH: A102-777-000001#SUCCESS#kasir
+2025-06-17 14:54:53#simpan_log.php#777#Cari Barang: nutella#INFO#dlg_search_item
+2025-06-17 14:55:02#simpan_log.php#777#Cari Barang: nutella#INFO#dlg_search_item
+2025-06-17 14:55:20#simpan_log.php#777#Cari Barang: indomie goreng#INFO#dlg_search_item
+2025-06-17 14:56:31#simpan_log.php#777#Cari Barang: nutella#INFO#dlg_search_item
+2025-06-17 14:58:11#simpan_log.php#777#Hapus Transaksi: 1003194 Qty: NUTELLA T680 680GR UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 14:59:48#simpan_log.php#777#TENDER QRIS: A102-777-000002#SUCCESS#kasir
+2025-06-17 15:00:28#simpan_log.php#777#Cari Barang: nutella#INFO#dlg_search_item
+2025-06-17 15:00:37#simpan_log.php#777#Cari Barang: nutella#INFO#dlg_search_item
+2025-06-17 15:01:05#simpan_log.php#777#Cari Barang: indomie#INFO#dlg_search_item
+2025-06-17 15:12:55#simpan_log.php#777#TENDER CREDIT CARD: A102-777-000003#SUCCESS#kasir
+2025-06-17 15:14:03#simpan_log.php#777#Cari Barang: hello#INFO#dlg_search_item
+2025-06-17 15:14:18#simpan_log.php#777#Cari Barang: ayam utuh#INFO#dlg_search_item
+2025-06-17 15:15:08#simpan_log.php#777#TENDER DEBIT: A102-777-000004#SUCCESS#kasir
+2025-06-17 15:18:30#simpan_log.php#777#Cari Barang: abc#INFO#dlg_search_item
+2025-06-17 15:19:23#simpan_log.php#777#TENDER CASH: A102-777-000005#SUCCESS#kasir
+2025-06-17 15:22:06#simpan_log.php#777#Cari Barang: melon#INFO#dlg_search_item
+2025-06-17 15:22:12#simpan_log.php#777#Cari Barang: BUAH NAGA#INFO#dlg_search_item
+2025-06-17 15:22:23#simpan_log.php#777#Open Edit Line: 20076 No Struk: A102-777-000006#WARNING#kasir
+2025-06-17 15:22:39#simpan_log.php#777#Cari Barang: buah naga#INFO#dlg_search_item
+2025-06-17 15:23:08#simpan_log.php#777#Scan Barcode Barang: 20076 Barcode: 220076000700#INFO#kasir
+2025-06-17 15:23:20#simpan_log.php#777#Cari Barang: semangka#INFO#dlg_search_item
+2025-06-17 15:23:37#simpan_log.php#777#Cari Barang: semangka#INFO#dlg_search_item
+2025-06-17 15:25:02#simpan_log.php#777#Cari Barang: pepaya#INFO#dlg_search_item
+2025-06-17 15:25:40#simpan_log.php#777#Scan Barcode Barang: 50020 Barcode: 2500200000450#INFO#kasir
+2025-06-17 15:26:00#simpan_log.php#777#Scan Barcode Barang: 50020 Barcode: 250020000450#INFO#kasir
+2025-06-17 15:27:38#simpan_log.php#777#TENDER CASH: A102-777-000006#SUCCESS#kasir
+2025-06-17 15:29:12#simpan_log.php#777#Cari Barang: 8991728000699#INFO#dlg_search_item
+2025-06-17 15:29:16#simpan_log.php#777#Scan Barcode Barang: 2700147 Barcode: 8991728000699#INFO#kasir
+2025-06-17 15:29:22#simpan_log.php#777#Scan Barcode Barang: 2700147 Barcode: 8991728000699#INFO#kasir
+2025-06-17 15:29:25#simpan_log.php#777#Scan Barcode Barang: 2700147 Barcode: 8991728000699#INFO#kasir
+2025-06-17 15:29:29#simpan_log.php#777#Hapus Transaksi: 2700147 Qty: JOYDAY CHOCOLATE BALLS 58ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 15:29:41#simpan_log.php#777#Scan Barcode Barang: 50020 Barcode: 250020000850#INFO#kasir
+2025-06-17 15:29:48#simpan_log.php#777#Scan Barcode Barang: 2700147 Barcode: 8991728000699#INFO#kasir
+2025-06-17 15:30:04#simpan_log.php#777#Cari Barang: 8991728000699#INFO#dlg_search_item
+2025-06-17 15:34:21#simpan_log.php#777#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 15:35:36#simpan_log.php#777#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 15:35:39#simpan_log.php#777#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 15:39:25#simpan_log.php#777#Scan Barcode Barang: 1001608 Barcode: 8850388541082#INFO#kasir
+2025-06-17 15:39:47#simpan_log.php#777#Scan Barcode Barang: 1001608 Barcode: 8850388541082#INFO#kasir
+2025-06-17 15:40:09#simpan_log.php#777#Hapus Transaksi: 1001608 Qty: COCO DEE COCONUT WATER TP 1L UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 15:40:15#simpan_log.php#777#Scan Barcode Barang: 1001608 Barcode: 8850388541082#INFO#kasir
+2025-06-17 15:40:35#simpan_log.php#777#Hapus Transaksi: 1001608 Qty: COCO DEE COCONUT WATER TP 1L UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 15:40:40#simpan_log.php#777#Scan Barcode Barang: 1001608 Barcode: 8850388541082#INFO#kasir
+2025-06-17 15:40:52#simpan_log.php#777#TENDER QRIS: A102-777-000007#SUCCESS#kasir
+2025-06-17 15:42:30#simpan_log.php#777#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 15:42:44#simpan_log.php#777#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 15:42:53#simpan_log.php#777#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 15:43:18#simpan_log.php#777#Hapus Transaksi: 3001422 Qty: SOFTENER SOKLIN BIRU POUCH 1800ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 15:43:22#simpan_log.php#777#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 15:43:27#simpan_log.php#777#TENDER CASH: A102-777-000008#SUCCESS#kasir
+2025-06-17 15:46:09#simpan_log.php#777#Cari Barang: buah naga#INFO#dlg_search_item
+2025-06-17 15:46:30#simpan_log.php#777#Scan Barcode Barang: 20011 Barcode: 220011000500#INFO#kasir
+2025-06-17 15:46:50#simpan_log.php#777#Open Edit Line: 20011 No Struk: A102-777-000009#WARNING#kasir
+2025-06-17 15:47:27#simpan_log.php#777#Open Edit Line: 20011 No Struk: A102-777-000009#WARNING#kasir
+2025-06-17 15:47:40#simpan_log.php#777#Open Edit Line: 20011 No Struk: A102-777-000009#WARNING#kasir
+2025-06-17 15:48:35#simpan_log.php#777#Scan Barcode Barang: 50020 Barcode: 250020000750#INFO#kasir
+2025-06-17 15:51:31#simpan_log.php#777#Scan Barcode Barang: 1001670 Barcode: 8991728001047#INFO#kasir
+2025-06-17 15:53:25#simpan_log.php#777#Cari Barang: kurma khalas#INFO#dlg_search_item
+2025-06-17 15:54:21#simpan_log.php#777#Hapus Transaksi: 2300014 Qty: KURMA KHALAS 500 G UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 15:54:43#simpan_log.php#777#Cari Barang: kurma khalas#INFO#dlg_search_item
+2025-06-17 15:55:32#simpan_log.php#777#Cari Barang: madurasa#INFO#dlg_search_item
+2025-06-17 15:55:39#simpan_log.php#777#Cari Barang: madurasa#INFO#dlg_search_item
+2025-06-17 16:02:05#simpan_log.php#777#Open Edit Line: 2300015 No Struk: A102-777-000009#WARNING#kasir
+2025-06-17 16:04:06#simpan_log.php#777#Open Edit Line: 20011 No Struk: A102-777-000009#WARNING#kasir
+2025-06-17 16:04:20#simpan_log.php#777#TENDER CASH: A102-777-000009#SUCCESS#kasir
+2025-06-17 16:19:32#simpan_log.php#777#Cari Barang: nutella#INFO#dlg_search_item
+2025-06-17 16:19:37#simpan_log.php#777#Cari Barang: nutella#INFO#dlg_search_item
+2025-06-17 16:19:41#simpan_log.php#777#TENDER CASH: A102-777-000010#SUCCESS#kasir
+2025-06-17 16:34:14#simpan_log.php#888#Cari Barang: kurma#INFO#dlg_search_item
+2025-06-17 16:34:23#simpan_log.php#888#TENDER CASH: A102-888-000003#SUCCESS#kasir
+2025-06-17 17:04:08#simpan_log.php#888#Scan Barcode Barang: 1001608 Barcode: 8850388541082#INFO#kasir
+2025-06-17 17:05:51#simpan_log.php#888#Scan Barcode Barang: 1001608 Barcode: 8850388541082#INFO#kasir
+2025-06-17 17:12:58#simpan_log.php#888#Scan Barcode Barang: 1001608 Barcode: 8850388541082#INFO#kasir
+2025-06-17 17:17:13#simpan_log.php#888#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:17:15#simpan_log.php#888#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:17:55#simpan_log.php#888#Hapus Transaksi: 3001422 Qty: SOFTENER SOKLIN BIRU POUCH 1800ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 17:17:58#simpan_log.php#888#Hapus Transaksi: 1001608 Qty: COCO DEE COCONUT WATER TP 1L UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 17:18:05#simpan_log.php#888#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:18:07#simpan_log.php#888#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:19:08#simpan_log.php#888#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:19:15#simpan_log.php#888#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:19:17#simpan_log.php#888#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:19:19#simpan_log.php#888#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:19:35#simpan_log.php#888#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:21:48#simpan_log.php#888#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:22:09#simpan_log.php#888#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:22:47#simpan_log.php#888#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:23:30#simpan_log.php#888#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:24:51#simpan_log.php#888#Hapus Transaksi: 3001424 Qty: SOFTENER SOKLIN BIRU POUCH 900ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 17:24:53#simpan_log.php#888#Hapus Transaksi: 3001422 Qty: SOFTENER SOKLIN BIRU POUCH 1800ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 17:25:06#simpan_log.php#888#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:25:08#simpan_log.php#888#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:26:45#simpan_log.php#888#Hapus Transaksi: 3001422 Qty: SOFTENER SOKLIN BIRU POUCH 1800ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 17:27:14#simpan_log.php#999#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:27:16#simpan_log.php#999#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:27:42#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:27:43#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:28:07#simpan_log.php#999#Scan Barcode Barang: 1001608 Barcode: 8850388541082#INFO#kasir
+2025-06-17 17:28:09#simpan_log.php#999#Scan Barcode Barang: 1001608 Barcode: 8850388541082#INFO#kasir
+2025-06-17 17:31:17#simpan_log.php#999#Scan Barcode Barang: 1001608 Barcode: 8850388541082#INFO#kasir
+2025-06-17 17:32:00#simpan_log.php#999#Scan Barcode Barang: 1004234 Barcode: 8991368755393#INFO#kasir
+2025-06-17 17:32:04#simpan_log.php#999#Scan Barcode Barang: 1004234 Barcode: 8991368755393#INFO#kasir
+2025-06-17 17:32:07#simpan_log.php#999#Scan Barcode Barang: 1004234 Barcode: 8991368755393#INFO#kasir
+2025-06-17 17:38:15#simpan_log.php#999#Scan Barcode Barang: 3001422 Barcode: 8998866603720#INFO#kasir
+2025-06-17 17:38:22#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:40:25#simpan_log.php#999#Hapus Transaksi: 1004234 Qty: OASIS MINERAL WATER 330ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 17:40:31#simpan_log.php#999#Hapus Transaksi: 3001424 Qty: SOFTENER SOKLIN BIRU POUCH 900ML UOM: PCS#DANGER#dlg_spv_approval
+2025-06-17 17:40:41#simpan_log.php#999#TENDER QRIS: A102-999-000025#SUCCESS#kasir
+2025-06-17 17:42:04#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:42:05#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:42:06#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:42:07#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:42:08#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:42:09#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:42:10#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:42:10#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:42:11#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:42:12#simpan_log.php#999#Scan Barcode Barang: 3001424 Barcode: 8998866659598#INFO#kasir
+2025-06-17 17:42:14#simpan_log.php#999#TENDER CASH: A102-999-000026#SUCCESS#kasir
+2025-06-17 17:44:18#simpan_log.php#999#Scan Barcode Barang: 2700245 Barcode: 8993110002557#INFO#kasir
+2025-06-17 17:44:23#simpan_log.php#999#Scan Barcode Barang: 2700245 Barcode: 8993110002557#INFO#kasir
+2025-06-17 17:44:28#simpan_log.php#999#Scan Barcode Barang: 2700245 Barcode: 8993110002557#INFO#kasir
+2025-06-17 17:44:31#simpan_log.php#999#Scan Barcode Barang: 2700245 Barcode: 8993110002557#INFO#kasir
+2025-06-17 17:47:53#simpan_log.php#999#Scan Barcode Barang: 1000316 Barcode: 8992933329117#INFO#kasir
+2025-06-17 21:15:49#simpan_log.php#888#Scan Barcode Barang: 1000311 Barcode: 8992933321111#INFO#kasir
+2025-06-17 21:16:02#simpan_log.php#888#Scan Barcode Barang: 1000312 Barcode: 8992933324112#INFO#kasir
+2025-06-17 21:16:14#simpan_log.php#888#Scan Barcode Barang: 1000313 Barcode: 8992933413113#INFO#kasir
+2025-06-17 21:16:18#simpan_log.php#888#Scan Barcode Barang: 1000314 Barcode: 8992933326116#INFO#kasir
+2025-06-17 21:16:26#simpan_log.php#888#Scan Barcode Barang: 1000314 Barcode: 8992933326116#INFO#kasir
+2025-06-17 21:16:27#simpan_log.php#888#Scan Barcode Barang: 1000314 Barcode: 8992933326116#INFO#kasir
+2025-06-17 21:16:27#simpan_log.php#888#Scan Barcode Barang: 1000314 Barcode: 8992933326116#INFO#kasir
+2025-06-17 21:16:28#simpan_log.php#888#Scan Barcode Barang: 1000314 Barcode: 8992933326116#INFO#kasir
+2025-06-17 21:16:29#simpan_log.php#888#Scan Barcode Barang: 1000314 Barcode: 8992933326116#INFO#kasir
+2025-06-17 21:16:29#simpan_log.php#888#Scan Barcode Barang: 1000314 Barcode: 8992933326116#INFO#kasir
+2025-06-17 21:16:30#simpan_log.php#888#Scan Barcode Barang: 1000314 Barcode: 8992933326116#INFO#kasir
+2025-06-17 21:16:30#simpan_log.php#888#Scan Barcode Barang: 1000314 Barcode: 8992933326116#INFO#kasir
+2025-06-17 21:16:31#simpan_log.php#888#Scan Barcode Barang: 1000314 Barcode: 8992933326116#INFO#kasir
+2025-06-17 21:17:21#simpan_log.php#888#TENDER CASH: A102-888-000004#SUCCESS#kasir
+2025-06-17 21:39:36#simpan_log.php#888#Scan Barcode Barang: 1003688 Barcode: 8992946121005#INFO#kasir
+2025-06-17 21:39:41#simpan_log.php#888#Scan Barcode Barang: 2700147 Barcode: 8991728000699#INFO#kasir
+2025-06-17 21:39:48#simpan_log.php#888#Scan Barcode Barang: 2700245 Barcode: 8993110002557#INFO#kasir
+2025-06-17 21:39:53#simpan_log.php#888#Scan Barcode Barang: 2700246 Barcode: 8993110002564#INFO#kasir
+2025-06-17 21:39:59#simpan_log.php#888#Scan Barcode Barang: 2700247 Barcode: 8993110002571#INFO#kasir
+2025-06-17 21:40:05#simpan_log.php#888#Scan Barcode Barang: 2700248 Barcode: 8993110003646#INFO#kasir
+2025-06-17 21:40:08#simpan_log.php#888#Scan Barcode Barang: 2700248 Barcode: 8993110003646#INFO#kasir
+2025-06-17 21:40:13#simpan_log.php#888#Scan Barcode Barang: 2700248 Barcode: 8993110003646#INFO#kasir
+2025-06-17 21:40:16#simpan_log.php#888#TENDER CASH: A102-888-000005#SUCCESS#kasir
+2025-06-18 09:44:59#simpan_log.php#888#Open Register#888#Modal Awal: 125000#Kode Register: 8c3da95404e1cf6f#INFO#dlg_opening_cashier
+2025-06-18 09:51:43#simpan_log.php#888#Open Register#888#Modal Awal: 150000#Kode Register: 80107e0804fceba6#INFO#dlg_opening_cashier
+2025-06-18 09:53:05#simpan_log.php#888#Open Register#888#Modal Awal: 150000#Kode Register: 0e532275639bfb07#INFO#dlg_opening_cashier
+2025-06-18 09:57:12#simpan_log.php#888#Open Register#888#Modal Awal: 150000#Kode Register: 5f5b5da82a391b39#INFO#dlg_opening_cashier
+2025-06-18 09:59:17#simpan_log.php#888#Scan Barcode Barang: 3002706 Barcode: 8992742000016#INFO#kasir
+2025-06-18 09:59:24#simpan_log.php#888#Scan Barcode Barang: 3001233 Barcode: 8998866107600#INFO#kasir
+2025-06-18 09:59:38#simpan_log.php#888#Cari Barang: kurma#INFO#dlg_search_item
+2025-06-18 10:04:00#simpan_log.php#888#Open Register#888#Modal Awal: 200000#Kode Register: f0c755532cf8a465#INFO#dlg_opening_cashier
+2025-06-18 10:04:12#simpan_log.php#888#Scan Barcode Barang: 3002706 Barcode: 8992742000016#INFO#kasir
+2025-06-18 10:04:26#simpan_log.php#888#Scan Barcode Barang: 3001233 Barcode: 8998866107600#INFO#kasir
+2025-06-18 10:04:38#simpan_log.php#888#Cari Barang: KURMA#INFO#dlg_search_item
+2025-06-18 10:07:51#simpan_log.php#888#Open Register#888#Modal Awal: 200000#Kode Register: 5945edd20b9deec8#INFO#dlg_opening_cashier
+2025-06-18 10:10:00#simpan_log.php#888#Open Register#888#Modal Awal: 200000#Kode Register: 68618eb4573971c7#INFO#dlg_opening_cashier
+2025-06-18 10:11:55#simpan_log.php#888#Open Register#888#Modal Awal: 200000#Kode Register: 0901a1bc783fda18#INFO#dlg_opening_cashier
+2025-06-18 10:17:02#simpan_log.php#888#Open Register#888#Modal Awal: 200000#Kode Register: 6fbc409be63709d6#INFO#dlg_opening_cashier
+2025-06-18 10:25:31#simpan_log.php#888#Cari Barang: nutrijell#INFO#dlg_search_item
+2025-06-18 10:27:09#simpan_log.php#888#Cari Barang: nutrijell#INFO#dlg_search_item
+2025-06-18 10:27:58#simpan_log.php#888#Cari Barang: kurma#INFO#dlg_search_item
+2025-06-18 10:28:07#simpan_log.php#888#Cari Barang: nutrijell#INFO#dlg_search_item
+2025-06-18 10:28:26#simpan_log.php#888#Cari Barang: nutrijell#INFO#dlg_search_item
+2025-06-18 10:28:45#simpan_log.php#888#Pilih Produk#A102-888-000006#Kode Barang:1000313#UOM:PCS#INFO#dlg_search_item
+2025-06-18 10:29:52#simpan_log.php#888#Cari Barang: nutrijell#INFO#dlg_search_item
+2025-06-18 10:30:34#simpan_log.php#888#Cari Barang: nutrijell#INFO#dlg_search_item
+2025-06-18 10:33:46#simpan_log.php#888#Cari Barang: nutrijell#INFO#dlg_search_item
+2025-06-18 10:34:00#simpan_log.php#888#Pilih Produk#A102-888-000006#Kode Barang:1000314#UOM:PCS#INFO#dlg_search_item
+2025-06-18 10:34:04#simpan_log.php#888#Cari Barang: nutrijell#INFO#dlg_search_item
+2025-06-18 10:34:11#simpan_log.php#888#Pilih Produk#A102-888-000006#Kode Barang:1000317#UOM:PCS#INFO#dlg_search_item
+2025-06-18 10:34:13#simpan_log.php#888#TENDER CASH: A102-888-000006#SUCCESS#kasir

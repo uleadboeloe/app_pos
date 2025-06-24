@@ -1,0 +1,94 @@
+.labelMenuHeader {
+  font-size: 14px;
+  font-weight: 800;
+  padding: 15px;
+}
+.labelMenuInformation {
+  font-size: 12px;
+  color: #ff9900;
+}
+/*********************************************/
+#tableHeader {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  width: 100%;
+  display: none;
+}
+
+#tableHeader td {
+  border: 1px solid #ddd;
+  padding: 2px;
+}
+
+#tableHeader tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#tableHeader tr:hover {
+  background-color: #ddd;
+}
+
+#tableHeader th {
+  padding: 10px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: white;
+}
+/*********************************************/
+/*********************************************/
+#tableData {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 2px;
+}
+
+#tableData td {
+  padding: 2px;
+}
+
+#tableData tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#tableData tr:hover {
+  background-color: #ddd;
+}
+
+#tableData th {
+  padding: 10px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: white;
+}
+/*********************************************/
+/*********************************************/
+#tableFooter {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#tableFooter td {
+  border: 1px solid #ddd;
+  padding: 2px;
+}
+
+#tableFooter tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#tableFooter tr:hover {
+  background-color: #ddd;
+}
+
+#tableFooter th {
+  padding: 10px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: white;
+}
+/*********************************************/

@@ -1,0 +1,49 @@
+CURRENT INTEGRATION PRS TO BC
+FLATFILE TARIK MASTER BC : 
+kd_store,plu,kode_barcode,nama_barang,principal,
+sub_dept,dept,divisi,uom,ppn,fl_timbang,conv1,conv2,min_stok,max_stok,vendor_no,
+uom3,uom2,harga_jual1,harga_beli1,harga_jual2,harga_beli2,harga_jual3,harga_beli3
+
+FLATFILE KIRIM DATA TRANSAKSI BC : 
+HEADER : kode_store,no_faktur,tanggal,jam,kode_kasir,nama_kasir,total_bayar,total_struk,kembalian,jenis_bayar,nama_kartu,kode_cust,var_cash,var_noncash,var_pembulatan,var_diskon,status_customer,nama_customer,telp_customer
+DETAIL : no_faktur,plu,plubase,qty_sales,harga,satuan,gross_sales,kode_store,var_diskon,satuan,var_ppn,netto_sales
+PAYMENT : tanggal,kode_store,jenis_bayar,no_faktur,total_bayar,kode_edc,nama_edc
+
+PROMO DISKON RUPIAH
+	-	PARAMETER : @
+	-	VALUE PROMO			txtPromoValue
+	-	MIN PEMBELIAN		txtpromokriteria
+	- 	ITEM BARANG YG IKUTAN PROMO
+PROMO DISKON PERSENTASE
+	-	PARAMETER : @@
+	-	VALUE PROMO			txtPromoValue
+	-	MIN PEMBELIAN		txtpromokriteria
+	- 	ITEM BARANG YG IKUTAN PROMO
+PROMO FREE ITEM
+	-	PARAMETER : @@@
+	-	ITEM FREE YANG DIBERIKAN
+			dbo_promo_detail
+	-	QTY ITEM FREE		txtPromoValue
+	-	MIN PEMBELIAN		txtpromokriteria
+	-	ITEM BARANG YG IKUTAN PROMO
+PROMO BUY X GET X ( ITEM FREE SAMA)
+	-	PARAMETER : @@@@
+	-	ITEM FREE YANG DIBERIKAN
+			dbo_promo_detail
+	-	QTY ITEM FREE		txtPromoValue
+	-	MIN PEMBELIAN		txtpromokriteria
+	-	ITEM BARANG YANG IKUTAN PROMO
+
+PROMO BUY X GET X ( ITEM FREE SAMA)
+	-	PARAMETER : @@@@
+	-	ITEM FREE YANG DIBERIKAN
+			dbo_promo_detail
+	-	QTY ITEM FREE		txtPromoValue
+	-	MIN PEMBELIAN		txtpromokriteria
+	-	ITEM BARANG YANG IKUTAN PROMO
+	
+PROMO PRICE LEVEL (HARGA MURAH - IN RUPIAH)
+	-	PARAMETER : @@@@@
+	-	HARGA BARANG PROMO	txtPromoValue
+	-	MIN PEMBELIAN		txtpromokriteria
+	-	ITEM BARANG YANG IKUTAN PROMO

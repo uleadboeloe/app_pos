@@ -1,3 +1,15 @@
 lib/mysql_connect.php
 lib/mysql_pdo.php
-lib/sql_connect.php
+lib/sqlsrv_connect.php
+admin/library/connection.php
+admin/qrcode_user/
+admin/qrcode_member/
+admin/qrcode_produk/
+admin/qrcode_transaksi/
+admin/qrcode_voucher/
+admin/qrcode_closing/
+admin/fileupload/
+admin/testing/
+admin/fileupload/images/
+config.json
+file_master/
