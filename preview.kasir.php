@@ -11,7 +11,7 @@ include("admin/library/fungsi.php");
 include("admin/library/qrcode/qrlib.php");
 
 if(!isset($_GET['nobon'])){
-    header("Location: kasir.php");
+    header("Location: kasir");
     exit();
 }else{
 
@@ -239,6 +239,8 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                 $PoinMember = $rec[0]["var_poin"];
                 $Voucher = $rec[0]["var_voucher"];
                 $JenisBayar = $rec[0]["jenis_bayar"];
+                $ValueVoid = $rec[0]["value_void"] ?? 0;
+                $ValueVoid = $ValueVoid*-1;
                 $NamaKartu = $rec[0]["nama_kartu"] ?? "TUNAI";
                 $CustomerCode = $rec[0]["kode_customer"];
                 $TotalQtySales = getTotalItemPerStruk($NoBon);
@@ -273,7 +275,7 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                 $strQueryPoin->execute(array(':nofaktur' => $NoBon));
                 $recPoin = $strQueryPoin->fetchAll();
 
-                $NilaiPoin = $recPoin[0]["nilai_poin"] ?? 0;   
+                $NilaiPoin = $recPoin[0]["nilai_poin"] ?? 0;  
                 
                 $NamaStore = getStoreName($kode_store);
                 $HeaderStruk = getHeaderStruk($kode_store);
@@ -354,10 +356,12 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                                     </tr>
                                     <?php
                                     $TotalDiskon = 0;
-                                    $strQueryDetail = $db->prepare("SELECT * FROM dbo_detail WHERE qty_voided = 0 and no_struk = :nofaktur");
+                                    $strQueryDetail = $db->prepare("SELECT * FROM dbo_detail WHERE no_struk = :nofaktur");
                                     $strQueryDetail->execute(array(':nofaktur' => $NoBon));
                                     $recDetail = $strQueryDetail->fetchAll();
                                     foreach ($recDetail as $row) {
+                                        
+                                        $QtyVoidLine=$row['qty_voided'] ?? 0;
                                         if($row['var_diskon'] > 0){
                                             $TotalDiskon+=$row['var_diskon'];
                                             $varDiskon = "#<b>Diskon : (" . number_format($row['var_diskon'],2) . ")</b>";
@@ -373,13 +377,30 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                                         <td style="color:#000;font-size:10px;" colspan="3"><?php   echo getNamaBarangByKodeBarang($row['kode_barang']);  ?>
                                         </td>
                                     </tr>
+                                    <?php
+                                    if($QtyVoidLine > 0){
+                                    ?>
                                     <tr>
                                         <td style="color:#000;font-size:10px;">
                                         Harga : <?php   echo number_format($row['harga'],0);  ?> <?php   echo $varDiskon;  ?> <?php   echo $VariabelDiskon;  ?>
                                         </td>
-                                        <td style="color:#000;font-size:10px;"><?php   echo $row['qty_sales'];  ?> <?php   echo getUomByKodeBarang($row['kode_barang']);  ?></td>
+                                        <td style="color:#000;font-size:10px;"><?php   echo $row['qty_sales'];  ?> <?php   echo $row['satuan'];  ?> (Void : <?php   echo number_format($QtyVoidLine,0);  ?> <?php   echo getUomByKodeBarang($row['kode_barang']);  ?>)</td>
                                         <td style="text-align:right;font-size:10px;"><?php   echo number_format($row['total_sales'],0);  ?></td>
-                                    </tr>                                
+                                    </tr> 
+                                    <?php
+                                    }else{
+                                    ?>
+                                    <tr>
+                                        <td style="color:#000;font-size:10px;">
+                                        Harga : <?php   echo number_format($row['harga'],0);  ?> <?php   echo $varDiskon;  ?> <?php   echo $VariabelDiskon;  ?>
+                                        </td>
+                                        <td style="color:#000;font-size:10px;"><?php   echo $row['qty_sales'];  ?> <?php   echo $row['satuan'];  ?></td>
+                                        <td style="text-align:right;font-size:10px;"><?php   echo number_format($row['total_sales'],0);  ?></td>
+                                    </tr> 
+                                    <?php
+                                    }
+                                    ?>
+                               
                                     <?php
                                     }
                                     ?>                            
@@ -442,7 +463,17 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                                 <tr>
                                     <td width="30%" align="right">Pembayaran</td>
                                     <td width="70%" align="right" style="text-align:right;font-size:10px;"><?php echo $JenisBayar;    ?> / <?php echo $NamaKartu;    ?></td>
-                                </tr>                                                
+                                </tr> 
+                                <?php
+                                if($ValueVoid != 0){
+                                    ?>
+                                    <tr style="border: solid 1px #FF0000;">
+                                        <td width="30%" align="right">Total Void</td>
+                                        <td width="70%" align="right" style="text-align:right;font-size:10px;"><?php echo number_format($ValueVoid,0);    ?></td>
+                                    </tr>
+                                    <?php
+                                } 
+                                ?>                                                 
                             </table>    
 
                             <hr><img src="<?php   echo $FileBarcode;  ?>" width="30%">

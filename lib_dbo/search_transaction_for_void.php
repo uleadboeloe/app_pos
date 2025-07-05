@@ -8,7 +8,8 @@
     $detail = array();
 
     // Query for header
-    $stmt = $db->prepare("SELECT * FROM dbo_header WHERE no_struk = :no AND is_voided = 0");
+    //$stmt = $db->prepare("SELECT * FROM dbo_header WHERE no_struk = :no AND is_voided = 0");
+    $stmt = $db->prepare("SELECT * FROM dbo_header WHERE no_struk = :no AND is_voided in ('0','2')");
     $stmt->bindParam(':no', $no, PDO::PARAM_STR);
     $stmt->execute();
     $header = $stmt->fetch(PDO::FETCH_ASSOC);

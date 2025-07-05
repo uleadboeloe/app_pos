@@ -290,15 +290,16 @@ $(document).ready(function () {
       dataType: "json",
       data: { kodebarang: kodebarang },
       success: function (response) {
-        if (!response.ada_promo) {
-          window.editharga = true;
-          window.kodeBarang = kodebarang;
-          window.qty = qty;
-          window.harga = harga;
-          window.diskon = diskon;
-          window.uom = Uom;
-          $("#DialogSpvApproval").dialog("open");
-        }
+        //if (!response.ada_promo) {
+        window.editharga = true;
+        window.kodeBarang = kodebarang;
+        window.qty = qty;
+        window.harga = harga;
+        window.diskon = diskon;
+        window.uom = Uom;
+        window.promo = response.ada_promo;
+        $("#DialogSpvApproval").dialog("open");
+        //}
       },
     });
   });

@@ -45,7 +45,7 @@ $hash16 = CreateUniqueHash16();
 
 <body x-data class="is-header-blur" x-bind="$store.global.documentBody">
 <!-- App preloader-->
-<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-orange-50 dark:bg-navy-900 bg-[url(assets/images/please-wait.avif)] bg-no-repeat bg-center">
     <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
 </div>
 <!-- Page Wrapper -->
@@ -56,6 +56,7 @@ $hash16 = CreateUniqueHash16();
         <div class="col-span-12 p-2 lg:col-span-12">
             <div class="flex items-center justify-between py-2 px-4">
                 <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Register</h2>
+                <button class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" onclick="PrintDoc()">Print Detail</button>                
             </div>
             <div class="card p-5 mt-3">
                 <table id="table1" class="is-hoverable w-full" width="100%">     
@@ -73,7 +74,7 @@ $hash16 = CreateUniqueHash16();
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_register where kode_store = '" . $_SESSION['SESS_kode_store'] . "' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_register where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {

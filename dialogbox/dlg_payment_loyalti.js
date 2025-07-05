@@ -59,7 +59,7 @@ $(function () {
                       data: {
                         nomor_akhir: current_lastno_struk_no,
                         kode_store: current_kode_store,
-                        kode_kasir: current_kode_kasir
+                        kode_kasir: current_kode_kasir,
                       },
                       success: function (response) {
                         // cetak struk, di sini?
@@ -88,11 +88,15 @@ $(function () {
     point_member = point_member.replaceAll(".", "");
     var nilai_voucher = window.sessionStorage.getItem("nilai_voucher") || "0";
     nilai_voucher = nilai_voucher.replaceAll(".", "");
-    
+
     $.ajax({
       type: "POST",
       url: "ajax/temp_trx_total_amount.php",
-      data: { order_no: current_order_no, pointmember: point_member, nilaivoucher: nilai_voucher },
+      data: {
+        order_no: current_order_no,
+        pointmember: point_member,
+        nilaivoucher: nilai_voucher,
+      },
       success: function (response) {
         if (Number(response) > 0) $("#DialogLoyalti").dialog("open");
       },

@@ -11,11 +11,21 @@ include("../lib/mysql_connect.php");
             </div>
             <div class="control-group">
                 <label class="control-label" for="refno">Jenis Kartu Kredit</label>
-                <div class="controls"><input class="span12" id="jenis_kartu" type="text" value="" placeholder="Masukan Jenis Kartu Kredit" required/></div>
+                <select class="span12" id="jenis_kartu" placeholder="Masukan Jenis Kartu Debit" required>
+                    <option value="">Pilih Jenis Kartu</option>
+                    <?php
+                    $query = "SELECT * FROM dbo_kartu where debet_kredit = 'K'";
+                    $stmt = $db->prepare($query);
+                    $stmt->execute();
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='" . $row['nama_kartu'] . "'>{$row['nama_kartu']} - {$row['init_bank']}</option>";
+                    }
+                    ?>
+                </select>
             </div>
             <div class="control-group">
                 <label class="control-label" for="refno">Reference Number</label>
-                <div class="controls"><input class="span12" id="refno" type="text" value="" placeholder="Masukan Nomor Reff" required/></div>
+                <div class="controls"><input class="span12" id="refno" type="text" value="" placeholder="Masukan Nomor Reff"/></div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="mesin_edc">Mesin Edc</label>
@@ -46,6 +56,7 @@ include("../lib/mysql_connect.php");
 (function($){
 	$(function(){
 	  $('select[id="mesin_edc"]').selectToAutocomplete();
+      $('select[id="jenis_kartu"]').selectToAutocomplete();
 	});
 })(jQuery);
 

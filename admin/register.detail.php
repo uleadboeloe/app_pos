@@ -31,7 +31,7 @@ include_once "library/fungsi.php";
 
 <body x-data class="is-header-blur" x-bind="$store.global.documentBody">
 <!-- App preloader-->
-<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-orange-50 dark:bg-navy-900 bg-[url(assets/images/please-wait.avif)] bg-no-repeat bg-center">
     <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
 </div>
 
@@ -57,7 +57,9 @@ include_once "library/fungsi.php";
                 if($TanggalClose == '2024-01-01') {
                     $DisplayDateClose = "BELUM CLOSE REGISTER";
                     $AddStyle = "quadratzz";
+                    $StatusClose = 0;
                 }else{
+                    $StatusClose = 1;
                     $AddStyle = "";
                     $DisplayDateClose = date("d-m-Y", strtotime($TanggalClose)) . " " . $JamClose;
                 }
@@ -97,7 +99,7 @@ include_once "library/fungsi.php";
                 $TotalPecahanKasir = $TotalPecahanKertas+$TotalPecahanLogam;
                 $TotalSetoranKasir = $TotalPecahanKertas+$TotalPecahanLogam+$ModalAwal;
                 $TotalSetoran = $ModalAwal+$SetoranAkhir;
-                $SelisihSetoran = $TotalSetoranKasir-$TotalSetoran;        
+                $SelisihSetoran = $TotalPecahanKasir-$TotalSetoran;        
                 if($SelisihSetoran < 0){
                     $StatusSelisih = "Setoran Kurang";
                 }else{
@@ -192,12 +194,8 @@ include_once "library/fungsi.php";
                                                                                                                              
                                             </div>
                                             <div class="w-full p-6">
-                                                <h3 class="block text-gray-500 text-sm">Total Pecahan Kasir</h3>
-                                                <span class="text-xl font-semibold text-gray-800">Rp <?php echo number_format($TotalPecahanKasir,2,',','.'); ?></span><br>
-                                                <h3 class="block text-gray-500 text-sm">Total Modal Register</h3>
-                                                <span class="text-xl font-semibold text-gray-800">Rp <?php echo number_format($ModalAwal,2,',','.'); ?></span><br>
                                                 <h3 class="block text-gray-500 text-sm">Total Setoran Kasir</h3>
-                                                <span class="text-xl font-semibold text-gray-800 quadratzz">Rp <?php echo number_format($TotalSetoranKasir,2,',','.'); ?></span><br>
+                                                <span class="text-xl font-semibold text-gray-800 quadratzz">Rp <?php echo number_format($TotalPecahanKasir,2,',','.'); ?></span><br>
                                                 <h3 class="block text-gray-500 text-sm">Selisih Setoran Kasir</h3>
                                                 <span class="text-xl font-semibold text-gray-800">Rp <?php echo number_format($SelisihSetoran,2,',','.'); ?>(<?php echo $StatusSelisih; ?>)</span>                                                                                            
                                             </div>                                                                                 
@@ -214,8 +212,10 @@ include_once "library/fungsi.php";
                                                 if($Pembulatan < 0){
                                                     $Pembulatan = $Pembulatan*-1;
                                                     $StatusPembulatan = "Pembulatan -";
+                                                    $StatusPembulatans = "-";
                                                 }else{
                                                     $StatusPembulatan = "Pembulatan +";
+                                                    $StatusPembulatans = "+";
                                                 }
                                                 $GrossSales = getTotalGrossHarianRegister($Tanggal,$NoRegister);
                                                 $TotalKembalian = getTotalKembalianHarianRegister($Tanggal,$NoRegister);
@@ -291,11 +291,22 @@ include_once "library/fungsi.php";
                                             </div>
                                             <div class="mb-4">
                                                 <span class="block text-gray-500 text-sm">Total Setoran:</span>
-                                                <span class="text-lg font-medium text-green-600">Rp <?php echo number_format($recView['setoran_akhir'],2,',','.'); ?> + Rp <?php echo number_format($recView['modal_awal'],2,',','.'); ?> = Rp <?php echo number_format($TotalSetoran,2,',','.'); ?></span>
+                                                <span class="text-lg font-medium text-green-600">Rp <?php echo number_format($recView['setoran_akhir'],2,',','.'); ?></span>
                                             </div>
+                                            <div class="mb-4">
+                                                <span class="block text-gray-500 text-sm">Total Setoran Kasir:</span>
+                                                <span class="text-lg font-medium text-green-600">Rp <?php echo number_format($TotalPecahanKasir,2,',','.'); ?></span>
+                                            </div>
+                                            <div class="mb-4">
+                                                <span class="block text-gray-500 text-sm">Selisih Setoran Kasir</span>
+                                                <span class="text-lg font-medium text-green-600">Rp <?php echo number_format($SelisihSetoran,2,',','.'); ?>(<?php echo $StatusSelisih; ?>)</span>
+                                            </div>                                       
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+                                if($StatusClose > 0){
+                                ?>
                                 <div class="mt-2">
                                     <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200">
                                         <div class="bg-gradient-to-r from-red-400 to-red-500 p-4">
@@ -308,6 +319,16 @@ include_once "library/fungsi.php";
                                                     if($StatusRespon == 0){
                                                     ?>                                                      
                                                     <input type="hidden" name="txtNoRegister" id="txtNoRegister" value="<?php echo $_GET['rcode'];    ?>">
+                                                    <label class="block">
+                                                        <span class="text-purple-500 font-bold">Setoran Diterima <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
+                                                        <span class="relative mt-1.5 flex">						
+                                                            <input placeholder="Masukan Jumlah Setoran Diterima" type="text" id="txtTerimaSetoran" name="txtTerimaSetoran" required
+                                                            class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
+                                                            <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                                                                <i class="fa-regular fa-building text-base"></i>
+                                                            </span>
+                                                        </span>
+                                                    </label>                                                    
                                                     <label class="block">
                                                         <span class="text-purple-500 font-bold">Komentar Senior Kasir <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
                                                         <span class="relative mt-1.5 flex">						
@@ -330,6 +351,7 @@ include_once "library/fungsi.php";
                                                     </label>     
                                                     <?php
                                                     }else{
+                                                        $TerimaSetoran = $recView['setoran_diterima'];
                                                         $KomentarRespon = $recView['respon_skasir'];
                                                         $KomentarRespon = strip_tags($KomentarRespon);
                                                         $TanggalRespon = $recView['respon_date'];
@@ -349,8 +371,9 @@ include_once "library/fungsi.php";
                                                         type="radio"/>
                                                         <p>User sudah melakukan Konfirm Register!</p>
                                                     </label>                                                       
-                                                    <div class="text-primary font-medium bg-primary/10 p-2"><?php echo $TanggalRespon;    ?></div>
-                                                    <div class="text-primary font-medium bg-primary/10 p-2"><?php echo getNamaUser($ResponUser);    ?></div>
+                                                    <div class="text-primary font-medium bg-primary/10 p-2">Setoran Diterima : <?php echo number_format($TerimaSetoran,2,',','.');    ?></div>
+                                                    <div class="text-primary font-medium bg-primary/10 p-2">Tanggal Terima Setoran : <?php echo $TanggalRespon;    ?></div>
+                                                    <div class="text-primary font-medium bg-primary/10 p-2">Nama Penerima : <?php echo getNamaUser($ResponUser);    ?></div>
                                                     <?php
                                                     }
                                                     ?>                                                                                                               
@@ -359,9 +382,163 @@ include_once "library/fungsi.php";
                                         </div>
                                     </div>
                                 </div> 
+                                <?php
+                                }
+                                ?>
                             </div>                                                  
                         </div>
                     </div>
+
+                    <?php
+                    if($StatusRespon > 0){
+                    $NamaStore = getStoreName($KodeStoreOffline);
+                    $HeaderStruk = getHeaderStruk($KodeStoreOffline);
+                    $FooterStruk = getFooterStruk($KodeStoreOffline); 
+                    ?>
+                    <div id="PrintArea" style="display:none;">
+                        <table width="50%" style="border:1px solid #000;">
+                            <tr>
+                                <td>
+                                    <div style="font-size:12px;color:#000;font-weight:800;"><?php   echo $NamaStore; ?></div>
+                                    <div style="font-size:12px;color:#000;"><?php   echo $HeaderStruk; ?></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <hr>
+                                <div style="font-size:12px;color:#000;font-weight:800;">Detail Register</div>
+                                <table width="100%">
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Kode Register:</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;"><?php echo htmlspecialchars($recView['kode_register']); ?></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Tanggal Open Register:</div></td>
+                                        <td><div style="font-size:12px;color:#000;"><?php echo htmlspecialchars($DisplayDate); ?></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Nama Kasir:</div></td>
+                                        <td><div style="font-size:12px;color:#000;"><?php echo $recView['kode_kasir']; ?> - <?php echo getNamaUser($recView['kode_kasir']); ?></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Supervisor:</div></td>
+                                        <td><div style="font-size:12px;color:#000;"><?php echo $recView['kode_spv']; ?> - <?php echo getNamaUser($recView['kode_spv']); ?></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Tanggal Close Register:</div></td>
+                                        <td><div style="font-size:12px;color:#000;"><?php echo htmlspecialchars($DisplayDateClose); ?></div></td>
+                                    </tr>                                                                                                                
+                                </table>  
+                                <hr>
+                                <div style="font-size:12px;color:#000;font-weight:800;">Rincian Penjualan</div>
+                                <table width="100%">
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Gross Sales</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($GrossSales,2,',','.'); ?></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Diskon</div></td>
+                                        <td><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($TotalDiskon,2,',','.'); ?></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Pembulatan:</div></td>
+                                        <td><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($Pembulatan,2,',','.'); ?> - <?php echo $StatusPembulatans; ?></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Net Sales:</div></td>
+                                        <td><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($NetSales,2,',','.'); ?></div></td>
+                                    </tr>                                                                                                              
+                                </table>
+                                <hr>
+                                <div style="font-size:12px;color:#000;font-weight:800;">Pembayaran POS</div>
+                                <table width="100%">
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Cash</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($TotalPembayaranCash,2,',','.'); ?></div></td>
+                                    </tr>                            
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Kartu Kredit</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($TotalPembayaranKredit,2,',','.'); ?></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Kartu Debit</div></td>
+                                        <td><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($TotalPembayaranDebit,2,',','.'); ?></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Ewallet:</div></td>
+                                        <td><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($TotalPembayaranQris,2,',','.'); ?></div></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Voucher:</div></td>
+                                        <td><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($recView['total_poin'],2,',','.'); ?></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-size:12px;color:#000;font-weight:800;">Point:</div></td>
+                                        <td><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($recView['total_voucher'],2,',','.'); ?></div></td>
+                                    </tr>                                                                                                             
+                                </table>   
+                                <hr>
+                                <table width="100%">
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Total Yang harus Disetor:</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($TotalSetoran,2,',','.'); ?></div></td>
+                                    </tr>  
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Total Setoran Kasir:</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($TotalPecahanKasir,2,',','.'); ?></div></td>
+                                    </tr>  
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Total Setoran:</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($SelisihSetoran,2,',','.'); ?>(<?php echo $StatusSelisih; ?>)</div></td>
+                                    </tr> 
+                                </table>   
+                                <hr>
+                                <table width="100%">
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Total Transaksi Cash:</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($TotalCash,2,',','.'); ?></div></td>
+                                    </tr>  
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Total Transaksi Non Cash:</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($TotalNonCash,2,',','.'); ?></div></td>
+                                    </tr>  
+                                </table>
+                                <hr>
+                                <div style="font-size:12px;color:#000;font-weight:800;">Catatan Closing</div>
+                                <table width="100%">
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Total Diterima:</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo number_format($TerimaSetoran,2,',','.'); ?></div></td>
+                                    </tr> 
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Tanggal Diterima:</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo $TanggalRespon; ?></div></td>
+                                    </tr>   
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Nama Diterima:</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo $ResponUser; ?> - <?php echo  getNamaUser($ResponUser); ?></div></td>
+                                    </tr>    
+                                    <tr>
+                                        <td width="30%"><div style="font-size:12px;color:#000;font-weight:800;">Catatan:</div></td>
+                                        <td width="70%"><div style="font-size:12px;color:#000;text-align:right"><?php echo $KomentarRespon; ?></div></td>
+                                    </tr>                                                         
+                                </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <?php                      
+                    }else{
+                    ?>
+                    <div id="PrintArea" style="display:none;">
+                        <h1>REGISTER MASIH ACTIVE BELUM DI TUTUP</h1>
+                        <h3>BELUM BISA DI PRINT</h3>
+                        <h3>SILAHKAN PERIKSA APAKAH KASIR SUDAH MELAKUKAN CLOSE REGISTER / BELUM</h3>
+                    </div>
+                    <?php                      
+                    }
+                    ?>
                 </div>             
                 <?php           
             }
@@ -382,6 +559,7 @@ include_once "library/fungsi.php";
 </html>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../lib_js/kasir.js"></script>
 <script type="text/javascript">
 function PrintDoc() {
     var toPrint = document.getElementById('PrintArea');
@@ -392,6 +570,20 @@ function PrintDoc() {
     popupWin.document.write('</body></html>');
     popupWin.document.close();
 }
+
+    $("#txtTerimaSetoran").on("focus", function() {
+        $(this).css("background-color", "#e0f7fa"); // Change background color on enter.
+        var modalawal = $(this).val();
+        modalawal = modalawal.replaceAll(".", "");
+        $(this).val(modalawal);
+    });
+
+    $("#txtTerimaSetoran").on("blur", function() {
+        $(this).css("background-color", ""); // Reset background color on leave.
+        var modalawal = $(this).val();
+        modalawal = formatRibuan(modalawal);
+        $(this).val(modalawal);
+    });
 
 $(document).ready(function (){
     var txtErrorType = $("#txtErrorType").val();
@@ -408,4 +600,6 @@ $(document).ready(function (){
         })
     }
 });    
+
+
 </script>

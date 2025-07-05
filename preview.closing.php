@@ -11,7 +11,7 @@ include("admin/library/fungsi.php");
 include("admin/library/qrcode/qrlib.php");
 
 if(!isset($_GET['koderegister'])){
-    header("Location: kasir.php");
+    header("Location: kasir");
     exit();
 }else{
 
@@ -339,7 +339,7 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
                             <tr>
                                 <td width="40%" style="font-size: 12px; color: #000;">Pecahan 50.000</td>
                                 <td width="30%" align="right" style="font-size: 12px; color: #000;"><?php echo $rec[0]["c50000"];    ?></td>
-                                <td width="40%" align="right" style="font-size: 12px; color: #000;"><?php echo number_format($rec[0]["c50000"]*0000,2);    ?></td>
+                                <td width="40%" align="right" style="font-size: 12px; color: #000;"><?php echo number_format($rec[0]["c50000"]*50000,2);    ?></td>
                             </tr>
                             <tr>
                                 <td width="40%" style="font-size: 12px; color: #000;">Pecahan 20.000</td>

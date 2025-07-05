@@ -148,6 +148,7 @@ if (empty($ResultDataValue)) {
         if($StoreCode == ""){
             $StoreCode = $KodeStoreOffline;
         }
+        
         /*
         echo $KodePromo . "#" . $NamaPromo . "#" . $StoreCode . "#" . $StartDate . "#" . $EndDate . "#" . $PromoParameter . "#" . $KriteriaPromo;
         echo "#" . $FlagFreeItem . "#" . $FreeItem . "#" . $QtyFreeItem . "#" . $ValuePromo . "#" . $LineNo . "<br>";
@@ -169,7 +170,7 @@ if (empty($ResultDataValue)) {
             //echo "<div style='color:#FF0990;'>INSERT ITEMDB : <br>" . $strInsert . "</div>";
         }
 
-        $strQuery="SELECT * FROM dbo_promo_detail WHERE random_code = '" . $RandomCode . "' and barcode = '" . $Barcode . "'";
+        $strQuery="SELECT * FROM dbo_promo_detail WHERE barcode = '" . $Barcode . "'";
         $callstrQuery=mysqli_query($koneksidb, $strQuery);
         $Jumbars=mysqli_num_rows($callstrQuery);
         if($Jumbars == 0){

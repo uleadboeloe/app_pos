@@ -11,6 +11,16 @@ $(function () {
         $("#Harga").val(window.harga);
         $("#Diskon").val(window.diskon);
         $("#UomBarang").val(window.uom);
+        $("#IsPromo").val(window.promo);
+
+        $("#Diskon").prop("readonly", false);
+        $("#Harga").prop("readonly", false);
+
+        if (window.promo === 1) {
+          $("#Diskon").prop("readonly", true);
+          $("#Harga").prop("readonly", true);
+        }
+
         if (window.uom === "KG") {
           $("#Qty").prop("readonly", true);
         } else {

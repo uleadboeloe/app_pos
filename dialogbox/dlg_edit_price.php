@@ -2,6 +2,7 @@
     <div class="row-fluid">
         <div class="span12">
             <input type="hidden" id="Nomor" value="0" />
+            <input type="hidden" id="IsPromo" />
             <div class="control-group" style="margin-bottom: 0px;">
                 <label class="control-label">Kode Barang</label>
                 <div class="controls"><input class="span12" id="KodeBarang" type="text" value="" readonly/></div>
@@ -20,7 +21,7 @@
             </div>
             <div class="control-group" style="margin-bottom: 0px;">
                 <label class="control-label">Diskon (%)</label>
-                <div class="controls"><input class="span12" id="Diskon" type="number" value=""/></div>
+                <div class="controls"><input class="span12" id="Diskon" type="number" value="" maxlength="3"/></div>
             </div>
         </div>
     </div>

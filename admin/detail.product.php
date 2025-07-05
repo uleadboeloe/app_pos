@@ -47,7 +47,7 @@ $hash16 = CreateUniqueHash16();
 
 <body x-data class="is-header-blur" x-bind="$store.global.documentBody">
 <!-- App preloader-->
-<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-orange-50 dark:bg-navy-900 bg-[url(assets/images/please-wait.avif)] bg-no-repeat bg-center">
     <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
 </div>
 
@@ -97,7 +97,7 @@ $hash16 = CreateUniqueHash16();
                             <button class="btn space-x-2 mr-1 bg-secondary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" 
                             onclick="window.location.href='edit-product@<?php echo $_GET['rcode'];   ?>'">Edit Product</button>
                             <button class="btn space-x-2 mr-1 bg-warning font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" 
-                            onclick="window.location.href='print-price-tag'">Print Price Tag</button>                                          
+                            onclick="window.location.href='print-price-tag@<?php echo $varBarcode;   ?>'">Print Price Tag</button>                                          
                         </div>
                     </div>
 

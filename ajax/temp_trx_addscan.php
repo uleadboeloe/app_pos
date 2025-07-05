@@ -74,13 +74,13 @@ if ($barang) { // sudah ada di temp trx
         break;
         case "B":
         break;
-        case "D":
+        case "C":
         case "F":
             // update item gratisan --yg kode yang ada kode (P)
             $kode_barangx = $kode_barang . '(P)' . $TagFreeItem;
-            echo "Item Promo Exist : " . $kode_barang . "<br>";
+            //echo "Item Promo Exist : " . $kode_barang . "<br>";
             $CekItemPromoExist = cekKodeBarangPromoTempTransaksi($kode_barangx,$uom,$order_no);
-            echo "Item Promo Exist : " . $CekItemPromoExist . "<br>";
+            //echo "Item Promo Exist : " . $CekItemPromoExist . "<br>";
 
             if($CekItemPromoExist > 0){
                 $sql = "UPDATE temp_transaksi 
@@ -94,7 +94,7 @@ if ($barang) { // sudah ada di temp trx
                     ':uom' => $uom // wildcard untuk LIKE
                 ]);        
             }else{
-                echo "MASUK INSERT LAGI NIH";
+                //echo "MASUK INSERT LAGI NIH";
                 $total_harga = 0;
                 
                 if($QtyFree >0){
@@ -108,7 +108,7 @@ if ($barang) { // sudah ada di temp trx
                         ':order_no' => $order_no,
                         ':kode_barang' => $kode_barangx,
                         ':nama_barang' => $nama_barang,
-                        ':harga_jual' => $harga_jual,
+                        ':harga_jual' => $harga_jual ?? "99999999",
                         ':uom' => $uom,
                         ':qty'=> $QtyFree, //':qty' => 1,
                         ':disc' => 100,
@@ -118,14 +118,14 @@ if ($barang) { // sudah ada di temp trx
                 }
             }            
         break;
-        case "C":
+        case "D":
             $kode_barangx = $kode_barang . '(P)' . $TagFreeItem;
-            echo "Item Promo Exist : " . $kode_barang . "<br>";
+            //echo "Item Promo Exist : " . $kode_barang . "<br>";
             $CekItemExist = cekKodeBarangPromoTempTransaksi($kode_barangx,$uom,$order_no);
             $CekUomExist = cekUomBarangPromoTempTransaksi($kode_barang,$uom,$order_no);
             $CekUomFreeItem = cekUomBarangFreeItem($TagFreeItem);
-            echo "Item Promo Exist : " . $CekItemExist . "<br>";
-            echo "Uom Exist : " . $CekUomExist . "<br>";
+            //echo "Item Promo Exist : " . $CekItemExist . "<br>";
+            //echo "Uom Exist : " . $CekUomExist . "<br>";
 
             if($CekItemExist > 0){
                 $sql = "UPDATE temp_transaksi 
@@ -152,7 +152,7 @@ if ($barang) { // sudah ada di temp trx
                         ':order_no' => $order_no,
                         ':kode_barang' => $kode_barangx,
                         ':nama_barang' => $nama_barang,
-                        ':harga_jual' => $harga_jual,
+                        ':harga_jual' => $harga_jual ?? "99999999",
                         ':uom' => $uom,
                         ':qty'=> $QtyFree,//':qty' => 1,
                         ':disc' => 100,
@@ -171,7 +171,7 @@ else // barang belum ada di transaksi
     $promo_disc = 0;
     $isPromo = 0;
 
-    echo "TIMBANG MASUK SINI NIH 1<br>";
+    //echo "TIMBANG MASUK SINI NIH 1<br>";
     // Cek apakah ada kode promo untuk barang ini
     $sql = "SELECT kode_barang, kode_promo, qty_jual, harga_jual, uom FROM dbo_promo_detail WHERE kode_barang = :kode_barang and uom = :uom";
     $stmt = $db->prepare($sql);
@@ -212,7 +212,7 @@ else // barang belum ada di transaksi
         if ($promo) {
             $kode_promo = $promo['kode_promo'];
             $ParameterPromo = getParameterPromoByKodePromo($kode_promo);
-            echo "Promo Kode: " . $kode_promo . "#" . $ParameterPromo . "<br>";
+            //echo "Promo Kode: " . $kode_promo . "#" . $ParameterPromo . "<br>";
 
             $hari_ini_index = date('N'); // Mendapatkan index hari (1 = Senin, 7 = Minggu)
             $hari_array = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU', 'MINGGU'];
@@ -282,7 +282,7 @@ else // barang belum ada di transaksi
             ':order_no' => $order_no,
             ':kode_barang' => $kode_barang,
             ':nama_barang' => $nama_barang,
-            ':harga_jual' => $harga_jual,
+            ':harga_jual' => $harga_jual ?? "99999999",
             ':uom' => $uom,
             ':qty' => $qty,
             ':disc' => $promo_disc,
@@ -301,13 +301,13 @@ else // barang belum ada di transaksi
     $QtyBarangOnTemp = cekQtyTempTransaksi($kode_barang,$uom,$order_no);
     $QtyFreeItem = cekQtyFree($kode_barang,$uom);
 
-    echo "PROMO PARAMETER : " . $PromoParameter . "<br>";
+    echo "MASUK INSERT PERTAMA X: " . $PromoParameter . " ### <br>";
     switch ($PromoParameter){
         case "A":
         break;
         case "B":
         break;
-        case "D":
+        case "C":
         case "F":
             if($QtyBarangOnTemp === $KriteriaValue){
                 // apabila ada free item FREETHIS, tambahkan line di bawahnya!
@@ -315,7 +315,7 @@ else // barang belum ada di transaksi
                 {
                     // tambahkan suffix (P) untuk keperluan update transaksi
                     $kode_barang = $kode_barang . '(P)' . $free_item;
-                    echo "KODE BARANG : " . $kode_barang;
+                    //echo "KODE BARANG : " . $kode_barang;
                     // tambahkan line barang free item ke transaksi
                     try {
                         $total_harga = 0;
@@ -330,7 +330,7 @@ else // barang belum ada di transaksi
                             ':order_no' => $order_no,
                             ':kode_barang' => $kode_barang,
                             ':nama_barang' => $nama_barang,
-                            ':harga_jual' => $harga_jual,
+                            ':harga_jual' => $harga_jual ?? "99999999",
                             ':uom' => $uom,
                             ':qty'=> $QtyFreeItem,//':qty' => 1,
                             ':disc' => 100,
@@ -344,8 +344,8 @@ else // barang belum ada di transaksi
                 } // FREETHIS
             }            
         break;
-        case "C":
-            echo "MASUK SINI KE C";
+        case "D":
+            //echo "MASUK SINI KE C";
             $UomFreeItem = cekUomBarangFreeItem($free_item);    
             echo $UomFreeItem . "<br>";    
             if ($flag_free_item)

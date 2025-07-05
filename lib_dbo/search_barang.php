@@ -40,6 +40,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo "<td>{$row['isi_kemasan']}</td>";
     echo "<td>{$row['kriteria_promo']}</td>";
     echo "<td>{$row['value_promo']}</td>";
+    echo "<td>{$row['barcode']}</td>";
     echo "</tr>";
 }
 ?>

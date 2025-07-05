@@ -38,17 +38,17 @@ if(isset($_GET['msgcode'])){
                 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24"><path fill="#0DB04B" d="M20 20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3zM8.592 13.808l-.991.572l1 1.733l.993-.573c.394.372.873.653 1.405.811v1.145h2.002V16.35a3.5 3.5 0 0 0 1.405-.81l.992.572L16.4 14.38l-.991-.572a3.5 3.5 0 0 0 0-1.62l.991-.573l-1-1.733l-.993.573A3.5 3.5 0 0 0 13 9.645V8.5h-2.002v1.144a3.5 3.5 0 0 0-1.405.811l-.992-.573L7.6 11.616l.991.572a3.5 3.5 0 0 0 0 1.62m3.408.69a1.5 1.5 0 1 1-.002-3.001a1.5 1.5 0 0 1 .002 3"/></svg>
                 </a>
 
+                <!-- Dashobards -->
+                <a href="laporan" x-tooltip.placement.right="'Laporan'"
+                class="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"><path fill="#0DB04B" d="M17.45 15.18L22 7.31V21H2V3h2v12.54L9.5 6L16 9.78l4.24-7.33l1.73 1l-5.23 9.05l-6.51-3.75L4.31 19h2.26l4.39-7.56z"/></svg>
+                </a>
+
                 <!-- Dashobards-->
                 <a href="../" x-tooltip.placement.right="'Point of Sales'"
                 class="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24"><path fill="#0DB04B" d="M17 9H7V4h10zm2 4c-3.31 0-6 2.69-6 6H4v-7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1.09c-.33-.05-.66-.09-1-.09m-9-1H6v2h4zm11.34 3.84l-3.59 3.59l-1.59-1.59L15 19l2.75 3l4.75-4.75z"/></svg>
                 </a>
-
-                <!-- Dashobards
-                <a href="customer.php" x-tooltip.placement.right="'Member Management'"
-                class="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24"><path fill="#0DB04B" d="M17.084 15.812a7 7 0 1 0-10.168 0A6 6 0 0 1 12 13a6 6 0 0 1 5.084 2.812m-8.699 1.473L12 20.899l3.615-3.614a4 4 0 0 0-7.23 0M12 23.728l-6.364-6.364a9 9 0 1 1 12.728 0zM12 10a1 1 0 1 0 0-2a1 1 0 0 0 0 2m0 2a3 3 0 1 1 0-6a3 3 0 0 1 0 6"/></svg>
-                </a> -->
             </div>
 
             <!-- Bottom Links -->
@@ -85,7 +85,7 @@ if(isset($_GET['msgcode'])){
                                     Profile
                                     </h2>
                                     <div class="text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                                    Your profile setting
+                                    Your profile
                                     </div>
                                 </div>
                                 </a>
@@ -147,6 +147,12 @@ if(isset($_GET['msgcode'])){
                 <a href="mesin-edc"
                 class="flex py-2 text-xs+ tracking-wide text-slate-500 outline-none transition-colors duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
                 Mesin Edc
+                </a>
+            </li> 
+            <li>
+                <a href="daftar-kartu"
+                class="flex py-2 text-xs+ tracking-wide text-slate-500 outline-none transition-colors duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+                Daftar Kartu
                 </a>
             </li> 
             <?php
@@ -214,7 +220,19 @@ if(isset($_GET['msgcode'])){
                 class="flex py-2 text-xs+ tracking-wide text-slate-500 outline-none transition-colors duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
                 Sales Invoice
                 </a>
-            </li>                             
+            </li> 
+            <li>
+                <a href="sales-departemen"
+                class="flex py-2 text-xs+ tracking-wide text-slate-500 outline-none transition-colors duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+                Sales Departemen
+                </a>
+            </li> 
+            <li>
+                <a href="payment-invoice"
+                class="flex py-2 text-xs+ tracking-wide text-slate-500 outline-none transition-colors duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+                Payment
+                </a>
+            </li>                              
             </ul>                 
             <div class="my-3 mx-4 h-px bg-slate-200 dark:bg-navy-500"></div>
             <ul class="flex flex-1 flex-col px-4 font-inter hidden">

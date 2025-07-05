@@ -36,6 +36,11 @@
         }
     }
 
+    function roundCustomDown(float $number): float {
+        $lastTwoDigits = $number - floor($number / 100) * 100; // Ambil 2 digit terakhir
+        return floor($number / 100) * 100; // Round down ke ratusan terdekat
+    }    
+
     function getPossiblePayments(int $totalBelanja): array {
         $pecahan = [10000, 20000, 50000, 100000];
         $possiblePayments = [];
@@ -101,5 +106,14 @@
         return $r;
     } 
     
+    /*
+    function getTextAfterP($str) {
+        $start = strpos($str, '(P)');
+        if ($start === false) {
+            return $str;
+        }
+        return substr($str, $start + 3);
+    }
+    */
     
 ?>

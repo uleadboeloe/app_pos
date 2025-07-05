@@ -15,7 +15,7 @@ function encryptData($data) {
     return base64_encode($iv . $encrypted);
 }
 
-$inputText = 'A102';
+$inputText = 'A103';
 
 $encryptedText = encryptData($inputText);
 

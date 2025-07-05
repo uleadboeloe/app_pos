@@ -45,7 +45,7 @@ $hash16 = CreateUniqueHash16();
 
 <body x-data class="is-header-blur" x-bind="$store.global.documentBody">
 <!-- App preloader-->
-<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-orange-50 dark:bg-navy-900 bg-[url(assets/images/please-wait.avif)] bg-no-repeat bg-center">
     <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
 </div>
 <!-- Page Wrapper -->
@@ -56,6 +56,7 @@ $hash16 = CreateUniqueHash16();
         <div class="col-span-12 p-2 lg:col-span-12">
             <div class="flex items-center justify-between py-2 px-4">
                 <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Payment CASH</h2>
+                <button class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" onclick="PrintDoc()">Print Detail</button>
             </div>
             <div class="card p-5 mt-3">
                 <table id="table1" class="is-hoverable w-full" width="100%">     
@@ -74,7 +75,7 @@ $hash16 = CreateUniqueHash16();
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and jenis_bayar = 'CASH' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' and jenis_bayar = 'CASH' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {
@@ -110,7 +111,7 @@ $hash16 = CreateUniqueHash16();
             </div>
         </div>
 
-                <div class="col-span-12 p-2 lg:col-span-12">
+        <div class="col-span-12 p-2 lg:col-span-12">
             <div class="flex items-center justify-between py-2 px-4">
                 <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Payment NON CASH</h2>
             </div>
@@ -131,7 +132,7 @@ $hash16 = CreateUniqueHash16();
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and jenis_bayar <> 'CASH' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' and jenis_bayar <> 'CASH' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {
@@ -166,6 +167,111 @@ $hash16 = CreateUniqueHash16();
                 </table>
             </div>
         </div>
+
+            
+        <div id="PrintArea" style="display:none;">
+            <?php
+            $NamaStore = getStoreName($KodeStoreOffline);
+            $HeaderStruk = getHeaderStruk($KodeStoreOffline);
+            $FooterStruk = getFooterStruk($KodeStoreOffline); 
+            ?>
+            <table width="100%" style="border:1px solid #000;">
+                <tr>
+                    <td>
+                        <div style="font-size:12px;color:#000;font-weight:800;"><?php   echo $NamaStore; ?></div>
+                        <div style="font-size:12px;color:#000;"><?php   echo $HeaderStruk; ?></div>
+                    </td>
+                </tr> 
+            </table>      
+            <hr>         
+            <table width="100%" style="border:solid 1px #000;">     
+                <thead>
+                <tr style="font-size:12px;font-weight:800;">
+                    <th style="border-bottom:solid 1px #000;" width="70%">Metode Pembayaran</th>
+                    <th style="border-bottom:solid 1px #000;" width="30%">Total Bayar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                /*==========================*/
+                $StrViewQuery="SELECT sum(total_bayar) as TotalBayar,jenis_bayar from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' group by jenis_bayar";   
+                $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                while($recView=mysqli_fetch_array($callStrViewQuery))
+                {
+                    $TotalBayar = $recView['TotalBayar'];
+                    $JenisBayar = $recView['jenis_bayar'];
+                    ?>
+                    <tr style="font-size:12px;">
+                        <td class=""><?php   echo $JenisBayar; ?></td>           
+                        <td class="" style="text-align:right"><?php   echo number_format($TotalBayar,2); ?></td>   
+                    </tr>
+                    <?php
+                }
+                ?>
+                </tbody>
+            </table> 
+            <hr>         
+            <table width="100%" style="border:solid 1px #000;">     
+                <thead>
+                <tr style="font-size:12px;font-weight:800;">
+                    <th style="border-bottom:solid 1px #000;" width="30%">Mesin EDC</th>
+                    <th style="border-bottom:solid 1px #000;" width="40%">Bank Penerbit</th>
+                    <th style="border-bottom:solid 1px #000;" width="30%">Total Bayar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                /*==========================*/
+                $StrViewQuery="SELECT sum(total_bayar) as TotalBayar,nama_edc,kode_edc from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' group by jenis_bayar";   
+                $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                while($recView=mysqli_fetch_array($callStrViewQuery))
+                {
+                    $TotalBayar = $recView['TotalBayar'];
+                    $BankPenerbit = getBankPenerbitMesinEdc($recView['kode_edc']);
+                    $MesinEdc = $recView['nama_edc'];
+                    ?>
+                    <tr style="font-size:12px;">
+                        <td class=""><?php   echo $MesinEdc; ?></td>        
+                        <td class=""><?php   echo $BankPenerbit; ?></td>           
+                        <td class="" style="text-align:right"><?php   echo number_format($TotalBayar,2); ?></td>   
+                    </tr>
+                    <?php
+                }
+                ?>
+                </tbody>
+            </table>            
+            <hr>         
+            <table width="100%" style="border:solid 1px #000;">     
+                <thead>
+                <tr style="font-size:12px;font-weight:800;">
+                    <th style="border-bottom:solid 1px #000;" width="30%">Metode Pembayaran</th>
+                    <th style="border-bottom:solid 1px #000;" width="40%">Kartu / Bank Penerbit</th>
+                    <th style="border-bottom:solid 1px #000;" width="30%">Total Bayar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                /*==========================*/
+                $StrViewQuery="SELECT sum(total_struk) as TotalBayar,jenis_bayar,nama_kartu from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' group by jenis_bayar";   
+                $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                while($recView=mysqli_fetch_array($callStrViewQuery))
+                {
+                    $TotalBayar = $recView['TotalBayar'];
+                    $NamaBank = $recView['nama_kartu'];
+                    $JenisBayar = $recView['jenis_bayar'];
+                    ?>
+                    <tr style="font-size:12px;">
+                        <td class=""><?php   echo $JenisBayar; ?></td>    
+                        <td class=""><?php   echo $NamaBank; ?></td>          
+                        <td class="" style="text-align:right"><?php   echo number_format($TotalBayar,2); ?></td>   
+                    </tr>
+                    <?php
+                }
+                ?>
+                </tbody>
+            </table>                 
+        </div>
+
     </main>
 </div>
 <!-- 
@@ -183,6 +289,15 @@ $hash16 = CreateUniqueHash16();
 <script type="text/javascript" src="assets/js/autocomplete/jquery.select-to-autocomplete.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+function PrintDoc() {
+    var toPrint = document.getElementById('PrintArea');
+    var popupWin = window.open('', '_blank', 'width=800,height=600,location=no,left=50px');
+    popupWin.document.open();
+    popupWin.document.write('<html><title>Preview Print</title><link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print"/></head><body onload="window.print();window.close();">')
+    popupWin.document.write(toPrint.innerHTML);
+    popupWin.document.write('</body></html>');
+    popupWin.document.close();
+}
 $(document).ready(function (){
     var txtErrorType = $("#txtErrorType").val();
     var txtErrorDescription = $("#txtErrorDescription").val();

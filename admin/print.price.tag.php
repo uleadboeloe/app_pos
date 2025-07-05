@@ -8,6 +8,8 @@ include_once "library/parameter.php";
 include_once "library/fungsi.php";
 include_once "../lib_dbo/user_functions.php";
 $hash16 = CreateUniqueHash16();
+
+$rcode = isset($_GET['rcode']) ? $_GET['rcode'] : "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +47,7 @@ $hash16 = CreateUniqueHash16();
 
 <body x-data class="is-header-blur" x-bind="$store.global.documentBody">
 <!-- App preloader-->
-<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-orange-50 dark:bg-navy-900 bg-[url(assets/images/please-wait.avif)] bg-no-repeat bg-center">
     <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
 </div>
 
@@ -130,7 +132,7 @@ $hash16 = CreateUniqueHash16();
                                     <label class="block">
                                         <span class="text-purple-500 font-bold">Barcode <div class="badge rounded-full bg-warning/10 text-warning dark:bg-accent-light/15 dark:text-accent-light">Opsional</div></span>
                                         <span class="relative mt-1.5 flex">
-                                            <input placeholder="Masukan Kode Barcode" type="text" id="txtBarcode" name="txtBarcode"
+                                            <input placeholder="Masukan Kode Barcode" type="text" id="txtBarcode" name="txtBarcode" value="<?php    echo $rcode;    ?>"
                                             class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
                                             <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                                                 <i class="fa-regular fa-building text-base"></i>
@@ -222,15 +224,31 @@ $hash16 = CreateUniqueHash16();
                                 $ImagesProduk = "assets/images/logo.png";
                             }else{
                                 $ImagesProduk = $ImagesProduk;
+                            }                           
+
+                            //create barcode
+                            // Deteksi apakah protokolnya http atau https
+                            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+                            // Buat URL ke barcode generator
+                            $file_gambar = $protocol . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/barcode.php?text=" . urlencode($KodeBarcode1) . "&print=true&size=50&orientation=horizontal&code_type=code128";
+                            $folderPath = __DIR__ . '/qrcode_produk/barcodes/';
+                            if (!file_exists($folderPath)) {
+                                mkdir($folderPath, 0777, true); // buat folder jika belum ada
                             }
+                            $filename = $folderPath . $KodeBarcode1 . '.png';
+                            $Filebarcode = "qrcode_produk/barcodes/" . $KodeBarcode1 . ".png";
+                            // Ambil data gambar dari URL
+                            $barcode_data = file_get_contents($file_gambar);
+                            if ($barcode_data !== false) {
+                                file_put_contents($filename, $barcode_data);
+                            }
+                            //create barcode    
+                                      
+                            $strInsert="UPDATE dbo_barang set `file_barcode` = '$Filebarcode' where sku_barang = '" . $SKUBarang . "'";
+                            $executeSQL=mysqli_query($koneksidb, $strInsert);                             
 
-                            $Filebarcode = $recView['file_barcode'];
-                            if($Filebarcode == "") {
-                                $Filebarcode = "file_barcode/sample1.png";
-                            }else{
-                                $Filebarcode = $Filebarcode;
-                            }                            
-
+                            
+                            $Filebarcode = getFileBarcodeByKodeBarang($KodeBarang);
 
                             if($JumBar < 4){
                                 $KolomKosong = 4 - $JumBar;
@@ -242,7 +260,41 @@ $hash16 = CreateUniqueHash16();
                                 $CallstrSQLx=mysqli_query($koneksidb, $strSQLx);
                                 while($resultx=mysqli_fetch_array($CallstrSQLx))
                                 {
-                                    echo "Rp. <span style='font-size:22px;color:#FF0000;'>" . number_format($resultx["harga_jual"],2) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                                                        //$PromoPrice = getPromoExist($SKUBarang,$resultx["uom"]);
+                                    $PromoBarang = cekPromoBarang($SKUBarang,$resultx["uom"]);
+                                    $KriteriaPromo = cekValuePromoBarang($SKUBarang,$resultx["uom"]);
+                                    switch ($PromoBarang) {
+                                        case 'RUPIAH':
+                                            $HargaPromo = $resultx["harga_jual"]-$KriteriaPromo;
+                                            $StatusPromoPrice = "<span style='font-size:22px;color:#0000FF;'>Rp. " . number_format($HargaPromo,0) . "</span>";
+                                            $StatusPromoPrice.="<span style='font-size:22px;color:#FF0000;text-decoration: line-through red;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                            break;
+                                        case 'PERSEN':
+                                            $HargaPromo = $resultx["harga_jual"]-($resultx["harga_jual"] * $KriteriaPromo / 100);
+                                            $StatusPromoPrice = "<span style='font-size:22px;color:#0000FF;'>Rp. " . number_format($HargaPromo,0) . "</span>";
+                                            $StatusPromoPrice.="<span style='font-size:22px;color:#FF0000;text-decoration: line-through red;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                            break;
+                                        case 'BUY1GET1':
+                                            $StatusPromoPrice = "<span style='font-size:22px;color:#0000FF;'>" . $PromoBarang . "</span>";
+                                            $StatusPromoPrice.="<span style='font-size:22px;color:#FF0000;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                            break;
+                                        case 'BUY2GET1':
+                                            $StatusPromoPrice = "<span style='font-size:22px;color:#0000FF;'>" . $PromoBarang . "</span>";
+                                            $StatusPromoPrice.="<span style='font-size:22px;color:#FF0000;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                            break;
+                                        case 'FREEITEM':
+                                            $StatusPromoPrice = "<span style='font-size:22px;color:#0000FF;'>" . $PromoBarang . "</span>";
+                                            $StatusPromoPrice.="<span style='font-size:22px;color:#FF0000;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                            break;
+                                        default:
+                                            $StatusPromoPrice = "";
+                                            break;
+                                    }
+                                    if($StatusPromoPrice != ""){
+                                    echo $StatusPromoPrice;
+                                    }else{
+                                    echo "<span style='font-size:22px;color:#FF0000;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                    }
                                 }
                                 echo "</div>";
                                 echo "<div style='display: flex;'>";
@@ -263,7 +315,42 @@ $hash16 = CreateUniqueHash16();
                                 $CallstrSQLx=mysqli_query($koneksidb, $strSQLx);
                                 while($resultx=mysqli_fetch_array($CallstrSQLx))
                                 {
-                                    echo "Rp. <span style='font-size:22px;color:#FF0000;'>" . number_format($resultx["harga_jual"],2) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                    //$PromoPrice = getPromoExist($SKUBarang,$resultx["uom"]);
+                                    $PromoBarang = cekPromoBarang($SKUBarang,$resultx["uom"]);
+                                    $KriteriaPromo = cekValuePromoBarang($SKUBarang,$resultx["uom"]);
+                                    switch ($PromoBarang) {
+                                        case 'RUPIAH':
+                                            $HargaPromo = $resultx["harga_jual"]-$KriteriaPromo;
+                                            $StatusPromoPrice = "<span style='font-size:22px;color:#0000FF;'>Rp. " . number_format($HargaPromo,0) . "</span>";
+                                            $StatusPromoPrice.="<span style='font-size:22px;color:#FF0000;text-decoration: line-through red;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                            break;
+                                        case 'PERSEN':
+                                            $HargaPromo = $resultx["harga_jual"]-($resultx["harga_jual"] * $KriteriaPromo / 100);
+                                            $StatusPromoPrice = "<span style='font-size:22px;color:#0000FF;'>Rp. " . number_format($HargaPromo,0) . "</span>";
+                                            $StatusPromoPrice.="<span style='font-size:22px;color:#FF0000;text-decoration: line-through red;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                            break;
+                                        case 'BUY1GET1':
+                                            $StatusPromoPrice = "<span style='font-size:22px;color:#0000FF;'>" . $PromoBarang . "</span>";
+                                            $StatusPromoPrice.="<span style='font-size:22px;color:#FF0000;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                            break;
+                                        case 'BUY2GET1':
+                                            $StatusPromoPrice = "<span style='font-size:22px;color:#0000FF;'>" . $PromoBarang . "</span>";
+                                            $StatusPromoPrice.="<span style='font-size:22px;color:#FF0000;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                            break;
+                                        case 'FREEITEM':
+                                            $StatusPromoPrice = "<span style='font-size:22px;color:#0000FF;'>" . $PromoBarang . "</span>";
+                                            $StatusPromoPrice.="<span style='font-size:22px;color:#FF0000;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                            break;
+                                        default:
+                                            $StatusPromoPrice = "";
+                                            break;
+                                    }
+                                    if($StatusPromoPrice != ""){
+                                    echo $StatusPromoPrice;
+                                    }else{
+                                    echo "<span style='font-size:22px;color:#FF0000;'> Rp. ". number_format($resultx["harga_jual"],0) . "</span> / " . $resultx["uom"] . " / " . $resultx["isi_kemasan"] . "<br>";
+                                    }
+                                    
                                 }
                                 echo "</div>";
                                 echo "<div style='display: flex;'>";

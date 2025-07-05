@@ -93,7 +93,6 @@
 
 <!-- Start Content -->
 <div class="container-fluid">
-
 	<div id="wrapper">
 		<!-- Header -->
         <div class="row-fluid" style="background-color: #4e8f64;">
@@ -119,7 +118,7 @@
                     		?>
                         </div>
                         <button class="btn btn-large btn-warning" type="submit">Sign in</button>
-						<a href="admin/" class="btn btn-large btn-success">Login Admin</a>
+						<a href="admin" target="blank_" class="btn btn-large btn-success">Admin</a>
                     </form>
 		    	</div>
             </div>
@@ -134,3 +133,15 @@
 </body>
 
 </html>
+
+<script>
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+}
+</script>

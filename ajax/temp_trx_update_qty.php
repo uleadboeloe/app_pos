@@ -6,10 +6,10 @@
 
     $order_no = $_GET['orderno'];
     $kode_barang = $_GET['kode_barang'];
-    $qty = $_GET['qty'];
     $harga_jual = $_GET['harga_jual'];
     $disc = $_GET['disc'];
     $uom = $_GET['uom'];
+    $qty = $_GET['qty'];
 
     // cek apakah barang sudah ada di transaksi, kecuali barang timbangan (uom <> KG)
     $sql = "SELECT * FROM temp_transaksi WHERE order_no = :order_no AND kode_barang = :kode_barang AND uom = :uom AND uom <> 'KG' AND status = 'CURRENT'";
@@ -45,8 +45,116 @@
             ':kode_barang' => $kode_barang,
             ':uom' => $uom
         ]);
+           
+        $PromoBarang = cekPromoBarang($kode_barang,$uom);
+        $PromoParameter = cekParameterPromoBarang($kode_barang,$uom);
+        $KriteriaValue = cekKriteriaPromoBarang($kode_barang,$uom);
+        $TagFreeItem = cekTagFreeItem($kode_barang,$uom);
+        $QtyFreeItem = cekQtyFree($kode_barang,$uom);
+        $QtyBarangOnTemp = cekQtyTempTransaksi($kode_barang,$uom,$order_no);
+        $QtyFree = floor($QtyBarangOnTemp/$KriteriaValue);
+        if($PromoBarang == "PRICELEVEL"){
+            $isPromo = 2;
+        }else{
+            $isPromo = 1;
+        }
 
+        switch ($PromoParameter){
+            case "A":
+            break;
+            case "B":
+            break;
+            case "C":
+            case "F":
+                // update item gratisan --yg kode yang ada kode (P)
+                $kode_barangx = $kode_barang . '(P)' . $TagFreeItem;
+                //echo "Item Promo Exist : " . $kode_barang . "<br>";
+                $CekItemPromoExist = cekKodeBarangPromoTempTransaksi($kode_barangx,$uom,$order_no);
+                //echo "Item Promo Exist : " . $CekItemPromoExist . "<br>";
 
+                if($CekItemPromoExist > 0){
+                    $sql = "UPDATE temp_transaksi 
+                            SET qty = :qty
+                            WHERE order_no = :order_no AND kode_barang = :kode_barang and uom = :uom AND status = 'CURRENT'";
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute([
+                        ':qty' => $QtyFree, //':qty' => $new_qty,
+                        ':order_no' => $order_no,
+                        ':kode_barang' => $kode_barangx,
+                        ':uom' => $uom // wildcard untuk LIKE
+                    ]);        
+                }else{
+                    //echo "MASUK INSERT LAGI NIH";
+                    $total_harga = 0;
+                    
+                    if($QtyFree >0){
+                        $sql = "INSERT INTO temp_transaksi 
+                            (order_no, kode_barang, nama_barang, harga_jual, uom, qty, disc, total_harga, status, promo) 
+                            VALUES 
+                            (:order_no, :kode_barang, :nama_barang, :harga_jual, :uom, :qty, :disc, :total_harga, 'CURRENT', :promo)";
+                        
+                        $stmt = $db->prepare($sql);
+                        $stmt->execute([
+                            ':order_no' => $order_no,
+                            ':kode_barang' => $kode_barangx,
+                            ':nama_barang' => $nama_barang,
+                            ':harga_jual' => $harga_jual,
+                            ':uom' => $uom,
+                            ':qty'=> $QtyFree, //':qty' => 1,
+                            ':disc' => 100,
+                            ':total_harga' => $total_harga,
+                            ':promo' => $isPromo
+                        ]);
+                    }
+                }            
+            break;
+            case "D":
+                $kode_barangx = $kode_barang . '(P)' . $TagFreeItem;
+                //echo "Item Promo Exist : " . $kode_barang . "<br>";
+                $CekItemExist = cekKodeBarangPromoTempTransaksi($kode_barangx,$uom,$order_no);
+                $CekUomExist = cekUomBarangPromoTempTransaksi($kode_barang,$uom,$order_no);
+                $CekUomFreeItem = cekUomBarangFreeItem($TagFreeItem);
+                //echo "Item Promo Exist : " . $CekItemExist . "<br>";
+                //echo "Uom Exist : " . $CekUomExist . "<br>";
+
+                if($CekItemExist > 0){
+                    $sql = "UPDATE temp_transaksi 
+                            SET qty = :qty
+                            WHERE order_no = :order_no AND kode_barang = :kode_barang and uom = :uom AND status = 'CURRENT'";
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute([
+                        ':qty' => $QtyFree, //':qty' => $new_qty,
+                        ':order_no' => $order_no,
+                        ':kode_barang' => $kode_barangx,
+                        ':uom' => $CekUomExist // wildcard untuk LIKE
+                    ]);        
+                }else{
+                    $total_harga = 0;
+                    
+                    if($QtyFree >0){
+                        $sql = "INSERT INTO temp_transaksi 
+                            (order_no, kode_barang, nama_barang, harga_jual, uom, qty, disc, total_harga, status, promo) 
+                            VALUES 
+                            (:order_no, :kode_barang, :nama_barang, :harga_jual, :uom, :qty, :disc, :total_harga, 'CURRENT', :promo)";
+                        
+                        $stmt = $db->prepare($sql);
+                        $stmt->execute([
+                            ':order_no' => $order_no,
+                            ':kode_barang' => $kode_barangx,
+                            ':nama_barang' => $nama_barang,
+                            ':harga_jual' => $harga_jual,
+                            ':uom' => $uom,
+                            ':qty'=> $QtyFree,//':qty' => 1,
+                            ':disc' => 100,
+                            ':total_harga' => $total_harga,
+                            ':promo' => $isPromo
+                        ]);
+                    }
+                }            
+            break;
+        } 
+
+        /*
         $PromoBarang = cekPromoBarang($kode_barang,$uom);
         $PromoParameter = cekParameterPromoBarang($kode_barang,$uom);
         $KriteriaValue = cekKriteriaPromoBarang($kode_barang,$uom);
@@ -92,8 +200,8 @@
             }
        
         }
+        */
     }
-
 
     /*
     SCRIP ASLI BRO DIQY

@@ -30,7 +30,7 @@ include("../lib/mysql_connect.php");
         </div>   
         <div class="control-group">
             <label class="control-label" for="refno">Reference Number</label>
-            <input class="span12" id="refno" type="text" value="" required/>
+            <input class="span12" id="refno" type="text" value=""/>
             <input class="span12" id="jenis_kartu" type="hidden" value="QRIS" required/>
         </div>
     </div>

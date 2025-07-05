@@ -42,7 +42,12 @@ $(function () {
 
         var nostruk = $("#NoStruk").val();
         var kodebarang = $("#ScanItem").val();
+        var qtyAwal = $("#Qty").val();
         var qty = $("#NewQty").val();
+        var harga = $("#hargabarang").val();
+        var diskon = $("#diskonbarang").val();
+        var uom = $("#uombarang").val();
+        var skubarang = $("#skubarang").val();
 
         $.ajax({
           url: "lib_dbo/void_line.php",
@@ -52,8 +57,14 @@ $(function () {
             nostruk: nostruk,
             kodebarang: kodebarang,
             qty: qty,
+            harga: harga,
+            diskon: diskon,
+            qtyawal: qtyAwal,
+            uom: uom,
+            skubarang: skubarang,
           },
           success: function (response) {
+            window.location.href = "displaystruk!" + nostruk;
             $thisDialog.dialog("close");
           },
         });
@@ -68,6 +79,5 @@ $(function () {
     // open dialog spv approval
     window.isvoid = true;
     $("#DialogSpvApproval").dialog("open");
-
   });
 });

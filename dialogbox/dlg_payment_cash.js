@@ -29,10 +29,12 @@ $(function () {
         var point_member =
           window.sessionStorage.getItem("poin_member_id") || "0";
         point_member = point_member.replaceAll(".", "");
+        var kode_register = window.sessionStorage.getItem("kode_register");
         if (window.ispoinchecked == 0) point_member = 0;
 
         console.log("Point Amount : " + point_member);
         console.log("Member ID : " + member_id);
+        console.log("Kode Register : " + kode_register);
 
         var kode_voucher = window.sessionStorage.getItem("kode_voucher");
         var nilai_voucher =
@@ -58,6 +60,7 @@ $(function () {
             nilai_voucher: nilai_voucher,
             kode_voucher: kode_voucher,
             payment_type: "CASH",
+            kode_register: kode_register,
           },
           success: function (response) {
             if (response != "") {

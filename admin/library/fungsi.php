@@ -237,6 +237,20 @@ function getRandomCodeBySkuBarang($IDX) {
 	}
 	return $varResult;
 }
+function getBankPenerbitMesinEdc($IDX) {
+	$strSQL="SELECT bank_penerbit FROM `dbo_mesin_edc` where noid = '" . $IDX . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['bank_penerbit'];
+		}
+	}else{
+		$varResult = "";
+	}
+	return $varResult;
+}
+
 
 function getBarcodeBarangBySkuBarang($IDX) {
 	$strSQL="SELECT barcode FROM `dbo_barang` where sku_barang = '" . $IDX . "'";
@@ -906,6 +920,48 @@ function cekKriteriaPromoBarang($IDX,$UOMX){
 	return $varResult;		
 }
 
+function cekTypePromoBarang($IDX,$UOMX){
+	$strSQL="SELECT b.kode_barang, b.barcode, b.nama_barang, b.sku_barang, p.uom, p.harga_jual, c.`kode_promo`, d.`kriteria_promo`, d.`promo_parameter`, d.`promo_type`, d.`value_promo`
+        FROM dbo_barang b
+        JOIN dbo_price p ON b.sku_barang = p.sku_barang
+        LEFT JOIN dbo_promo_detail c ON b.sku_barang = c.`sku_barang` AND p.uom = c.`uom`
+        LEFT JOIN dbo_promo d ON c.`kode_promo` = d.`kode_promo`
+        WHERE b.kode_barang LIKE '%" . $IDX . "%' AND p.uom = '" . $UOMX . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['promo_type'];
+		}
+	}
+	if ($varResult === null) {
+		$varResult = "";
+	}
+
+	return $varResult;		
+}
+
+function cekValuePromoBarang($IDX,$UOMX){
+	$strSQL="SELECT b.kode_barang, b.barcode, b.nama_barang, b.sku_barang, p.uom, p.harga_jual, c.`kode_promo`, d.`kriteria_promo`, d.`promo_parameter`, d.`promo_type`, d.`value_promo`
+        FROM dbo_barang b
+        JOIN dbo_price p ON b.sku_barang = p.sku_barang
+        LEFT JOIN dbo_promo_detail c ON b.sku_barang = c.`sku_barang` AND p.uom = c.`uom`
+        LEFT JOIN dbo_promo d ON c.`kode_promo` = d.`kode_promo`
+        WHERE b.kode_barang LIKE '%" . $IDX . "%' AND p.uom = '" . $UOMX . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['value_promo'];
+		}
+	}
+	if ($varResult === null) {
+		$varResult = "";
+	}
+
+	return $varResult;		
+}
+
 function cekQtyFree($IDX,$UOMX){
 	$strSQL="SELECT b.kode_barang, b.barcode, b.nama_barang, b.sku_barang, p.uom, p.harga_jual, c.`kode_promo`, d.`kriteria_promo`, d.`promo_parameter`, d.`qty_free_item`, d.`value_promo`
         FROM dbo_barang b
@@ -1010,6 +1066,22 @@ function cekQtyTempTransaksi($IDX,$UOMX,$ORDX){
 	}
 
 	return $varResult;		
+}
+
+function getFileBarcodeByKodeBarang($IDX) {
+	//$StrSearch = str_replace("(P)","",$IDX);
+	$StrSearch = getTextAfterP($IDX);
+	$strSQL="SELECT file_barcode FROM `dbo_barang` where kode_barang = '" . $StrSearch . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['file_barcode'];
+		}
+	}else{
+		$varResult = "";
+	}
+	return $varResult;
 }
 ?>
 

@@ -21,9 +21,6 @@ $(function () {
         if ($("#4digit").val().length != 4) {
           $("#4digit").focus();
           return;
-        } else if ($("#refno").val().length == 0) {
-          $("#refno").focus();
-          return;
         } else if ($("#approvecode").val().length != 6) {
           $("#approvecode").focus();
           return;
@@ -36,6 +33,7 @@ $(function () {
           var point_member =
             window.sessionStorage.getItem("poin_member_id") || "0";
           point_member = point_member.replaceAll(".", "");
+          var kode_register = window.sessionStorage.getItem("kode_register");
 
           console.log("Point Amount : " + point_member);
           console.log("Member ID : " + member_id);
@@ -86,6 +84,7 @@ $(function () {
               approval_code: $("#approvecode").val(),
               nama_kartu: $("#jenis_kartu").val(),
               mesin_edc: $("#mesin_edc").val(),
+              kode_register: kode_register,
             },
             success: function (response) {
               if (response != "") {

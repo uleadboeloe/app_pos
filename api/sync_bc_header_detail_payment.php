@@ -2,9 +2,10 @@
 include("../lib/mysql_pdo.php");
 include("../lib/mysql_connect.php");
 include("../lib/general_lib.php");
+include("../admin/library/fungsi.php");
 
 // Endpoint & Auth
-$Company = "TEST";
+$Company = "AMANAHLIVE";
 $bcUrlHeader    = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/PRSHeader";
 $bcUrlDetail    = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/PRSLine";
 $bcUrlPayment   = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/PRSPayment";
@@ -15,11 +16,14 @@ $NoStrukFailed = "";
 $ItemLineFailed = "";
 $PaymentFailed = "";
 
+$Source = isset($_GET['source']) ? $_GET['source'] : "";
+
 // Ambil record header hari ini & belum sinkron
 // Ambil tanggal dari parameter GET, default ke hari ini jika tidak ada
-$Tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : date('Y-m-d');
+//$Tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : date('Y-m-d');
+$Tanggal = "2025-07-03";
 
-$sql = "SELECT * FROM dbo_header WHERE tanggal = :tanggal AND fl_sync = 0";
+$sql = "SELECT * FROM dbo_header WHERE tanggal = :tanggal AND fl_sync = 0 order by noid ASC limit 20";
 $stmt = $db->prepare($sql);
 $stmt->bindParam(':tanggal', $Tanggal);
 $stmt->execute();
@@ -35,24 +39,23 @@ foreach ($records as $row) {
         "jam"                  => $row['jam'],
         "kodekasir"            => $row['kode_kasir'],
         "namakasir"            => $row['nama_kasir'],
-        "totalbayar"           => $row['total_bayar'],
-        "amount"               => $row['total_struk'],
-        "kembalian"            => $row['kembalian'],
+        "totalbayar"           => floatval($row['total_bayar']),
+        "amount"               => floatval($row['total_struk']),
+        "kembalian"            => floatval($row['kembalian']),
         "jenispembayaran"      => $row['jenis_bayar'],
-        "namakartu"            => "",
-        "kodecustomer"         => "",
-        "Cash"                 => 0,
-        "NonCash"              => 0,
-        "Pembulatan"           => 0,
+        "namakartu"            => $row['nama_kartu'] ?? "",
+        "kodecustomer"         => $row['kode_customer'] ?? "",
+        "Cash"                 => floatval($row['var_cash']),
+        "NonCash"              => floatval($row['var_noncash']),
+        "Pembulatan"           => floatval($row['var_pembulatan']),
         "trntype"              => 0,
-        "invoice_disc_Amount"  => 0,
-        "member_tag"           => "",
-        "member_name"          => "",
-        "member_phone_no"      => ""
+        "invoice_disc_Amount"  => floatval($row['var_diskon']),
+        "member_tag"           => $row['status_customer'],
+        "member_name"          => $row['nama_customer'],
+        "member_phone_no"      => $row['telp_customer'],
     ];
 
     $jsonHeader = json_encode($dataHeader);
-
     // Kirim Header
     $ch = curl_init($bcUrlHeader);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -70,6 +73,11 @@ foreach ($records as $row) {
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $errorNo = curl_errno($ch);
     $errorMsg = curl_error($ch);
+    
+    if($Source != ""){
+    echo $jsonHeader . "<br>";
+    echo "ERROR HTTP CODE HEADER : " . $httpCode . "#" . $errorNo . "#" . $errorMsg . "<br>";
+    }
     curl_close($ch);
 
     $no_struk = $row['no_struk'];
@@ -77,7 +85,8 @@ foreach ($records as $row) {
 
     if ($errorNo || $httpCode != 201) {
         // gagal!
-        $NoStrukFailed = $NoStrukFailed . $no_struk . ", ";
+        //$NoStrukFailed = $NoStrukFailed . $no_struk . ", ";
+        $NoStrukFailed = $NoStrukFailed . $row['noid'] . ", ";
         $updateHeaderStmt->execute([':status' => -1, ':no_struk' => $no_struk]);
         continue;
     }
@@ -85,8 +94,12 @@ foreach ($records as $row) {
     // berhasil!
     $updateHeaderStmt->execute([':status' => 1, ':no_struk' => $no_struk]);
 
+    
     // SYNC DETAIL/LINE BY no_struk //
-    $sqlDetail = "SELECT * FROM dbo_detail WHERE no_struk = :no_struk AND fl_sync = 0";
+    //$sqlDetail = "SELECT * FROM dbo_detail WHERE no_struk in(select no_struk from dbo_header where tanggal = :tanggal order by noid ASC) AND fl_sync = 0";
+    
+    $x = 1;
+    $sqlDetail = "SELECT * FROM dbo_detail WHERE no_struk =:no_struk AND fl_sync = 0";
     $stmtDetail = $db->prepare($sqlDetail);
     $stmtDetail->execute([':no_struk' => $no_struk]);
     $details = $stmtDetail->fetchAll(PDO::FETCH_ASSOC);
@@ -95,22 +108,39 @@ foreach ($records as $row) {
 
     foreach ($details as $detail) {
 
-        $dataDetail = [
-            "nomorstruk"         => $detail['no_struk'],
-            "kdplu"              => $detail['sku_barang'] === null ? $detail['kode_barang'] : $detail['sku_barang'],
-            "itemno"             => $detail['kode_barang'],
-            "quantity"           => $detail['qty_sales'],
-            "hargajual"          => $detail['harga'],
-            "satuan"             => $detail['satuan'],
-            "lineamount"         => $detail['total_sales'],
-            "kodestore"          => $detail['kode_store'],
-            "Item_No_"           => "",
-            "disc_amount"        => 0,
-            "prs_uom_code"       => "",
-            "ppn_amount"         => 0,
-            "total_netto"        => 0,
-            "Item_doesnt_exist"  => false
-        ];
+        $kode_barang = $detail['kode_barang'];
+
+        if (strpos($kode_barang, '(P)FREETHIS') !== false) {
+            $kode_barang = str_replace("(P)FREETHIS","",$kode_barang);
+        }
+
+        if (strpos($kode_barang, '(P)') !== false) {
+            $kode_barang = getTextAfterP($kode_barang);
+        }
+
+        if($detail['satuan'] === "GR"){
+            $detail['satuan'] = "KG";
+        }
+
+        if($x > 0){
+            $dataDetail = [
+                "nomorstruk"         => $detail['no_struk'],
+                "kdplu"              => $kode_barang,
+                "itemno"             => $kode_barang,
+                "lineno"             => $x,
+                "quantity"           => floatval($detail['qty_sales']),
+                "hargajual"          => floatval($detail['harga']),
+                "satuan"             => $detail['satuan'],
+                "lineamount"         => floatval($detail['total_sales']),
+                "kodestore"          => $detail['kode_store'],
+                "Item_No_"           => "",
+                "disc_amount"        => floatval($detail['var_diskon']),
+                "prs_uom_code"       => $detail['satuan'],
+                "ppn_amount"         => 0,
+                "total_netto"        => floatval($detail['netto_sales']),
+                "Item_doesnt_exist"  => false
+            ];
+        }$x++;
 
         $jsonDetail = json_encode($dataDetail);
 
@@ -130,70 +160,85 @@ foreach ($records as $row) {
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $errorNo = curl_errno($ch);
         $errorMsg = curl_error($ch);
+        
+
+        if($Source != ""){
+            echo $jsonDetail . "<br>";
+            echo "ERROR HTTP CODE DETAIL : " . $httpCode . "#" . $errorNo . "#" . $errorMsg . "<br>";
+        }
         curl_close($ch);
 
         if ($errorNo || $httpCode != 201) {
             // gagal!
-            $ItemLineFailed = $ItemLineFailed . $detail['kode_barang'] . ", ";
+            //$ItemLineFailed = $ItemLineFailed . $detail['kode_barang'] . ", ";
+            $ItemLineFailed = $ItemLineFailed . $detail['noid'] . ", ";
             $updateDetailStmt->execute([':status' => -1, ':noid' => $detail['noid']]);
         }
         else
             $updateDetailStmt->execute([':status' => 1, ':noid' => $detail['noid']]);
 
     } // foreach detail / line
+
+    // SYNC PAYMENT //
+    $sqlPayment = "SELECT * FROM dbo_payment WHERE no_struk =:no_struk AND fl_sync = 0 order by noid ASC";
+    $stmtPayment = $db->prepare($sqlPayment);
+    $stmtPayment->bindParam(':no_struk', $no_struk);
+    $stmtPayment->execute();
+    $payments = $stmtPayment->fetchAll(PDO::FETCH_ASSOC);
+
+    $updatePaymentStmt = $db->prepare("UPDATE dbo_payment SET fl_sync = :status WHERE noid = :noid");
+
+    foreach ($payments as $payment) {
+
+        $dataPayment = [
+            "docno"       => $payment['no_struk'],
+            "paymethod"   => $payment['jenis_bayar'],
+            "location"    => $payment['kode_store'],
+            "docdate"     => $payment['tanggal'],
+            "Amount"      => floatval($payment['total_bayar']),
+            "kodeedc"     => $payment['kode_edc'] ?? "",
+            "namaedc"     => $payment['nama_edc'] ?? "",
+        ];
+
+        $jsonPayment = json_encode($dataPayment);
+
+        $ch = curl_init($bcUrlPayment);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonPayment);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Accept: application/json',
+            'Content-Length: ' . strlen($jsonPayment)
+        ]);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_NTLM); // NTLM Auth
+        curl_setopt($ch, CURLOPT_USERPWD, "$bcUser:$bcPass");
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $errorNo = curl_errno($ch);
+        $errorMsg = curl_error($ch);
+        
+        if($Source != ""){
+            echo $jsonPayment . "<br>";
+            echo "ERROR HTTP CODE PAYMENT : " . $httpCode . "#" . $errorNo . "#" . $errorMsg . "<br>";
+        }
+        curl_close($ch);
+
+        if ($errorNo || $httpCode != 201) {
+            // gagal!
+            //$PaymentFailed = $PaymentFailed . $payment['no_struk'] . ", ";
+            $PaymentFailed = $PaymentFailed . $payment['noid'] . ", ";
+            $updatePaymentStmt->execute([':status' => -1, ':noid' => $payment['noid']]);
+        }
+
+        // berhasil!
+        $updatePaymentStmt->execute([':status' => 1, ':noid' => $payment['noid']]);
+
+    } // foreach payment
+
 } // foreach header
 
-// SYNC PAYMENT //
-$sqlPayment = "SELECT * FROM dbo_payment WHERE tanggal = :tanggal AND fl_sync = 0";
-$stmtPayment = $db->prepare($sqlPayment);
-$stmtPayment->bindParam(':tanggal', $Tanggal);
-$stmtPayment->execute();
-$payments = $stmtPayment->fetchAll(PDO::FETCH_ASSOC);
-
-$updatePaymentStmt = $db->prepare("UPDATE dbo_payment SET fl_sync = :status WHERE noid = :noid");
-
-foreach ($payments as $payment) {
-
-    $dataPayment = [
-        "docno"       => $payment['no_struk'],
-        "paymethod"   => $payment['jenis_bayar'],
-        "location"    => $payment['kode_store'],
-        "docdate"     => $payment['tanggal'],
-        "Amount"      => $payment['total_bayar'],
-        "kodeedc"     => "",
-        "namaedc"     => ""
-    ];
-
-    $jsonPayment = json_encode($dataPayment);
-
-    $ch = curl_init($bcUrlPayment);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonPayment);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Accept: application/json',
-        'Content-Length: ' . strlen($jsonPayment)
-    ]);
-    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_NTLM); // NTLM Auth
-    curl_setopt($ch, CURLOPT_USERPWD, "$bcUser:$bcPass");
-
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $errorNo = curl_errno($ch);
-    $errorMsg = curl_error($ch);
-    curl_close($ch);
-
-    if ($errorNo || $httpCode != 201) {
-        // gagal!
-        $PaymentFailed = $PaymentFailed . $payment['no_struk'] . ", ";
-        $updatePaymentStmt->execute([':status' => -1, ':noid' => $payment['noid']]);
-    }
-
-    // berhasil!
-    $updatePaymentStmt->execute([':status' => 1, ':noid' => $payment['noid']]);
-
-} // foreach payment
 
 echo json_encode(['Header failed' => $NoStrukFailed, 'Detail failed' => $ItemLineFailed, 'Payment failed' => $PaymentFailed]);
 

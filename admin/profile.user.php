@@ -45,7 +45,7 @@ $hash16 = CreateUniqueHash16();
 
 <body x-data class="is-header-blur" x-bind="$store.global.documentBody">
 <!-- App preloader-->
-<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-orange-50 dark:bg-navy-900 bg-[url(assets/images/please-wait.avif)] bg-no-repeat bg-center">
     <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
 </div>
 
@@ -56,61 +56,19 @@ $hash16 = CreateUniqueHash16();
     <main class="main-content w-full px-[var(--margin-x)] pb-8 bg-green-100">
         <div class="col-span-12 p-2 lg:col-span-12">
             <div class="flex items-center justify-between py-3 px-4">
-                <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Akses User</h2>
+                <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Profile User</h2>
             </div>
 
-            <form name="formProses" name="frmMasterProduk" id="frmMasterProduk" method="post" action="proses-user">
+            <form name="formProses" name="frmMasterProduk" id="frmMasterProduk" method="post" action="update-password">
                 <div class="grid grid-cols-2 my-2 gap-4 sm:gap-5 lg:gap-6">
                     <div class="col-span-12 sm:col-span-12">
                         <div class="card p-4 sm:p-5">
                             <div class="space-y-4">
                                 <input type="hidden" id="txtRandomCode" name="txtRandomCode" value="<?php echo $hash16;   ?>" readonly>
-                                
-                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-5">
+                                <input type="hidden" id="txtKodeKasir" name="txtKodeKasir" value="<?php echo $_SESSION['SESS_kode_kasir'];   ?>" readonly>
+                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
                                     <label class="block">
-                                        <span class="text-purple-500 font-bold">Kode Store <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
-                                        <span class="relative mt-1.5 flex">
-                                            <select id="txtKodeStore" name="txtKodeStore" required 
-                                            class="form-select h-12 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs+ hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
-                                                <option value="">Pilih Store</option>
-                                                <?php
-                                                $strSQL="SELECT kode_store,nama_store FROM `dbo_store` where fl_active = 1";
-                                                $CallstrSQL=mysqli_query($koneksidb, $strSQL);
-                                                while($rec=mysqli_fetch_array($CallstrSQL)){
-                                                ?>
-                                                <option value="<?php    echo $rec['kode_store']; ?>"><?php    echo $rec['kode_store']; ?> - <?php    echo $rec['nama_store']; ?></option>
-                                                <?php
-                                                }
-                                                ?>                                                
-                                            </select>
-                                        </span>
-                                    </label>  
-
-                                    <label class="block">
-                                        <span class="text-purple-500 font-bold">Kode Kasir <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib, Maksimal 3 Karakter</div></span>
-                                        <span class="relative mt-1.5 flex">						
-                                            <input placeholder="Masukan Kode Kasir" type="number" id="txtKodeKasir" name="txtKodeKasir" maxlength="3" required
-                                            class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
-                                            <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                                                <i class="fa-regular fa-building text-base"></i>
-                                            </span>
-                                        </span>
-                                    </label>
-                                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 sm:col-span-2">
-                                        <label class="block">
-                                            <span class="text-purple-500 font-bold">Nama Kasir <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
-                                            <span class="relative mt-1.5 flex">						
-                                                <input placeholder="Masukan Nama Kasir" type="text" id="txtNamaKasir" name="txtNamaKasir" required
-                                                class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
-                                                <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                                                    <i class="fa-regular fa-building text-base"></i>
-                                                </span>
-                                            </span>
-                                        </label>    
-                                    </div> 
-
-                                    <label class="block">
-                                        <span class="text-purple-500 font-bold">Password User <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
+                                        <span class="text-purple-500 font-bold">Ubah Password Baru <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
                                         <span class="relative mt-1.5 flex">						
                                             <input placeholder="Masukan Password User" type="password" id="txtPassword" name="txtPassword" required
                                             class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
@@ -121,42 +79,10 @@ $hash16 = CreateUniqueHash16();
                                     </label>                                                                                               
                                 </div>
 
-                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-5">
-                                    <label class="block">
-                                        <span class="text-purple-500 font-bold">Nomor Kontak <div class="badge rounded-full bg-warning/10 text-warning dark:bg-accent-light/15 dark:text-accent-light">Opsional</div></span>
-                                        <span class="relative mt-1.5 flex">						
-                                            <input placeholder="Masukan Nomor Kontak" type="text" id="txtNoKontak" name="txtNoKontak"
-                                            class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
-                                            <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                                                <i class="fa-regular fa-building text-base"></i>
-                                            </span>
-                                        </span>
-                                    </label>                           
-
-                                    <label class="block">
-                                        <span class="text-purple-500 font-bold">Jabatan <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
-                                        <span class="relative mt-1.5 flex">
-                                            <select id="txtJabatan" name="txtJabatan" required
-                                            class="form-select mt-1 h-12 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs+ hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
-                                                <option value="">Pilih Jabatan</option>
-                                                <?php
-                                                $strSQL="SELECT job_title FROM `dbo_jobtitle` where fl_active = 1";
-                                                $CallstrSQL=mysqli_query($koneksidb, $strSQL);
-                                                while($rec=mysqli_fetch_array($CallstrSQL)){
-                                                ?>
-                                                <option value="<?php    echo $rec['job_title']; ?>"><?php    echo $rec['job_title']; ?></option>
-                                                <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </span>
-                                    </label>                                                                                         				
-                                </div>    
-                                
-                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
                                     <label class="block">
                                         <span class="relative mt-1.5 flex">						
-                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="Proses Simpan"
+                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="Ubah Password"
                                             class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
                                         </span>
                                     </label>

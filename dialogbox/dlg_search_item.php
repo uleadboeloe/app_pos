@@ -17,12 +17,13 @@
                             <th style="width: 60px; text-align: center;">ISI</th>
                             <th style="width: 60px; text-align: center;">PROMO</th>
                             <th style="width: 40px; text-align: center;">VALUE</th>
+                            <th style="width: 70px; ">BARCODE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         for($i = 0; $i < 9; $i++)
-                            echo '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+                            echo '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
                         ?>
                     </tbody>
                 </table>

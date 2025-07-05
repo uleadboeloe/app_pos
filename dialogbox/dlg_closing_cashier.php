@@ -16,7 +16,7 @@
             IFNULL(SUM(var_poin),0) AS Poin, 
             IFNULL(SUM(var_voucher),0) AS Voucher
         FROM dbo_header
-        WHERE tanggal = CURDATE() AND kode_store = :kodestore AND kode_kasir = :kodekasir AND kode_register = :kode_register
+        WHERE tanggal = CURDATE() AND kode_store = :kodestore AND kode_kasir = :kodekasir AND kode_register = :kode_register and is_voided in ('0','2')
         GROUP BY jenis_bayar
         ORDER BY jenis_bayar
     SQL;

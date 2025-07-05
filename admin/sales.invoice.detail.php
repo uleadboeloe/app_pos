@@ -47,7 +47,7 @@ $hash16 = CreateUniqueHash16();
 
 <body x-data class="is-header-blur" x-bind="$store.global.documentBody">
 <!-- App preloader-->
-<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+<div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-orange-50 dark:bg-navy-900 bg-[url(assets/images/please-wait.avif)] bg-no-repeat bg-center">
     <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
 </div>
 
@@ -59,8 +59,7 @@ $hash16 = CreateUniqueHash16();
         <?php
         if(isset($_GET['rcode'])){
             $NoRegister = $_GET['rcode'];
-            $StrViewQuery="SELECT * from dbo_header where no_struk = '" . $_GET['rcode'] . "'";
-            //echo $StrViewQuery . "<hr>";     
+            $StrViewQuery="SELECT * from dbo_header where no_struk = '" . $_GET['rcode'] . "'";   
             $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
             while($recView=mysqli_fetch_array($callStrViewQuery))
             {
@@ -77,12 +76,27 @@ $hash16 = CreateUniqueHash16();
                 $Diskon = $recView['var_diskon'];
                 $NamaCustomer = $recView['nama_customer'];
                 $KodeCustomer = $recView['kode_customer'];
-                $NoRegister = $recView['kode_register'];
+                $FlVoid = $recView['is_voided'];
+                switch ($FlVoid){
+                    case "0":
+                        $StatusVoid = "";
+                        $ValueVoid = "0";
+                    break;
+                    case "1":
+                        $StatusVoid = "VOID";
+                        $ValueVoid = "0";
+                    break;
+                    case "2":
+                        $StatusVoid = "VOID-LINE";
+                        $ValueVoid = $recView['value_void'];
+                    break;
+                }
                 ?>
                 <div class="col-span-12 p-2 lg:col-span-12">
                     <div class="flex items-center justify-between py-2 px-4">
                         <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Detail Struk</h2>
                         <div class="flex">
+                        <a href="reproses-sales!<?php echo htmlspecialchars($recView['no_struk']); ?>" class="btn space-x-2 mr-1 bg-error font-medium text-white hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">Reproses Sales</a>
                         <a href="sales-invoice" class="btn space-x-2 mr-1 bg-warning font-medium text-white hover:bg-warning-focus focus:bg-warning-focus active:bg-warning-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">Kembali ke daftar</a>
                         <button class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" 
                         onclick="PrintDoc()">Print Detail</button>                                                
@@ -131,6 +145,10 @@ $hash16 = CreateUniqueHash16();
                                                 <div class="text-lg font-medium text-green-600">Rp <?php echo number_format($NominalVoucher,2,',','.'); ?></div>
                                             </div>
                                             <div class="mb-4">
+                                                <span class="block text-gray-500 text-sm">Value Void:</span>
+                                                <div class="text-lg font-medium text-green-600">Rp <?php echo number_format($ValueVoid,2,',','.'); ?></div>
+                                            </div>
+                                            <div class="mb-4">
                                                 <span class="block text-gray-500 text-sm">Kembalian:</span>
                                                 <div class="text-lg font-medium text-green-600">Rp <?php echo number_format($Kembalian,2,',','.'); ?></div>
                                             </div>
@@ -172,6 +190,7 @@ $hash16 = CreateUniqueHash16();
                                                             $RcodeBarang = getRandomCodeBySkuBarang($recDetail['kode_barang']);
                                                             $QtySales = $recDetail['qty_sales'];
                                                             $HargaSales = $recDetail['harga'];
+                                                            $QtyVoid = $recDetail['qty_voided'];
                                                             $TotalSales = $recDetail['total_sales'];
                                                             $varDiskon = $recDetail['var_diskon'];
                                                             $Netto = $recDetail['netto_sales'];
@@ -184,11 +203,11 @@ $hash16 = CreateUniqueHash16();
                                                                 </td>
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NamaBarang; ?></td>             
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($HargaSales,0); ?></td>   
-                                                                <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($QtySales,0); ?></td>         
+                                                                <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($QtySales,0); ?> # <?php   echo number_format($QtyVoid,0); ?></td>         
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($varDiskon,0); ?></td>       
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($TotalSales,0); ?></td>         
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($Netto,0); ?></td>       
-                                                            </tr>
+                                                            </tr>                                                             
                                                             <?php
                                                         }
                                                         ?>
@@ -262,6 +281,7 @@ $hash16 = CreateUniqueHash16();
                                                 <table id="table2" class="table-print is-hoverable w-full" width="100%">     
                                                     <thead>
                                                         <tr>
+                                                            <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Noid</th>
                                                             <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Log Description</th>
                                                             <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal Log</th>
                                                             <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Proses User</th>
@@ -274,10 +294,11 @@ $hash16 = CreateUniqueHash16();
                                                     <tbody>
                                                         <?php
                                                         /*==========================*/
-                                                        $StrViewDetail="SELECT * from dbo_log where no_struk = '" . $_GET['rcode'] . "' order by noid DESC";   
+                                                        $StrViewDetail="SELECT * from dbo_log where no_struk = '" . $_GET['rcode'] . "' order by noid ASC";   
                                                         $callStrViewDetail=mysqli_query($koneksidb, $StrViewDetail);
                                                         while($recDetail=mysqli_fetch_array($callStrViewDetail))
                                                         {
+                                                            $varNoid = $recDetail['noid'];
                                                             $varLogDescription = $recDetail['log_description'];
                                                             $varLogType = $recDetail['log_type'];
                                                             $varCreateDate = $recDetail['create_at'];
@@ -306,6 +327,7 @@ $hash16 = CreateUniqueHash16();
                                                             }
                                                             ?>
                                                             <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500 <?php   echo $varStyle; ?>">
+                                                                <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $varNoid; ?></td>    
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $varLogDescription; ?></td>    
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $varCreateDate; ?></td> 
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $varLogUser; ?></td> 
@@ -326,7 +348,7 @@ $hash16 = CreateUniqueHash16();
                             </div>                                 
                         </div>
                     </div> 
-                </div>             
+                </div>                           
                 <?php           
             }
           
@@ -363,7 +385,6 @@ $(document).ready(function (){
 
     var txtErrorType = $("#txtErrorType").val();
     var txtErrorDescription = $("#txtErrorDescription").val();
-    var txtGetDetail = $("#txtGetDetail").val();
     
     if(txtErrorDescription != ""){
         Swal.fire({
@@ -397,18 +418,4 @@ $(document).ready(function (){
         zeroRecords: "",
     });    
 });    
-
-
-    
-function previewFile(input){
-    var file = $("#picture").get(0).files[0];
-    if(file){
-        var reader = new FileReader();
-        reader.onload = function(){
-            $("#previewImg").attr("src", reader.result);
-            $("#previewImg").css("display", "block");
-        }
-        reader.readAsDataURL(file);
-    }
-}
 </script>

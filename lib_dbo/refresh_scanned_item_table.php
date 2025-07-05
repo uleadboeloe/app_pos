@@ -38,7 +38,7 @@
                 echo '<td>' . limitOnly45Chars($item['nama_barang']) . '</td>';
         }
 
-        if ($isPromo)
+        if ($item['disc'] == 100) //aslinya $isPromo
             echo '<td style="text-align: right;">&nbsp;' . formatRupiah($item['harga_jual']) . '</td>';
         else
             echo '<td class="harga-cell" style="text-align: right;">✏️&nbsp;' . formatRupiah($item['harga_jual']) . '</td>';

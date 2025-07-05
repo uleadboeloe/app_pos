@@ -32,6 +32,18 @@
                 <div class="controls">
                     <table id="tbl">
                         <tr>
+                            <td colspan="3"><input class="span12" id="hargabarang" type="text" readonly style="text-align: right;padding-right: 10px;" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><input class="span12" id="diskonbarang" type="text" readonly style="text-align: right;padding-right: 10px;" /></td>
+                        </tr> 
+                        <tr>
+                            <td colspan="3"><input class="span12" id="skubarang" type="text" readonly style="text-align: right;padding-right: 10px;" /></td>
+                        </tr> 
+                        <tr>
+                            <td colspan="3"><input class="span12" id="uombarang" type="text" readonly style="text-align: right;padding-right: 10px;" /></td>
+                        </tr>                        
+                        <tr>
                             <td>Quantity</td>
                             <td>&nbsp;</td>
                             <td>New Quantity</td>
@@ -210,6 +222,16 @@
                         $("#itemnotfound").hide();
                         var qty = data.qty_sales;
                         $("#Qty").val(qty);
+
+                        var hargabarang = data.harga_barang;
+                        $("#hargabarang").val(hargabarang);
+                        var diskonbarang = data.diskon_barang;
+                        $("#diskonbarang").val(diskonbarang);   
+                        var skubarang = data.kode_barang;
+                        $("#skubarang").val(skubarang);    
+                        var uombarang = data.uom_barang;
+                        $("#uombarang").val(uombarang);   
+                                             
 
                         var namabarang = data.nama_barang;
                         $("#namabarang").show();

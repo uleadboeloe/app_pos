@@ -18,10 +18,11 @@ if(isset($_SESSION['SESS_user_id'])){
         $varBarcode = $recView['barcode'];
         $varBarcode2 = $recView['barcode2'];
         $varBarcode3 = $recView['barcode3'];
-        echo $varNoid . " - " . $varBarcode . " - " . $varBarcode2 . " - " . $varBarcode3 . "<br>";
+        $FileBarcodes = $recView['file_barcode'];
+        echo $varNoid . " - " . $varBarcode . " - " . $FileBarcode . "<br>";
 
         /*CREATEBARCODE*/
-        if($varBarcode != ""){
+        if($FileBarcodes == ""){
             // Deteksi apakah protokolnya http atau https
             $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
             // Buat URL ke barcode generator
@@ -37,10 +38,12 @@ if(isset($_SESSION['SESS_user_id'])){
             if ($barcode_data !== false) {
                 file_put_contents($filename, $barcode_data);
             }
+  
+            /*CREATEBARCODE*/
+            $strInsert="UPDATE dbo_barang set file_barcode = '$FileBarcode' WHERE noid = '" . $varNoid . "'";
+            $executeSQL=mysqli_query($koneksidb, $strInsert); 
+            echo "<div style='color:#00FF00;'>" . $varNoid . "#" . $FileBarcode . "</div>";
         }
-        /*CREATEBARCODE*/
-        $strInsert="UPDATE dbo_barang set file_barcode = '$FileBarcode' WHERE noid = '" . $varNoid . "'";
-        $executeSQL=mysqli_query($koneksidb, $strInsert); 
                 
     }
 }

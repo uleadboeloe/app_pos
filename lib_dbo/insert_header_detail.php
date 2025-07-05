@@ -6,7 +6,7 @@
     include("../admin/library/fungsi.php");
 
     session_start();
-    $kode_register = $_SESSION['SESS_kode_register'];
+    //$kode_register = $_SESSION['SESS_kode_register'];
 
     $order_no = $_GET['order_no'];
     $total_bayar = $_GET['tendered'];
@@ -20,6 +20,7 @@
     $kode_voucher = $_GET['kode_voucher'];
     $nama_kartu = $_GET['nama_kartu'];
     $mesin_edc = $_GET['mesin_edc'] ? $_GET['mesin_edc'] : 0;
+    $kode_register = $_GET['kode_register'];
 
     if($mesin_edc > 0){
         $nama_mesin = getNamaMesinNoid($mesin_edc);
@@ -125,11 +126,13 @@
         
         $TotalBayarCustomer = $total_struk_before_round-$pembulatan-$nilai_voucher-$nilaipoin;
         if($payment_type == "CASH"){
+            $TotalBayar = $total_bayar; 
             $TotalCash = $total_bayar-$kembalian;
             $TotalNonCash = 0;
         }else{
+            $TotalBayar=$total_struk_before_round; 
             $TotalCash = 0;
-            $TotalNonCash = $total_bayar-$kembalian;
+            $TotalNonCash = $total_struk_before_round;
         }
         // Insert ke tabel dbo_header
         $query_header = <<<SQL
@@ -144,7 +147,7 @@
             'no_struk' => $order_no,
             'kode_kasir' => $user_id,
             'nama_kasir' => $user_name,
-            'total_bayar' => $total_bayar,
+            'total_bayar' => $TotalBayar,
             //'total_struk' => $total_struk,
             'total_struk' => $total_struk_before_round,
             'kembalian' => $kembalian,
@@ -175,7 +178,7 @@
             'kode_store' => $kode_store,
             'no_struk' => $order_no,
             'jenis_bayar' => $payment_type, 
-            'total_bayar' => $total_bayar,
+            'total_bayar' => $TotalBayar,
             'kode_edc' => $mesin_edc,
             'nama_edc' => $nama_mesin,
             'nama_bank' => $bank_penerbit,

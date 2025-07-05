@@ -13,6 +13,7 @@ $Timestampx = str_replace("-","",$Timestamp);
 // Endpoint & Auth
 //$Company = "TEST";
 $Company = "AMANAHLIVE";
+$Source = isset($_GET['source']) ? $_GET['source'] : "";
 
 $bcUrlHeader = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/PRSHeader";
 $bcUrlDetail = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/PRSLine";
@@ -73,7 +74,7 @@ foreach ($ResultDataValue as $field) {
     $department = isset($field['department']) ? $field['department'] : null;
     $Uom = isset($field['Uom']) ? $field['Uom'] : null;
     $VAT = isset($field['VAT']) ? $field['VAT'] : null;
-    $Timbang = isset($field['Timbang']) ? $field['Timbang'] : null;
+    $VarTimbang = isset($field['Timbang']) ? $field['Timbang'] : null;
     $Conv1 = isset($field['Conv1']) ? $field['Conv1'] : "0";
     $Conv2 = isset($field['Conv2']) ? $field['Conv2'] : "0";
     $Tail1 = isset($field['Tail1']) ? $field['Tail1'] : null;
@@ -89,12 +90,10 @@ foreach ($ResultDataValue as $field) {
     }else{
         $varPPNx = "0";
     }
-
-    if($Timbang = "false"){
-        //$varTimbangx = "false";
+    
+    if($VarTimbang === false){
         $FlTimbang = 0;
     }else{
-        //$varTimbangx = "true";
         $FlTimbang = 1;
     }
 
@@ -118,7 +117,7 @@ foreach ($ResultDataValue as $field) {
             '$Conv2','$FlTimbang','$CreateUrl','$Uom','$Tail2','$Tail1',
             '$varPPNx','$datedb','ADMIN')";
             $executeSQLxz=mysqli_query($koneksidb, $strSQLMaster);
-            //echo "<div style='color:#FF0990;'>INSERT ITEMDB : <br>" . $varMasterData . "</div>";
+            //echo "<div style='color:#FF0990;'>INSERT ITEMDB : <br>" . $strSQLMaster . "</div>";
         }else{
             $strSQLMaster="UPDATE dbo_barang set `nama_barang` = '$varNamaBarang',
             `barcode` = '$item_n',`barcode2` = '$Barcode1',`barcode3` = '$Barcode2',
@@ -129,11 +128,13 @@ foreach ($ResultDataValue as $field) {
             `last_update_price` = '$datedb',
             `ppn` = '$varPPNx' where sku_barang = '" . $plu . "'";
             $executeSQLxz=mysqli_query($koneksidb, $strSQLMaster);
-            //echo "<div style='color:#FF9900;'>MASUK UPDATE ITEM : <br>" . $varMasterData . "</div>";  
+            //echo "<div style='color:#FF9900;'>MASUK UPDATE ITEM : <br>" . $strSQLMaster . "</div>";  
         }
 
-        if($FlTimbang === 1){
-            //echo "<div style='color:#FF9900;'>" . $kdstore . "#" . $plu . "#" . $item_n . "#" . $Uom . "#" . $Harga0 . "#" . $Barcode1 . "#" . $Tail1 . "#" . $Harga1 . "#" . $Barcode2 . "#" . $Tail2 . "#" . $Harga2 . "</div>";
+        if($FlTimbang == 1){
+            if($Source!=""){
+            echo "<div style='color:#00FF00;'>" . $kdstore . "#" . $plu . "#" . $VarTimbang . "#" . $item_n . "#" . $Uom . "#" . $Harga0 . "#" . $Barcode1 . "#" . $Tail2 . "#" . $Harga1 . "#" . $Barcode2 . "#" . $Tail1 . "#" . $Harga2 . "</div>";
+            }
             $varMasterData = $varMasterData."".$kdstore."|";
             $varMasterData = $varMasterData."".$plu."|";
             $varMasterData = $varMasterData."".$item_n."|";
@@ -148,23 +149,10 @@ foreach ($ResultDataValue as $field) {
             $varMasterData = $varMasterData."".$Conv1."|";
             $varMasterData = $varMasterData."".$Conv2."|";
             $varMasterData = $varMasterData."".$FlTimbang."^";
-
-            $SkuTimbang = "2" . $plu; 
-            $varHargaTimbang = str_replace(".00", "", $Harga0);                  
-            $csvFile = fopen("../file_master/digipos.csv", "a");
-            if ($csvFile && $varTimbangx == "True") {
-                $row = [
-                    $SkuTimbang,
-                    $SkuTimbang,
-                    $varNamaBarang,
-                    $varHargaTimbang
-                ];
-                fputcsv($csvFile, $row);
-                fclose($csvFile);
-            }
-
         }else{
-            //echo "<div style='color:#FF0099;'>" . $kdstore . "#" . $plu . "#" . $item_n . "#" . $Uom . "#" . $Harga2 . "#" . $Barcode1 . "#" . $Tail1 . "#" . $Harga1 . "#" . $Barcode2 . "#" . $Tail2 . "#" . $Harga0 . "</div>";
+            if($Source!=""){
+            echo "<div style='color:#FF9900;'>" . $kdstore . "#" . $plu . "#" . $VarTimbang . "#" . $item_n . "#" . $Uom . "#" . $Harga0 . "#" . $Barcode1 . "#" . $Tail2 . "#" . $Harga1 . "#" . $Barcode2 . "#" . $Tail1 . "#" . $Harga2 . "</div>";
+            }
             $varMasterData = $varMasterData."".$kdstore."|";
             $varMasterData = $varMasterData."".$plu."|";
             $varMasterData = $varMasterData."".$item_n."|";
@@ -178,7 +166,7 @@ foreach ($ResultDataValue as $field) {
             $varMasterData = $varMasterData."".$Harga0."|";
             $varMasterData = $varMasterData."".$Conv1."|";
             $varMasterData = $varMasterData."".$Conv2."|";
-            $varMasterData = $varMasterData."".$FlTimbang."^";        
+            $varMasterData = $varMasterData."".$FlTimbang."^";       
         }
 
         $FlatMaster = "../file_master/MASTER" . $Timestampx . ".txt";
@@ -186,6 +174,5 @@ foreach ($ResultDataValue as $field) {
         fwrite($FlatMasterx, normalize_line_endings($varMasterData));
         fclose($FlatMasterx);
     }
-
 }
 ?>

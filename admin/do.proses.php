@@ -137,6 +137,45 @@ if(isset($_SESSION['SESS_user_id'])){
                 }
             }              
         break;
+        case "change-passworduser":
+            $txtKodeKasirx = (trim($_POST['txtKodeKasir']));
+            $txtRandomCodex = (trim($_POST['txtRandomCode']));
+            $txtPasswordx = (trim($_POST['txtPassword']));
+            $Passwords = crypt($txtPasswordx, $Salt);
+            
+            $strQuery="SELECT * FROM dbo_user WHERE kode_kasir = '" . $txtKodeKasirx . "'";
+            $callstrQuery=mysqli_query($koneksidb, $strQuery);
+            $Jumbar=mysqli_num_rows($callstrQuery);
+            if($Jumbar == 1){
+                $strInsert="UPDATE dbo_user set userpass = '$Passwords' where kode_kasir = '" . $txtKodeKasirx . "'";
+                $executeSQL=mysqli_query($koneksidb, $strInsert); 
+
+                if($executeSQL === false){
+                    header("Location: profile-showmsg!save-failed");
+                }else{
+                    header("Location: profile-showmsg!save-success");
+                }
+            }            
+        break;    
+        case "daftarkartu":
+            $txtJenisKartux = (trim($_POST['txtJenisKartu']));
+            $txtNamaKartux = (trim($_POST['txtNamaKartu']));
+            $txtNamaBankPenerbitx = (trim($_POST['txtNamaBankPenerbit']));
+            
+            $strQuery="SELECT * FROM dbo_kartu WHERE nama_kartu = '" . $txtNamaKartux . "'";
+            $callstrQuery=mysqli_query($koneksidb, $strQuery);
+            $Jumbar=mysqli_num_rows($callstrQuery);
+            if($Jumbar == 0){
+                $strInsertx="INSERT INTO dbo_kartu(`debet_kredit`,`nama_kartu`,`init_bank`,`posting_date`,`posting_user`) VALUES ('$txtJenisKartux','$txtNamaKartux','$txtNamaBankPenerbitx','$datedb','$Userid')";
+                $executeSQLx=mysqli_query($koneksidb, $strInsertx); 
+
+                if($executeSQL === false){
+                    header("Location: daftar-kartu-showmsg!save-failed");
+                }else{
+                    header("Location: daftar-kartu-showmsg!save-success");
+                }
+            }            
+        break;        
         case "promo":
             $txtRandomCodex = (trim($_POST['txtRandomCode']));
             $txtKodePromox = (trim($_POST['txtKodePromo']));
@@ -680,6 +719,9 @@ if(isset($_SESSION['SESS_user_id'])){
         break;  
         case "konfirm-register":
             $txtNoRegisterx = (trim($_POST['txtNoRegister']));
+            $txtTerimaSetoranx = (trim($_POST['txtTerimaSetoran']));
+            $txtTerimaSetoranx = replacenumbers($txtTerimaSetoranx);
+            
             $txtKomentarAdminx = nl2br(trim($_POST['txtKomentarAdmin']));
 
             $strQuery="SELECT * FROM dbo_register WHERE kode_register = '" . $txtNoRegisterx . "'";
@@ -687,9 +729,10 @@ if(isset($_SESSION['SESS_user_id'])){
             $JumbarLine=mysqli_num_rows($callstrQueryLine);
             if($JumbarLine > 0){   
 
-                $strInsert="UPDATE dbo_register set respon_skasir = '$txtKomentarAdminx', respon_user = '" . $_SESSION['SESS_kode_kasir'] . "', respon_date = '$datedb', status_respon = '1' ";
+                $strInsert="UPDATE dbo_register set respon_skasir = '$txtKomentarAdminx',setoran_diterima = '$txtTerimaSetoranx', respon_user = '" . $_SESSION['SESS_kode_kasir'] . "', respon_date = '$datedb', status_respon = '1' ";
                 $strInsert=$strInsert . " WHERE kode_register = '" . $txtNoRegisterx . "'";
                 $executeSQL=mysqli_query($koneksidb, $strInsert); 
+                //echo $strInsert;
                 
             }
 
@@ -698,7 +741,29 @@ if(isset($_SESSION['SESS_user_id'])){
             }else{
                 header("Location: register-showmsg!save-success@$txtNoRegisterx");
             }  
-        break;        
+        break;   
+        case "proses-laporan":
+            $txtRandomCodex = (trim($_POST['txtRandomCode']));
+            $txtKodeKasirx = (trim($_POST['txtKodeKasir']));
+            $txtPeriodeLaporanx = (trim($_POST['txtPeriodeLaporan']));
+            $txtPeriodeLaporanx = explode(" to ", $txtPeriodeLaporanx);
+			$StartDate = $txtPeriodeLaporanx[0];
+			$EndDate = $txtPeriodeLaporanx[1];
+
+            $strQuery="SELECT * FROM dbo_user WHERE kode_kasir = '" . $txtKodeKasirx . "'";
+            $callstrQuery=mysqli_query($koneksidb, $strQuery);
+            $Jumbar=mysqli_num_rows($callstrQuery);
+            if($Jumbar == 1){
+                $strInsert="UPDATE dbo_user set `start_date` = '$StartDate', `end_date` = '$EndDate' where kode_kasir = '" . $txtKodeKasirx . "'";
+                $executeSQL=mysqli_query($koneksidb, $strInsert); 
+
+                if($executeSQL === false){
+                    header("Location: laporan-showmsg!save-failed");
+                }else{
+                    header("Location: laporan-showmsg!save-success");
+                }
+            }   
+        break;          
         case "HIDDEN":
             case "E":                             
                 $txtNormalPricex = (trim($_POST['txtNormalPrice']));

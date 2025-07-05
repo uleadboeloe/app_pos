@@ -56,6 +56,7 @@ $lastno_struk_no = $ns[0]["nomor_akhir"] ;
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
 	<link href="theme/css/custom.css">
+	<link href="theme/css/hover.css">
 	
 	<!-- Glyphicons -->
 	<link rel="stylesheet" href="theme/css/glyphicons.css" />
@@ -214,6 +215,40 @@ $lastno_struk_no = $ns[0]["nomor_akhir"] ;
 		}
 		.qtybtnblank {
 			background-color:rgb(151, 151, 151);
+		}
+		.floatBottomBtn{
+			position:fixed;
+			border:#000000 solid 2px;
+			width:40px;
+			height:40px;
+			bottom:10px;
+			padding: 7px 7px 5px;
+			right:10px;
+			background-color:#fca801;
+			color:#FFF;
+			border: solid 1px #000;
+			border-radius:12%;
+			font-size: 40px;
+			text-align:center;
+			box-shadow: 2px 2px 3px #999;
+			z-index: 600;
+		}
+		.floatBottomBtns{
+			position:fixed;
+			border:#000000 solid 2px;
+			width:40px;
+			height:40px;
+			bottom:10px;
+			padding: 7px 7px 5px;
+			right:80px;
+			background-color:#0000ff;
+			color:#FFF;
+			border: solid 1px #000;
+			border-radius:12%;
+			font-size: 40px;
+			text-align:center;
+			box-shadow: 2px 2px 3px #999;
+			z-index: 600;
 		}
 	</style>
 
@@ -465,6 +500,12 @@ $lastno_struk_no = $ns[0]["nomor_akhir"] ;
 					<!-- END LEFT PANEL -->
 					<footer style="font-size: 80%; color: grey; margin-top: 10px;">Copyright &copy; 2025 - INSANTARA</footer>
 				</div>
+				
+				<div class="floatBottomBtn">
+					<div onclick="window.open('daftar-promo', '_blank');" style="display:inline-block;cursor:pointer;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 14 14"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M12.5 3h-11a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1m0 4v5.5a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V7M7 3v10.5m3-13L7 3L4 .5" stroke-width="1"/></svg>
+					</div>
+				</div>				
 
 				<!-- Tendered Panel -->
 				<!-- <div id="TenderedPanel" class="span4" style="padding: 5px 10px 0px 0px; margin-left: 10px; pointer-events: none; opacity: 0.5;"> -->
@@ -644,6 +685,22 @@ $lastno_struk_no = $ns[0]["nomor_akhir"] ;
 <script src="dialogbox/dlg_edit_price.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+	$("#svgFullScreen").css("display", "none");
+	$("#svgRestoreScreen").css("display", "block");
+    document.documentElement.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) {
+		$("#svgFullScreen").css("display", "block");
+		$("#svgRestoreScreen").css("display", "none");
+      	document.exitFullscreen();
+    }
+  }
+}
+</script>
 </body>
 
 </html>

@@ -46,7 +46,7 @@ if(isset($_SESSION['SESS_user_id'])){
 
   <body x-data class="is-header-blur" x-bind="$store.global.documentBody">
     <!-- App preloader-->
-    <div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+    <div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-orange-50 dark:bg-navy-900 bg-[url(assets/images/please-wait.avif)] bg-no-repeat bg-center">
       <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
     </div>
 
@@ -92,8 +92,7 @@ if(isset($_SESSION['SESS_user_id'])){
               <div class="space-y-3.5">
                   <div class="flex cursor-pointer justify-between">
                       <div class="w-full flex space-x-3.5 text-center">
-                                          
-                              <p class="text-3xl font-bold text-slate-700 dark:text-navy-100">Rp. <?php  echo $GrossSales; ?></p>
+                              <p class="text-3xl font-bold text-slate-700 dark:text-navy-100">Rp. <?php echo number_format($GrossSales,2,',','.'); ?></p>
                       </div>
                   </div>
               </div>
@@ -105,7 +104,7 @@ if(isset($_SESSION['SESS_user_id'])){
               <div class="space-y-3.5">
                   <div class="flex cursor-pointer justify-between">
                       <div class="w-full flex space-x-3.5 text-center">
-                          <p class="text-3xl font-bold text-slate-700 dark:text-navy-100">Rp. <?php  echo $NetSales; ?></p>
+                          <p class="text-3xl font-bold text-slate-700 dark:text-navy-100">Rp. <?php echo number_format($NetSales,2,',','.'); ?></p>
                       </div>
                   </div>
               </div>
@@ -118,7 +117,7 @@ if(isset($_SESSION['SESS_user_id'])){
               <div class="space-y-3.5">
                   <div class="flex cursor-pointer justify-between">
                       <div class="w-full flex space-x-3.5 text-center">               
-                          <p class="text-3xl font-bold text-slate-700 dark:text-navy-100">Rp. <?php  echo $TotalNonCash; ?></p>
+                          <p class="text-3xl font-bold text-slate-700 dark:text-navy-100">Rp. <?php echo number_format($TotalNonCash,2,',','.'); ?></p>
                       </div>
                   </div>
               </div>
@@ -131,7 +130,7 @@ if(isset($_SESSION['SESS_user_id'])){
               <div class="space-y-3.5">
                   <div class="flex cursor-pointer justify-between">
                       <div class="w-full flex space-x-3.5 text-center">
-                          <p class="text-3xl font-bold text-slate-700 dark:text-navy-100">Rp. <?php  echo $TotalCash; ?></p>
+                          <p class="text-3xl font-bold text-slate-700 dark:text-navy-100">Rp. <?php echo number_format($TotalCash,2,',','.'); ?></p>
                       </div>
                   </div>
               </div>
@@ -145,13 +144,13 @@ if(isset($_SESSION['SESS_user_id'])){
               <table id="table1" class="is-hoverable w-full" width="100%">     
                   <thead>
                   <tr>
+                      <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Action</th>
                       <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode Register</th>
                       <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
                       <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal Open</th>
                       <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Modal Awal</th>
                       <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Nama SPV</th>
                       <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal Close</th>
-                      <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -176,16 +175,16 @@ if(isset($_SESSION['SESS_user_id'])){
                       $ModalAwal = $recView['modal_awal'];
                       $KodeSpv = $recView['kode_spv'];
                       ?>
-                      <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+                      <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">        
+                          <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                              <a href="register@<?php   echo $KodeRegister; ?>" target="_blank" class="btn h-8 rounded bg-success px-3 text-xs font-medium text-white hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">Show Detail</a>
+                          </td>
                           <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeRegister; ?></td>     
                           <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
                           <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDate; ?></td>         
                           <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($ModalAwal,2); ?></td>         
                           <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo getNamaUser($KodeSpv); ?></td>
-                          <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDateClose; ?></td>        
-                          <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                              <a href="register@<?php   echo $KodeRegister; ?>" target="_blank" class="btn h-8 rounded bg-success px-3 text-xs font-medium text-white hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">Show Detail</a>
-                          </td>
+                          <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDateClose; ?></td>
                       </tr>
                       <?php
                   }
@@ -216,7 +215,7 @@ if(isset($_SESSION['SESS_user_id'])){
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb . "' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb . "' and is_voided in ('0','2') order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {
