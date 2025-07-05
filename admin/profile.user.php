@@ -92,6 +92,50 @@ $hash16 = CreateUniqueHash16();
                     </div>
                 </div>  
             </form>
+            <?php
+            if(isset($_SESSION['SESS_kode_kasir'])){
+                $StrViewQuery="SELECT * from dbo_user where userid  = '" . $_SESSION['SESS_kode_kasir'] . "'";
+                //echo $StrViewQuery . "<hr>";     
+                $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                while($recView=mysqli_fetch_array($callStrViewQuery))
+                {
+                    $varNoid = $recView['noid'];
+                    ?>
+                    <div class="col-span-12 p-2 lg:col-span-12">
+                        <div class="flex items-center justify-between py-2 px-4">
+                            <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Detail User</h2>
+                            <div class="flex">
+                            <button class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" 
+                            onclick="PrintDoc();">Print Kartu Akses</button>                                                
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg bg-white py-5 sm:py-6">
+                            <div class="voucher-bg px-4 text-primary sm:px-5">
+                                <div class="flex" id="PrintArea">
+                                    <div class="w-80 p-2"><img src="<?php echo $recView['qrcode_user'];   ?>" class="mt-3 w-80"></div>
+                                    <div class="w-full p-2">
+                                        <div class="mt-3">
+                                            <p class="text-indigo-300">Nama User</p>
+                                            <p class="text-3xl font-semibold tracking-wide"><?php echo $recView['nama_user'];   ?></p>
+                                        </div>
+                                        <div class="mt-3">
+                                            <p class="text-indigo-300">Nomor Whatsapp</p>
+                                            <p class="text-3xl font-semibold tracking-wide"><?php echo $recView['nomor_kontak'];   ?></p>
+                                        </div>
+                                        <div class="mt-3">
+                                            <p class="text-indigo-300">Jabatan</p>
+                                            <p class="text-3xl font-semibold tracking-wide"><?php echo $recView['job_title'];   ?></p>
+                                        </div>                                                                        
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>  
+                    </div>             
+                    <?php           
+                }
+            }
+            ?>            
         </div>
     </main>
 </div>
