@@ -114,7 +114,7 @@
                             <hr>
 							<?php
 								if (isset($_SESSION['ls'])) 
-                    				if ($ls == "nok") echo '<p style="color:#FF0000">User Id and/or Password wrong!</p>';
+                    				if ($ls == "nok") echo '<p style="color:#FF0000">User Id / Password Tidak Sesuai!</p><p style="color:#FF0000">Pastikan User tidak dalam keadaan Aktif</p>';
                     		?>
                         </div>
                         <button class="btn btn-large btn-warning" type="submit">Sign in</button>

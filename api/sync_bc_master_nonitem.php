@@ -19,7 +19,7 @@ $bcUrlDetail = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/PRSLin
 $bcUrlPayment = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/PRSPayment";
 $bcUrlAllItem = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/AllItem";
 $bcUrlItem = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/Item";
-
+$bcUrlSalesPerson = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/Salespersons";
 $bcUrlCategory = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/Category";
 $bcUrlSubCategory = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/SubCategory";
 $bcUrlDepartemen = "http://64.20.58.66:7048/BC200/ODataV4/Company('$Company')/Departemen";

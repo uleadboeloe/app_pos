@@ -15,8 +15,7 @@ $myuserid = stripslashes($myuserid);
 $mypassword = stripslashes($mypassword);
 
 // pretty much secure from sql injection
-$stmt = $db->prepare("SELECT * FROM dbo_user WHERE userid = :userid AND fl_active = 1");
-
+$stmt = $db->prepare("SELECT * FROM dbo_user WHERE userid = :userid AND fl_active = 1 and is_login = 0");
 $stmt->execute(array(':userid' => $myuserid));
 $results = $stmt->fetchAll();
 
@@ -42,6 +41,7 @@ if($valid)
     $user_name = $results[0]["nama_user"];
     $kode_kasir = $results[0]["kode_kasir"];
 
+    $db->exec("UPDATE dbo_user set is_login = 1 where userid = '" . $user_id . "'");
     session_regenerate_id();
 
     $_SESSION['SESS_user_id'] = $user_id;
@@ -49,7 +49,6 @@ if($valid)
     $_SESSION['SESS_kode_kasir'] = $kode_kasir;
 
     $_SESSION['sts'] = 'OK';
-
     session_write_close();
 
     if($user_id == 'adm') // jika user admin buka dashboard otherwise kasir
@@ -58,7 +57,7 @@ if($valid)
     {
         // truncate table temp transaksi
         try {
-            $db->exec("DELETE FROM temp_transaksi where order_no LIKE '%-" . $kode_kasir . "-%'");
+            //$db->exec("DELETE FROM temp_transaksi where order_no LIKE '%-" . $kode_kasir . "-%'");
             header("location:kasir.php");
         } catch (PDOException $e) {
             echo "Gagal mengosongkan table temp transaksi: " . $e->getMessage();
@@ -72,5 +71,4 @@ else {
     header("location:index.php");
     exit();
 }
-
 ?>

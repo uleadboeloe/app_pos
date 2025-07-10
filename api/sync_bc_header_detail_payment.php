@@ -3,6 +3,11 @@ include("../lib/mysql_pdo.php");
 include("../lib/mysql_connect.php");
 include("../lib/general_lib.php");
 include("../admin/library/fungsi.php");
+include("../admin/library/parameter.php");
+
+//echo $timedb . "<br>";
+
+if($timedb > "21:30:00"){
 
 // Endpoint & Auth
 $Company = "AMANAHLIVE";
@@ -20,8 +25,8 @@ $Source = isset($_GET['source']) ? $_GET['source'] : "";
 
 // Ambil record header hari ini & belum sinkron
 // Ambil tanggal dari parameter GET, default ke hari ini jika tidak ada
-//$Tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : date('Y-m-d');
-$Tanggal = "2025-07-03";
+$Tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : date('Y-m-d');
+//$Tanggal = "2025-07-05";
 
 $sql = "SELECT * FROM dbo_header WHERE tanggal = :tanggal AND fl_sync = 0 order by noid ASC limit 20";
 $stmt = $db->prepare($sql);
@@ -239,7 +244,7 @@ foreach ($records as $row) {
 
 } // foreach header
 
-
 echo json_encode(['Header failed' => $NoStrukFailed, 'Detail failed' => $ItemLineFailed, 'Payment failed' => $PaymentFailed]);
-
+    
+}
 ?>

@@ -55,7 +55,6 @@ if(isset($_SESSION['SESS_user_id'])){
     <?php   include "sidebar.php";  ?>
       <!-- Main Content Wrapper -->
       <main class="main-content w-full px-[var(--margin-x)] pb-8">
-      <div class="flex gap-2">
         <?php
         $TotalStruk = getCountSalesHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
         $Pembulatan = getTotalPembulatanHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
@@ -71,8 +70,8 @@ if(isset($_SESSION['SESS_user_id'])){
         $TotalNonCash = getTotalNonCashHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
         $TotalDiskon = getTotalDiskonHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
         $NetSales = getTotalNettoHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
-        ?>
-
+        ?>        
+      <div class="flex gap-2">
           <div class="w-1/3 border-2 border-green-600 card bg-gradient-to-r from-blue-500 to-blue-300 px-4 pb-4 sm:px-5">
               <div class="my-3 flex h-8 items-center justify-between">
                   <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100">Total Struk</h2>
@@ -108,8 +107,7 @@ if(isset($_SESSION['SESS_user_id'])){
                       </div>
                   </div>
               </div>
-          </div>           
-          
+          </div>      
           <div class="w-1/3 border-2 border-green-600 card bg-gradient-to-r from-purple-500 to-purple-300 px-4 pb-4 sm:px-5">
               <div class="my-3 flex h-8 items-center justify-between">
                   <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100">Non Cash</h2>
@@ -122,7 +120,6 @@ if(isset($_SESSION['SESS_user_id'])){
                   </div>
               </div>
           </div>
-          
           <div class="w-1/3 border-2 border-green-600 card bg-gradient-to-r from-teal-500 to-teal-300 px-4 pb-4 sm:px-5">
               <div class="my-3 flex h-8 items-center justify-between">
                   <h2 class="text-sm font-medium tracking-wide text-slate-700 dark:text-navy-100">Cash</h2>
@@ -135,62 +132,62 @@ if(isset($_SESSION['SESS_user_id'])){
                   </div>
               </div>
           </div>
-      </div>
+      </div>    
 
       <!--Row 2 Baris-->
       <div class="mt-4 grid grid-cols-12 bg-slate-200 transition-all duration-[.25s] sm:mt-5 lg:mt-6">
           <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-8">
-              <div class='font-bold text-primary uppercase'>OPEN REGISTER</div>
-              <table id="table1" class="is-hoverable w-full" width="100%">     
-                  <thead>
-                  <tr>
-                      <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Action</th>
-                      <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode Register</th>
-                      <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
-                      <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal Open</th>
-                      <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Modal Awal</th>
-                      <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Nama SPV</th>
-                      <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal Close</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <?php
-                  /*==========================*/
-                  $StrViewQuery="SELECT * from dbo_register where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb . "' order by noid DESC";   
-                  $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
-                  while($recView=mysqli_fetch_array($callStrViewQuery))
-                  {
-                      $KodeRegister = $recView['kode_register'];
-                      $KodeKasir = $recView['kode_kasir'];
-                      $Tanggal = $recView['tanggal'];
-                      $Jam = $recView['jam'];
-                      $DisplayDate = date("d-m-Y", strtotime($Tanggal)) . " " . $Jam;
-                      $TanggalClose = $recView['closing_date'] ? $recView['closing_date'] : '2024-01-01';
-                      $JamClose = $recView['closing_time'];
-                      if($TanggalClose == '2024-01-01') {
-                          $DisplayDateClose = '';
-                      }else{
-                          $DisplayDateClose = date("d-m-Y", strtotime($TanggalClose)) . " " . $JamClose;
-                      }
-                      $ModalAwal = $recView['modal_awal'];
-                      $KodeSpv = $recView['kode_spv'];
-                      ?>
-                      <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">        
-                          <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                              <a href="register@<?php   echo $KodeRegister; ?>" target="_blank" class="btn h-8 rounded bg-success px-3 text-xs font-medium text-white hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">Show Detail</a>
-                          </td>
-                          <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeRegister; ?></td>     
-                          <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
-                          <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDate; ?></td>         
-                          <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($ModalAwal,2); ?></td>         
-                          <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo getNamaUser($KodeSpv); ?></td>
-                          <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDateClose; ?></td>
-                      </tr>
-                      <?php
-                  }
-                  ?>
-                  </tbody>
-              </table>
+                <div class='font-bold text-primary uppercase'>OPEN REGISTER</div>
+                <table id="table1" class="is-hoverable w-full" width="100%">     
+                    <thead>
+                    <tr>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Action</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode Register</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal Open</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Modal Awal</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Nama SPV</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal Close</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    /*==========================*/
+                    $StrViewQuery="SELECT * from dbo_register where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb . "' order by noid DESC";   
+                    $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                    while($recView=mysqli_fetch_array($callStrViewQuery))
+                    {
+                        $KodeRegister = $recView['kode_register'];
+                        $KodeKasir = $recView['kode_kasir'];
+                        $Tanggal = $recView['tanggal'];
+                        $Jam = $recView['jam'];
+                        $DisplayDate = date("d-m-Y", strtotime($Tanggal)) . " " . $Jam;
+                        $TanggalClose = $recView['closing_date'] ? $recView['closing_date'] : '2024-01-01';
+                        $JamClose = $recView['closing_time'];
+                        if($TanggalClose == '2024-01-01') {
+                            $DisplayDateClose = '';
+                        }else{
+                            $DisplayDateClose = date("d-m-Y", strtotime($TanggalClose)) . " " . $JamClose;
+                        }
+                        $ModalAwal = $recView['modal_awal'];
+                        $KodeSpv = $recView['kode_spv'];
+                        ?>
+                        <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">        
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                <a href="register@<?php   echo $KodeRegister; ?>" target="_blank" class="btn h-8 rounded bg-success px-3 text-xs font-medium text-white hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">Show Detail</a>
+                            </td>
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeRegister; ?></td>     
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDate; ?></td>         
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($ModalAwal,2); ?></td>         
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo getNamaUser($KodeSpv); ?></td>
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDateClose; ?></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
           </div>
           <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-4">
               <div id="display_log"></div>

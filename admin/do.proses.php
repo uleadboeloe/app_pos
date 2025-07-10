@@ -764,6 +764,95 @@ if(isset($_SESSION['SESS_user_id'])){
                 }
             }   
         break;          
+        case "proses-tanggallaporan":
+            $txtRandomCodex = (trim($_POST['txtRandomCode']));
+            $txtKodeKasirx = (trim($_POST['txtKodeKasir']));
+            $txtStartDatex = (trim($_POST['txtStartDate']));
+
+            $strQuery="SELECT * FROM dbo_user WHERE kode_kasir = '" . $txtKodeKasirx . "'";
+            $callstrQuery=mysqli_query($koneksidb, $strQuery);
+            $Jumbar=mysqli_num_rows($callstrQuery);
+            if($Jumbar == 1){
+                $strInsert="UPDATE dbo_user set `start_date` = '$txtStartDatex', `end_date` = '$txtStartDatex' where kode_kasir = '" . $txtKodeKasirx . "'";
+                $executeSQL=mysqli_query($koneksidb, $strInsert); 
+
+                if($executeSQL === false){
+                    header("Location: laporan-showmsg!save-failed");
+                }else{
+                    header("Location: laporan-showmsg!save-success");
+                }
+            }   
+        break;   
+        case "clear-header":
+            $txtSDatex = (trim($_POST['txtSDate']));
+            $txtEDatex = (trim($_POST['txtEDate']));
+            if(!empty($_POST['checkbox'])) {
+                foreach($_POST['checkbox'] as $selected) {
+                    $strQuery="SELECT * FROM dbo_header WHERE noid = '" . $selected . "'";
+                    $callstrQuery=mysqli_query($koneksidb, $strQuery);
+                    $Jumbar=mysqli_num_rows($callstrQuery);
+                    if($Jumbar == 1){
+                        $strUpdate="UPDATE dbo_header set fl_sync = 1 where noid = '" . $selected . "'";
+                        $executeSQL=mysqli_query($koneksidb, $strUpdate); 
+
+                    }  
+                }
+            }
+            header("Location: sales-failed-showmsg!save-success");
+        break;
+        case "clear-detail":
+            $txtSDatex = (trim($_POST['txtSDate']));
+            $txtEDatex = (trim($_POST['txtEDate']));
+            if(!empty($_POST['checkboxx'])) {
+                foreach($_POST['checkboxx'] as $selected) {
+                    $strQuery="SELECT * FROM dbo_detail WHERE noid = '" . $selected . "'";
+                    $callstrQuery=mysqli_query($koneksidb, $strQuery);
+                    $Jumbar=mysqli_num_rows($callstrQuery);
+                    if($Jumbar == 1){
+                        $strUpdate="UPDATE dbo_detail set fl_sync = 1 where noid = '" . $selected . "'";
+                        $executeSQL=mysqli_query($koneksidb, $strUpdate); 
+
+                    }  
+                }
+            }
+            header("Location: sales-failed-showmsg!save-success");
+        break;   
+        case "clear-payment":
+            $txtSDatex = (trim($_POST['txtSDate']));
+            $txtEDatex = (trim($_POST['txtEDate']));
+            if(!empty($_POST['checkboxxx'])) {
+                foreach($_POST['checkboxxx'] as $selected) {
+                    $strQuery="SELECT * FROM dbo_payment WHERE noid = '" . $selected . "'";
+                    $callstrQuery=mysqli_query($koneksidb, $strQuery);
+                    $Jumbar=mysqli_num_rows($callstrQuery);
+                    if($Jumbar == 1){
+                        $strUpdate="UPDATE dbo_payment set fl_sync = 1 where noid = '" . $selected . "'";
+                        $executeSQL=mysqli_query($koneksidb, $strUpdate); 
+
+                    }  
+                }
+            }
+            header("Location: sales-failed-showmsg!save-success");
+        break; 
+        case "reset-login":
+            $txtKodeKasirx = (trim($_POST['txtKodeKasir']));
+            $txtRandomCodex = (trim($_POST['txtRandomCode']));
+            
+            $strQuery="SELECT * FROM dbo_user WHERE kode_kasir = '" . $txtKodeKasirx . "'";
+            $callstrQuery=mysqli_query($koneksidb, $strQuery);
+            $Jumbar=mysqli_num_rows($callstrQuery);
+            if($Jumbar == 1){
+                $strInsert="UPDATE dbo_user set is_login = 0 where kode_kasir = '" . $txtKodeKasirx . "'";
+                $executeSQL=mysqli_query($koneksidb, $strInsert); 
+
+                if($executeSQL === false){
+                    header("Location: profile-showmsg!save-failed");
+                }else{
+                    header("Location: profile-showmsg!save-success");
+                }
+            }            
+        break;      
+        
         case "HIDDEN":
             case "E":                             
                 $txtNormalPricex = (trim($_POST['txtNormalPrice']));

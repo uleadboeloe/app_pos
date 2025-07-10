@@ -15,10 +15,12 @@ if(!isset($_GET['nobon'])){
     exit();
 }else{
 
-$user_id = $_SESSION['SESS_user_id']; 
-$user_name = $_SESSION['SESS_user_name'];
-$kode_kasir = $_SESSION['SESS_kode_kasir'];
-
+//$user_id = $_SESSION['SESS_user_id']; 
+//$user_name = $_SESSION['SESS_user_name'];
+//$kode_kasir = $_SESSION['SESS_kode_kasir'];
+$user_id = $_GET['kasir']; 
+$user_name = $_GET['kasir'];
+$kode_kasir = $_GET['kasir'];
 //require_once('securepage.php');
 //chkpage(600); // set idle max 60 seconds
 
@@ -372,6 +374,12 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                                             $varDiskon = "";
                                             $VariabelDiskon = "";
                                         }
+                                        $FlTimbang = getTimbangByKodeBarang($row['kode_barang']);
+                                        if($FlTimbang == 1){
+                                            $Satuan = "KG";
+                                        }else{
+                                            $Satuan = $row['satuan'];
+                                        }
                                     ?>
                                     <tr>
                                         <td style="color:#000;font-size:10px;" colspan="3"><?php   echo getNamaBarangByKodeBarang($row['kode_barang']);  ?>
@@ -384,7 +392,7 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                                         <td style="color:#000;font-size:10px;">
                                         Harga : <?php   echo number_format($row['harga'],0);  ?> <?php   echo $varDiskon;  ?> <?php   echo $VariabelDiskon;  ?>
                                         </td>
-                                        <td style="color:#000;font-size:10px;"><?php   echo $row['qty_sales'];  ?> <?php   echo $row['satuan'];  ?> (Void : <?php   echo number_format($QtyVoidLine,0);  ?> <?php   echo getUomByKodeBarang($row['kode_barang']);  ?>)</td>
+                                        <td style="color:#000;font-size:10px;"><?php   echo $row['qty_sales'];  ?> <?php   echo $Satuan;  ?> (Void : <?php   echo number_format($QtyVoidLine,0);  ?> <?php   echo getUomByKodeBarang($row['kode_barang']);  ?>)</td>
                                         <td style="text-align:right;font-size:10px;"><?php   echo number_format($row['total_sales'],0);  ?></td>
                                     </tr> 
                                     <?php
@@ -394,7 +402,7 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                                         <td style="color:#000;font-size:10px;">
                                         Harga : <?php   echo number_format($row['harga'],0);  ?> <?php   echo $varDiskon;  ?> <?php   echo $VariabelDiskon;  ?>
                                         </td>
-                                        <td style="color:#000;font-size:10px;"><?php   echo $row['qty_sales'];  ?> <?php   echo $row['satuan'];  ?></td>
+                                        <td style="color:#000;font-size:10px;"><?php   echo $row['qty_sales'];  ?> <?php   echo $Satuan;  ?></td>
                                         <td style="text-align:right;font-size:10px;"><?php   echo number_format($row['total_sales'],0);  ?></td>
                                     </tr> 
                                     <?php

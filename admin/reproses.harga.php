@@ -63,7 +63,7 @@ if($Filesize > 0){
             if($varBarcodeBarang2 == ""){
                 $varBarcodeBarang2 = "2" . $varBarcodeBarang;
             }      
-               
+
             if($varTimbang == 0){
                 $StrDeletePrice="DELETE FROM dbo_price where sku_barang = '" . $varSkuBarang . "'";
                 $CallStrDeletePrice=mysqli_query($koneksidb, $StrDeletePrice);

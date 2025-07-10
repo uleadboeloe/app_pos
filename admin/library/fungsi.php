@@ -237,6 +237,19 @@ function getRandomCodeBySkuBarang($IDX) {
 	}
 	return $varResult;
 }
+function getRandomCodeByKodeBarang($IDX) {
+	$strSQL="SELECT random_code FROM `dbo_barang` where kode_barang = '" . $IDX . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['random_code'];
+		}
+	}else{
+		$varResult = "";
+	}
+	return $varResult;
+}
 function getBankPenerbitMesinEdc($IDX) {
 	$strSQL="SELECT bank_penerbit FROM `dbo_mesin_edc` where noid = '" . $IDX . "'";
 	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
@@ -274,9 +287,16 @@ function getTextAfterP($str) {
 	return substr($str, $start + 3);
 }
 
+function getTextBeforeP($IDX) {
+	$str = (string)$IDX;
+	$str = str_replace("(P)FREETHIS", "", $str);
+	return $str;
+}
+
 function getNamaBarangByKodeBarang($IDX) {
 	//$StrSearch = str_replace("(P)","",$IDX);
-	$StrSearch = getTextAfterP($IDX);
+	$StrSearch = getTextBeforeP($IDX);
+	$StrSearch = getTextAfterP($StrSearch);
 	$strSQL="SELECT nama_barang FROM `dbo_barang` where kode_barang = '" . $StrSearch . "'";
 	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
 	$JumBar=mysqli_num_rows($CallstrSQL);
@@ -292,7 +312,8 @@ function getNamaBarangByKodeBarang($IDX) {
 
 function getUomByKodeBarang($IDX) {
 	//$StrSearch = str_replace("(P)","",$IDX);
-	$StrSearch = getTextAfterP($IDX);
+	$StrSearch = getTextBeforeP($IDX);
+	$StrSearch = getTextAfterP($StrSearch);
 	$strSQL="SELECT uom FROM `dbo_barang` where kode_barang = '" . $StrSearch . "'";
 	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
 	$JumBar=mysqli_num_rows($CallstrSQL);
@@ -302,6 +323,19 @@ function getUomByKodeBarang($IDX) {
 		}
 	}else{
 		$varResult = "";
+	}
+	return $varResult;
+}
+function getTimbangByKodeBarang($IDX) {
+	$StrSearch = getTextBeforeP($IDX);
+	$StrSearch = getTextAfterP($StrSearch);
+	$strSQL="SELECT fl_timbang FROM `dbo_barang` where kode_barang = '" . $StrSearch . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['fl_timbang'];
+		}
 	}
 	return $varResult;
 }
@@ -349,6 +383,17 @@ function getUomByBarcode($IDX) {
 	if ($JumBar>0){
 		while($rec=mysqli_fetch_array($CallstrSQL)){
 			$varResult = $rec['uom'];
+		}
+	}
+	return $varResult;
+}
+function getTimbangByBarcode($IDX) {
+	$strSQL="SELECT fl_timbang FROM `dbo_barang` where barcode = '" . $IDX . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['fl_timbang'];
 		}
 	}
 	return $varResult;
@@ -1070,7 +1115,8 @@ function cekQtyTempTransaksi($IDX,$UOMX,$ORDX){
 
 function getFileBarcodeByKodeBarang($IDX) {
 	//$StrSearch = str_replace("(P)","",$IDX);
-	$StrSearch = getTextAfterP($IDX);
+	$StrSearch = getTextBeforeP($IDX);
+	$StrSearch = getTextAfterP($StrSearch);
 	$strSQL="SELECT file_barcode FROM `dbo_barang` where kode_barang = '" . $StrSearch . "'";
 	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
 	$JumBar=mysqli_num_rows($CallstrSQL);
@@ -1080,6 +1126,20 @@ function getFileBarcodeByKodeBarang($IDX) {
 		}
 	}else{
 		$varResult = "";
+	}
+	return $varResult;
+}
+
+function getPaymentByNoStruk($IDX) {
+	$strSQL="SELECT total_bayar FROM `dbo_payment` where no_struk = '" . $IDX . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['total_bayar'];
+		}
+	}else{
+		$varResult = "0";
 	}
 	return $varResult;
 }

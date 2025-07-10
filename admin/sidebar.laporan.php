@@ -154,7 +154,13 @@ if(isset($_GET['msgcode'])){
                 class="flex py-2 text-xs+ tracking-wide text-slate-500 outline-none transition-colors duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
                 Payment
                 </a>
-            </li>                 
+            </li> 
+            <li>
+                <a href="sales-failed"
+                class="flex py-2 text-xs+ tracking-wide text-slate-500 outline-none transition-colors duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
+                Failed Sales Proses
+                </a>
+            </li>                              
             </ul>
             <?php
             if($_SESSION['SESS_hak_akses'] > 3){
@@ -182,19 +188,13 @@ if(isset($_GET['msgcode'])){
             <li>
                 <a href="sinkron-promo"
                 class="flex py-2 text-xs+ tracking-wide text-slate-500 outline-none transition-colors duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
-                Sinkroni Promo
+                Sinkron Promo
                 </a>
-            </li>  
-            <li>
-                <a href="sales-failed"
-                class="flex py-2 text-xs+ tracking-wide text-slate-500 outline-none transition-colors duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50">
-                Failed Sales Proses
-                </a>
-            </li>                            
-            </ul>
+            </li> 
             <?php
             }
-            ?>    
+            ?>           
+            </ul>    
         </div>
         </div>
     </div>

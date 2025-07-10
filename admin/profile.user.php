@@ -92,6 +92,46 @@ $hash16 = CreateUniqueHash16();
                     </div>
                 </div>  
             </form>
+
+            <form name="formProses" name="frmMasterProduk" id="frmMasterProduk" method="post" action="reset-login-user">
+                <div class="grid grid-cols-2 my-2 gap-4 sm:gap-5 lg:gap-6">
+                    <div class="col-span-12 sm:col-span-12">
+                        <div class="card p-4 sm:p-5">
+                            <div class="space-y-4">
+                                <input type="hidden" id="txtRandomCode" name="txtRandomCode" value="<?php echo $hash16;   ?>" readonly>
+                                <label class="block">
+                                    <span class="text-purple-500 font-bold">Kode Kasir <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
+                                    <span class="relative mt-1.5 flex">
+                                        <select id="txtKodeKasir" name="txtKodeKasir" required 
+                                        class="form-select h-12 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs+ hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                                            <option value="">Pilih Kode Kasir</option>
+                                            <?php
+                                            $strSQL="SELECT userid,nama_user FROM `dbo_user` where fl_active = 1";
+                                            $CallstrSQL=mysqli_query($koneksidb, $strSQL);
+                                            while($rec=mysqli_fetch_array($CallstrSQL)){
+                                            ?>
+                                            <option value="<?php    echo $rec['userid']; ?>"><?php    echo $rec['userid']; ?> - <?php    echo $rec['nama_user']; ?></option>
+                                            <?php
+                                            }
+                                            ?>                                                
+                                        </select>
+                                    </span>
+                                </label>  
+
+                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
+                                    <label class="block">
+                                        <span class="relative mt-1.5 flex">						
+                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="RESET LOGIN USER"
+                                            class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                                        </span>
+                                    </label>
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </form>   
+
             <?php
             if(isset($_SESSION['SESS_kode_kasir'])){
                 $StrViewQuery="SELECT * from dbo_user where userid  = '" . $_SESSION['SESS_kode_kasir'] . "'";
@@ -101,7 +141,8 @@ $hash16 = CreateUniqueHash16();
                 {
                     $varNoid = $recView['noid'];
                     ?>
-                    <div class="col-span-12 p-2 lg:col-span-12">
+                <div class="grid grid-cols-2 my-2 gap-4 sm:gap-5 lg:gap-6">                    
+                    <div class="col-span-12 lg:col-span-12">
                         <div class="flex items-center justify-between py-2 px-4">
                             <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Detail User</h2>
                             <div class="flex">
@@ -131,11 +172,12 @@ $hash16 = CreateUniqueHash16();
                                 </div>
                             </div>
                         </div>  
-                    </div>             
+                    </div>  
+                </div>           
                     <?php           
                 }
             }
-            ?>            
+            ?>              
         </div>
     </main>
 </div>
@@ -154,6 +196,16 @@ $hash16 = CreateUniqueHash16();
 <script type="text/javascript" src="assets/js/autocomplete/jquery.select-to-autocomplete.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+function PrintDoc() {
+    var toPrint = document.getElementById('PrintArea');
+    var popupWin = window.open('', '_blank', 'width=800,height=600,location=no,left=50px');
+    popupWin.document.open();
+    popupWin.document.write('<html><title>Preview Voucher</title><link rel="stylesheet" type="text/css" href="../theme/css/print.css" media="print"/></head><body onload="window.print();window.close();">')
+    popupWin.document.write(toPrint.innerHTML);
+    popupWin.document.write('</body></html>');
+    popupWin.document.close();
+}
+
 $(document).ready(function (){
     var txtErrorType = $("#txtErrorType").val();
     var txtErrorDescription = $("#txtErrorDescription").val();

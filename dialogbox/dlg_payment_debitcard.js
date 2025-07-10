@@ -119,6 +119,7 @@ $(function () {
 
                       window.sessionStorage.setItem("onhold_order_no", "");
                       window.sessionStorage.setItem("isrecalled", "0");
+                      window.sessionStorage.setItem("onhold_status", "");
                     }
 
                     $.ajax({
@@ -134,10 +135,22 @@ $(function () {
                         // redirect to kasir.php
                         if (isrecalled == "0") {
                           window.location.href =
-                            "displaystruk!" + proses_order_no;
+                            "preview.kasir.php?nobon=" +
+                            proses_order_no +
+                            "&kasir=" +
+                            current_user_id +
+                            "&store=" +
+                            current_kode_store;
+                          //window.location.href ="displaystruk!" + proses_order_no;
                         } else {
                           window.location.href =
-                            "displaystruk!" + current_order_no;
+                            "preview.kasir.php?nobon=" +
+                            current_order_no +
+                            "&kasir=" +
+                            current_user_id +
+                            "&store=" +
+                            current_kode_store;
+                          //window.location.href ="displaystruk!" + current_order_no;
                         }
                       },
                     });

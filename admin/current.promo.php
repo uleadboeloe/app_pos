@@ -1,4 +1,3 @@
-
 <?php
 include_once "library/connection.php";
 include_once "library/parameter.php";

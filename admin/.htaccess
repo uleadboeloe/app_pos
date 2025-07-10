@@ -33,7 +33,7 @@ RewriteRule ^laporan-sales-produk$ laporan.sales.invoice.php [L]
 RewriteRule ^laporan-sales-departemen$ laporan.sales.departemen.php [L]
 RewriteRule ^laporan-pembayaran$ laporan.payment.php [L]
 RewriteRule ^sales-failed$ sales.list.failed.php [L]
-
+RewriteRule ^sales-failed-showmsg!([^/]+)$ sales.list.failed.php?msgcode=$1 [L]
 
 RewriteRule ^payment-invoice$ payment.php [L]
 RewriteRule ^payment-invoice@([^/]+)$ payment.detail.php?rcode=$1 [L]
@@ -69,6 +69,13 @@ RewriteRule ^update-product$ do.proses.php?source=updateproduk [L]
 RewriteRule ^update-password$ do.proses.php?source=change-passworduser [L]
 RewriteRule ^proses-card$ do.proses.php?source=daftarkartu [L]
 RewriteRule ^proses-laporan$ do.proses.php?source=proses-laporan [L]
+RewriteRule ^proses-tanggallaporan$ do.proses.php?source=proses-tanggallaporan [L]
+RewriteRule ^proses-clear-header$ do.proses.php?source=clear-header [L]
+RewriteRule ^proses-clear-detail$ do.proses.php?source=clear-detail [L]
+RewriteRule ^proses-clear-payment$ do.proses.php?source=clear-payment [L]
+RewriteRule ^reset-login-user$ do.proses.php?source=reset-login [L]
+
+
 RewriteRule ^sinkron-master$ reproses.master.php?source=debug [L]
 RewriteRule ^sinkron-price$ reproses.harga.php?source=debug [L]
 RewriteRule ^sinkron-promo$ reproses.promo.php?source=debug [L]

@@ -281,6 +281,7 @@ $(document).ready(function () {
     qty = onlyNumbers(qty);
     var diskon = rowValues[6];
     var Uom = rowValues[4];
+    //var IdTemp = rowValues[4];
     //console.log("Qty: " + qty);
 
     // cek kode barang, kalau barang promo gak bisa!
@@ -409,7 +410,6 @@ $(document).ready(function () {
   // Event on click checkbox Use Point
   $("#chkboxUsePoint").on("click", function () {
     let isChecked = $(this).is(":checked") ? 1 : 0;
-
     var point_member = window.sessionStorage.getItem("poin_member_id") || "0";
     point_member = point_member.replaceAll(".", "");
     if (isChecked == 0) point_member = 0; // jika tidak di centang, set pointmemberid ke 0

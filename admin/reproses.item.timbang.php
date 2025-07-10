@@ -110,7 +110,7 @@ foreach ($ResultDataValue as $field) {
         $Jumbar=mysqli_num_rows($CallStrMstItem);
         if ($Jumbar > 0 ){
             $strSQLMaster="UPDATE dbo_barang set `fl_timbang` = '$FlTimbang' where sku_barang = '" . $plu . "'";
-            //$executeSQLxz=mysqli_query($koneksidb, $strSQLMaster);
+            $executeSQLxz=mysqli_query($koneksidb, $strSQLMaster);
             //if($Source!=""){
             //    echo "<div style='color:#FF9900;'>UPDATE ITEM :" . $strSQLMaster . "</div>";  
             //}
@@ -139,6 +139,20 @@ foreach ($ResultDataValue as $field) {
                     }
                 }
             }
+        }else{
+            /*$strSQLMaster="INSERT INTO dbo_barang(
+            `random_code`,`sku_barang`,`kode_barang`,`barcode`,`barcode2`,`barcode3`,
+            `nama_barang`,`keterangan_1`,
+            `sub_dept`,`dept`,`divisi`,`vendor_no`,`isi_kemasan_kecil`,
+            `isi_kemasan_sedang`,`fl_timbang`,`url_named`,`uom`,`uom2`,`uom3`,
+            `ppn`,`posting_date`,`posting_user`) VALUES(
+            '$RandomCode','$plu','$plu','$item_n','$Barcode1','$Barcode2',
+            '$varNamaBarang','$varNamaBarang',
+            '$subcat','$category','$department','$principal','$Conv1',
+            '$Conv2','$FlTimbang','$CreateUrl','$Uom','$Tail2','$Tail1',
+            '$varPPNx','$datedb','ADMIN')";
+            $executeSQLxz=mysqli_query($koneksidb, $strSQLMaster);*/
+            //echo "<div style='color:#FF0990;'>INSERT ITEMDB : <br>" . $strSQLMaster . "</div>"; 
         }
 
 

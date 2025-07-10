@@ -18,8 +18,8 @@
     $point_member = isset($_GET['point_member']) ? $_GET['point_member'] : 0;
     $voucher = isset($_GET['nilai_voucher']) ? $_GET['nilai_voucher'] : 0;
     $kode_voucher = $_GET['kode_voucher'];
-    $nama_kartu = $_GET['nama_kartu'];
-    $mesin_edc = $_GET['mesin_edc'] ? $_GET['mesin_edc'] : 0;
+    $nama_kartu = isset($_GET['nama_kartu']) ? $_GET['nama_kartu'] : "CASH";
+    $mesin_edc = isset($_GET['mesin_edc']) ? $_GET['mesin_edc'] : "0";
     $kode_register = $_GET['kode_register'];
 
     if($mesin_edc > 0){
@@ -106,6 +106,7 @@
         //total struk sesuai dengan harga total dari barang yang di beli
         $total_struk_before_round = $total_struk;
         $total_struk = roundCustom($total_struk);
+
         if($voucher > $total_struk_before_round){
             $nilai_voucher = $total_struk_before_round;
         }else{
@@ -125,15 +126,30 @@
         $pembulatan = $total_struk - $total_struk_before_round;
         
         $TotalBayarCustomer = $total_struk_before_round-$pembulatan-$nilai_voucher-$nilaipoin;
+
+
         if($payment_type == "CASH"){
             $TotalBayar = $total_bayar; 
             $TotalCash = $total_bayar-$kembalian;
             $TotalNonCash = 0;
+            $TotalCustomerBayar = $TotalCash;
         }else{
             $TotalBayar=$total_struk_before_round; 
             $TotalCash = 0;
-            $TotalNonCash = $total_struk_before_round;
+            $pembulatan = 0;
+            $TotalNonCash = round($total_struk_before_round);
+            $TotalCustomerBayar = $TotalNonCash;
         }
+        
+        /*echo "JENIS BAYAR: " . $payment_type ."<br>";
+        echo "TOTAL STRUK ASLI: " . $total_struk_before_round ."<br>";
+        echo "TOTAL STRUK: " . $total_struk ."<br>";
+        echo "TOTAL VOUCHER: " . $nilai_voucher ."<br>";
+        echo "TOTAL POINT: " . $point_member ."<br>";
+        echo "TOTAL KEMBALIAN: " . $kembalian ."<br>";
+        echo "TOTAL PEMBULATAN: " . $pembulatan ."<br>";
+        echo "TOTAL CUST BAYAR: " . $TotalCustomerBayar ."<br>";
+        */
         // Insert ke tabel dbo_header
         $query_header = <<<SQL
             INSERT INTO dbo_header (random_code, kode_store, no_struk, tanggal, jam, kode_kasir, nama_kasir, total_bayar, total_struk, kembalian, jenis_bayar, nama_kartu, kode_customer,status_customer,nama_customer,telp_customer, var_poin, var_pembulatan, var_voucher, var_cash, var_noncash, posting_date, posting_user, kode_register) 
@@ -166,6 +182,8 @@
             'kode_register' => $kode_register
         ]);
 
+        
+
         // Insert ke tabel dbo_payment
         $query_payment = <<<SQL
             INSERT INTO dbo_payment (random_code, kode_store, no_struk, tanggal, jenis_bayar, total_bayar, kode_edc, nama_edc, nama_bank, reff_code, approval_code, card_number, posting_date, posting_user) 
@@ -178,7 +196,7 @@
             'kode_store' => $kode_store,
             'no_struk' => $order_no,
             'jenis_bayar' => $payment_type, 
-            'total_bayar' => $TotalBayar,
+            'total_bayar' => $TotalCustomerBayar,
             'kode_edc' => $mesin_edc,
             'nama_edc' => $nama_mesin,
             'nama_bank' => $bank_penerbit,

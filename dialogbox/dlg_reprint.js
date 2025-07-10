@@ -37,7 +37,15 @@ $(function () {
           });
           /*addtional log aktivitas*/
 
-          window.location.href = "reprint!" + valueStatus;
+          window.location.href =
+            "preview.kasir.php?nobon=" +
+            valueStatus +
+            "&kasir=" +
+            current_user_id +
+            "&store=" +
+            current_kode_store +
+            "&reprint=true";
+          //window.location.href = "reprint!" + valueStatus;
         }
         /*$(this).dialog("close");*/
       },

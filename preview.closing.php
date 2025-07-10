@@ -213,6 +213,8 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
             }else{
                 echo "<input type='hidden' id='txtMsg' name='txtMsg' value='' class='text-primary' />";
             }
+            
+
             $strQuery = $db->prepare("SELECT * FROM dbo_register WHERE kode_register = :kode_register");
             $strQuery->execute(array(':kode_register' => $KodeRegister));
             $rec = $strQuery->fetchAll();
@@ -263,6 +265,7 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
                 $StatusSelisih = "Setoran Lebih";
             }
 
+            $db->exec("UPDATE dbo_user set is_login = 0 where userid = '" . $KodeKasir . "'");
             $HeaderStruk = getHeaderStruk($kode_store);
             $FooterStruk = getFooterStruk($kode_store);
             ?>            

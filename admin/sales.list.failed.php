@@ -8,6 +8,18 @@ include_once "library/parameter.php";
 include_once "library/fungsi.php";
 include_once "../lib_dbo/user_functions.php";
 $hash16 = CreateUniqueHash16();
+
+    $StrViewQuery="SELECT * from dbo_user where userid = '" . $_SESSION['SESS_user_id'] . "'";   
+    $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+    while($recView=mysqli_fetch_array($callStrViewQuery))
+    {
+        $varStartDate = $recView['start_date'];
+        // Format tanggal lokal Indonesia
+        $varStartDateIndo = date("d M Y", strtotime($varStartDate));
+
+        $varEndDate = $recView['end_date'];
+        $varEndDateIndo = date("d M Y", strtotime($varEndDate));
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,113 +66,201 @@ $hash16 = CreateUniqueHash16();
     <!-- Main Content Wrapper -->
     <main class="main-content w-full px-[var(--margin-x)] pb-8 bg-green-100">
         <div class="col-span-12 p-2 lg:col-span-12">
-            <div class="flex items-center justify-between py-2 px-4">
-                <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Sales Header Failed</h2>
+            <form name="form1" id="form1" method="post" action="proses-clear-header">
+                <div class="mt-2 grid grid-cols-12 bg-slate-200 transition-all duration-[.25s] sm:mt-5 lg:mt-6">
+                    <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-12">
+                        <div class="flex items-center justify-between py-2 px-4">
+                            <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Sales Header - Proses Failed - Periode <?php    echo $varStartDateIndo; ?> sd <?php echo $varEndDateIndo;   ?></h2>
+                            <input type="hidden" id="txtSDate" name="txtSDate" value="<?php   echo $varStartDate; ?>">
+                            <input type="hidden" id="txtEDate" name="txtEDate" value="<?php   echo $varEndDate; ?>">
+                            <input type="submit" class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" value="Set Cleared">
+                        </div>
+                        <div class="card p-5 mt-3">
+                            <table id="table1" class="is-hoverable w-full" width="100%">     
+                                <thead>
+                                <tr>
+                                    <th width="25%" class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">No Struk</th>
+                                    <th width="25%" class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
+                                    <th width="25%" class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal</th>
+                                    <th width="25%" class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Total Struk</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                /*==========================*/
+                                $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and fl_sync = -1 and tanggal between '" . $varStartDate . "' and '" . $varEndDate . "' order by noid DESC";   
+                                $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                                while($recView=mysqli_fetch_array($callStrViewQuery))
+                                {
+                                    $HeaderID = $recView['noid'];
+                                    $NoStruk = $recView['no_struk'];
+                                    $KodeKasir = $recView['kode_kasir'];
+                                    $Tanggal = $recView['tanggal'];
+                                    $Jam = $recView['jam'];
+                                    $DisplayDate = date("d-m-Y", strtotime($Tanggal)) . " " . $Jam;
+                                    $TotalStruk = $recView['total_struk'];
+                                    ?>
+                                    <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                        <input type="checkbox" checked name="checkbox[]" style="display:none;" id="checkbox<?php	echo	$HeaderID;	?>" class="w-5 h-5 bg-primary" value="<?php	echo	$HeaderID;	?>">
+                                        <?php   echo $NoStruk; ?></td>     
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDate; ?></td>       
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php echo number_format($TotalStruk,2,',','.'); ?></td>  
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form name="form1" id="form1" method="post" action="proses-clear-detail">            
+                <div class="mt-2 grid grid-cols-12 bg-slate-200 transition-all duration-[.25s] sm:mt-5 lg:mt-6">
+                    <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-12">
+                        <div class="flex items-center justify-between py-2 px-4">
+                            <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Sales Detail - Proses Failed</h2>
+                            <input type="hidden" id="txtSDate" name="txtSDate" value="<?php   echo $varStartDate; ?>">
+                            <input type="hidden" id="txtEDate" name="txtEDate" value="<?php   echo $varEndDate; ?>">
+                            <input type="submit" class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" value="Set Cleared">
+                        </div>
+                        <div class="card p-5 mt-3">
+                            <table id="table2" class="is-hoverable w-full" width="100%">     
+                                <thead>
+                                <tr>
+                                    <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">No Struk</th>
+                                    <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
+                                    <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode Barang</th>
+                                    <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Qty Sales</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                /*==========================*/
+                                $StrViewQuery="SELECT * from dbo_detail where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and fl_sync = -1 and no_struk in (select no_struk from dbo_header where tanggal between '" . $varStartDate . "' and '" . $varEndDate . "') order by noid DESC";   
+                                $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                                while($recView=mysqli_fetch_array($callStrViewQuery))
+                                {
+                                    $DetailID = $recView['noid'];
+                                    $NoStruk = $recView['no_struk'];
+                                    $KodeKasir = $recView['posting_user'];
+                                    $KodeBarang = $recView['kode_barang'];
+                                    $QtySales = $recView['qty_sales'];
+                                    $Satuan = $recView['satuan'];
+                                    ?>
+                                    <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                            <input type="checkbox" checked name="checkboxx[]" id="checkboxx<?php	echo	$DetailID;	?>" style="display:none;" class="w-5 h-5 bg-primary" value="<?php	echo	$DetailID;	?>">
+                                            <?php   echo $NoStruk; ?>
+                                        </td>     
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeBarang; ?></td>  
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $QtySales; ?> <?php   echo $Satuan; ?></td>  
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div>
+                </div>
+            </form>
+            <form name="form1" id="form1" method="post" action="proses-clear-payment">
+                <div class="mt-2 grid grid-cols-12 bg-slate-200 transition-all duration-[.25s] sm:mt-5 lg:mt-6">
+                    <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-12">            
+                        <div class="flex items-center justify-between py-2 px-4">
+                            <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Payment - Proses Failed</h2>
+                            <input type="hidden" id="txtSDate" name="txtSDate" value="<?php   echo $varStartDate; ?>">
+                            <input type="hidden" id="txtEDate" name="txtEDate" value="<?php   echo $varEndDate; ?>">
+                            <input type="submit" class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" value="Set Cleared">
+                        </div>
+                        <div class="card p-5 mt-3">
+                            <table id="table3" class="is-hoverable w-full" width="100%">     
+                                <thead>
+                                <tr>
+                                    <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">No Struk</th>
+                                    <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
+                                    <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal</th>
+                                    <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Total Bayar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                /*==========================*/
+                                $StrViewQuery="SELECT * from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and fl_sync = -1 and tanggal between '" . $varStartDate . "' and '" . $varEndDate . "' order by noid DESC";   
+                                $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                                while($recView=mysqli_fetch_array($callStrViewQuery))
+                                {
+                                    $PaymentID = $recView['noid'];
+                                    $NoStruk = $recView['no_struk'];
+                                    $KodeKasir = $recView['posting_user'];
+                                    $Tanggal = $recView['tanggal'];
+                                    $TotalBayar = $recView['total_bayar'];
+                                    ?>
+                                    <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                        x<input type="checkbox" checked name="checkboxxx[]" id="checkboxxx<?php	echo	$PaymentID;	?>" style="display:none;" class="w-5 h-5 bg-primary" value="<?php	echo	$PaymentID;	?>">
+                                        <?php   echo $NoStruk; ?>
+                                        </td>     
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $Tanggal; ?></td>       
+                                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $TotalBayar; ?></td>  
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div>
+                </div>
+            </form>    
+            <div class="mt-2 grid grid-cols-12 bg-slate-200 transition-all duration-[.25s] sm:mt-5 lg:mt-6">
+                <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-12">               
+                    <div class="flex items-center justify-between py-2 px-4">
+                        <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Sales No Detail</h2>
+                    </div>
+                    <div class="card p-5 mt-3">
+                        <table id="table4" class="is-hoverable w-full" width="100%">     
+                            <thead>
+                            <tr>
+                                <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">No Struk</th>
+                                <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
+                                <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal</th>
+                                <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Qty</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            /*==========================*/
+                            $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal between '" . $varStartDate . "' and '" . $varEndDate . "' order by noid DESC";   
+                            $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                            while($recView=mysqli_fetch_array($callStrViewQuery))
+                            {
+                                $NoStruk = $recView['no_struk'];
+                                $KodeKasir = $recView['posting_user'];
+                                $Tanggal = $recView['tanggal'];
+                                $QtyItem = getTotalItemPerStruk($NoStruk);
+                                if($QtyItem == 0){
+                                ?>
+                                <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+                                    <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NoStruk; ?></td>     
+                                    <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
+                                    <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $Tanggal; ?></td>  
+                                    <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $QtyItem; ?></td>  
+                                </tr>
+                                <?php
+                                }
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>      
+                </div>                         
             </div>
-            <div class="card p-5 mt-3">
-                <table id="table1" class="is-hoverable w-full" width="100%">     
-                    <thead>
-                    <tr>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">No Struk</th>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and fl_sync = -1 order by noid DESC";   
-                    $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
-                    while($recView=mysqli_fetch_array($callStrViewQuery))
-                    {
-                        $NoStruk = $recView['no_struk'];
-                        $KodeKasir = $recView['kode_kasir'];
-                        $Tanggal = $recView['tanggal'];
-                        $Jam = $recView['jam'];
-                        $DisplayDate = date("d-m-Y", strtotime($Tanggal)) . " " . $Jam;
-                        ?>
-                        <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NoStruk; ?></td>     
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDate; ?></td>  
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="flex items-center justify-between py-2 px-4">
-                <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Sales Detail Failed</h2>
-            </div>
-            <div class="card p-5 mt-3">
-                <table id="table2" class="is-hoverable w-full" width="100%">     
-                    <thead>
-                    <tr>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">No Struk</th>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode Barang</th>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Qty Sales</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_detail where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and fl_sync = -1 order by noid DESC";   
-                    $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
-                    while($recView=mysqli_fetch_array($callStrViewQuery))
-                    {
-                        $NoStruk = $recView['no_struk'];
-                        $KodeKasir = $recView['posting_user'];
-                        $KodeBarang = $recView['kode_barang'];
-                        $QtySales = $recView['qty_sales'];
-                        ?>
-                        <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NoStruk; ?></td>     
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeBarang; ?></td>  
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $QtySales; ?></td>  
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                    </tbody>
-                </table>
-            </div> 
-            <div class="flex items-center justify-between py-2 px-4">
-                <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Sales Header Failed</h2>
-            </div>
-            <div class="card p-5 mt-3">
-                <table id="table3" class="is-hoverable w-full" width="100%">     
-                    <thead>
-                    <tr>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">No Struk</th>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and fl_sync = -1 order by noid DESC";   
-                    $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
-                    while($recView=mysqli_fetch_array($callStrViewQuery))
-                    {
-                        $NoStruk = $recView['no_struk'];
-                        $KodeKasir = $recView['posting_user'];
-                        $Tanggal = $recView['tanggal'];
-                        ?>
-                        <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NoStruk; ?></td>     
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $Tanggal; ?></td>  
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                    </tbody>
-                </table>
-            </div>                        
         </div>
     </main>
 </div>
@@ -198,7 +298,7 @@ $(document).ready(function (){
         rowReorder: false,
         paging: true,
         responsive: true,
-        searching: true,
+        searching: false,
         info: true,
         sort: true,
         zeroRecords: "",
@@ -209,7 +309,7 @@ $(document).ready(function (){
         rowReorder: false,
         paging: true,
         responsive: true,
-        searching: true,
+        searching: false,
         info: true,
         sort: true,
         zeroRecords: "",
@@ -220,10 +320,21 @@ $(document).ready(function (){
         rowReorder: false,
         paging: true,
         responsive: true,
-        searching: true,
+        searching: false,
         info: true,
         sort: true,
         zeroRecords: "",
     });    
+
+    let tableNoDetail = new DataTable('#table4', {
+        colReorder: false,
+        rowReorder: false,
+        paging: true,
+        responsive: true,
+        searching: false,
+        info: true,
+        sort: true,
+        zeroRecords: "",
+    });   
 });
 </script>

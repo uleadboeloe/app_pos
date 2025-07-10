@@ -11,16 +11,32 @@ $(function () {
       $("#DialogConfirmHold").html(""); // Clear content on close.
     },
     buttons: {
-      OK: function () {
+      "Hold Transaksi": function () {
         // update status temp trx
+        var remarks = $("#txtRemarks").val();
+        if (remarks == "") {
+          Swal.fire({
+            title: "Error",
+            text: "Silahkan Masukan Remarks Untuk transaksi yang di HOLD",
+            icon: "error",
+          });
+          $("#txtRemarks").focus();
+          return;
+        }
+
         $.ajax({
           type: "GET",
           url: "ajax/temp_trx_update_status.php",
-          data: { order_no: current_order_no, status: "ONHOLD" },
+          data: {
+            order_no: current_order_no,
+            status: "ONHOLD",
+            note_kasir: remarks,
+          },
           success: function (response) {
             window.sessionStorage.setItem("onhold_order_no", current_order_no);
             current_lastno_struk_no++;
-            current_order_no = prefix_struk_no + pad(current_lastno_struk_no, 6);
+            current_order_no =
+              prefix_struk_no + pad(current_lastno_struk_no, 6);
             //update nomor struk
             $.ajax({
               type: "GET",
@@ -53,6 +69,16 @@ $(function () {
     point_member = point_member.replaceAll(".", "");
     var nilai_voucher = window.sessionStorage.getItem("nilai_voucher") || "0";
     nilai_voucher = nilai_voucher.replaceAll(".", "");
+
+    var statusrecalled = window.sessionStorage.getItem("onhold_status") || "";
+    if (statusrecalled == "RECALL") {
+      Swal.fire({
+        title: "Error",
+        text: "Transaksi Ini Sudah pernah di Hold, Tidak Bisa Di Hold Lagi. Harap Selesaikan Transaksi",
+        icon: "error",
+      });
+      return;
+    }
 
     $.ajax({
       type: "POST",

@@ -22,6 +22,8 @@ $hash16 = CreateUniqueHash16();
 <!-- CSS Assets -->
 <link rel="stylesheet" href="assets/lineone/css/app.css" />
 <link rel="stylesheet" href="assets/css/custom.css" />
+<script type="text/javascript" src="assets/js/export.excel.js"></script>
+
 <!-- Javascript Assets -->
 <script src="assets/lineone/js/app.js" defer></script>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -55,17 +57,25 @@ $hash16 = CreateUniqueHash16();
     <main class="main-content w-full px-[var(--margin-x)] pb-8 bg-green-100">
         <div class="col-span-12 p-2 lg:col-span-12">
             <div class="flex items-center justify-between py-2 px-4">
-                <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Sales</h2>
+                <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Sales Harian</h2>
+                <div class="flex">
+                <iframe id="txtArea1" style="display:none"></iframe>
+                <button id="btnExport" onclick="fnExcelReport();" class="btn space-x-2 mr-1 bg-warning font-medium text-white hover:bg-warning-focus focus:bg-warning-focus active:bg-warning-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"> Export to Excel List Sales</button>
                 <button class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" onclick="PrintDoc()">Print Detail</button>
+                </div>
             </div>
             <div class="card p-5 mt-3">
                 <table id="table1" class="is-hoverable w-full" width="100%">     
                     <thead>
                     <tr>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">No Strukr</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">No Struk</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Total Bayar</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Total Struk</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Pembulatan</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Penerimaan</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Cust Bayar</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Pembayaran</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Customer</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Action</th>
@@ -85,15 +95,22 @@ $hash16 = CreateUniqueHash16();
                         $DisplayDate = date("d-m-Y", strtotime($Tanggal)) . " " . $Jam;
                         $totalBayar = $recView['total_bayar'];
                         $totalStruk = $recView['total_struk'];
+                        $Pembulatan = $recView['var_pembulatan'];
                         $kembalian = $recView['kembalian'];
                         $jenisBayar = $recView['jenis_bayar'];
                         $KodeCustomer = $recView['kode_customer'];
+                        $TotalPayment = getPaymentByNoStruk($NomorStruk);
+                        $TotalCustomerBayar = $totalStruk + $Pembulatan;
                         ?>
                         <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NomorStruk; ?></td>     
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDate; ?></td>         
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($totalStruk,2); ?></td>         
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($totalBayar,2); ?></td>   
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($totalStruk,2); ?></td>   
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($Pembulatan,2); ?></td>  
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right">P <?php   echo number_format($TotalPayment,2); ?></td>   
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right">P <?php   echo number_format($TotalCustomerBayar,2); ?></td>         
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $jenisBayar; ?></td>
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeCustomer; ?></td>        
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5">
@@ -104,7 +121,58 @@ $hash16 = CreateUniqueHash16();
                     }
                     ?>
                     </tbody>
-                </table>              
+                </table>  
+                
+                <table id="exportExcel" style="display:none;">     
+                    <thead>
+                    <tr>
+                        <th class="">No Struk</th>
+                        <th class="">Kode / Nama Kasir</th>
+                        <th class="">Tanggal</th>
+                        <th class="">Total Bayar</th>
+                        <th class="">Total Struk</th>
+                        <th class="">Pembulatan</th>
+                        <th class="">Metode</th>
+                        <th class="">Customer</th>
+                        <th class="">Customer Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    /*==========================*/
+                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
+                    $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                    while($recView=mysqli_fetch_array($callStrViewQuery))
+                    {
+                        $NomorStruk = $recView['no_struk'];
+                        $KodeKasir = $recView['kode_kasir'];
+                        $Tanggal = $recView['tanggal'];
+                        $Jam = $recView['jam'];
+                        $DisplayDate = date("d-m-Y", strtotime($Tanggal)) . " " . $Jam;
+                        $totalBayar = $recView['total_bayar'];
+                        $totalStruk = $recView['total_struk'];
+                        $kembalian = $recView['kembalian'];
+                        $Pembulatan = $recView['var_pembulatan'];
+                        $jenisBayar = $recView['jenis_bayar'];
+                        $KodeCustomer = $recView['kode_customer'];
+                        $NamaCustomer = $recView['nama_customer'];
+                        ?>
+                        <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+                            <td><?php   echo $NomorStruk; ?></td>     
+                            <td><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
+                            <td><?php   echo $DisplayDate; ?></td>          
+                            <td><?php   echo replacenumber($totalBayar); ?></td> 
+                            <td><?php   echo replacenumber($totalStruk); ?></td>    
+                            <td><?php   echo replacenumber($Pembulatan); ?></td>         
+                            <td><?php   echo $jenisBayar; ?></td>
+                            <td><?php   echo $KodeCustomer; ?></td>        
+                            <td><?php   echo $NamaCustomer; ?></td>
+                        </tr>
+                        <?php                     
+                    }
+                    ?>
+                    </tbody>
+                </table> 
             </div>
 
             
@@ -114,29 +182,31 @@ $hash16 = CreateUniqueHash16();
                 $HeaderStruk = getHeaderStruk($KodeStoreOffline);
                 $FooterStruk = getFooterStruk($KodeStoreOffline); 
                 ?>
-                <table width="100%" style="border:1px solid #000;">
-                    <tr>
-                        <td>
-                            <div style="font-size:12px;color:#000;font-weight:800;"><?php   echo $NamaStore; ?></div>
-                            <div style="font-size:12px;color:#000;"><?php   echo $HeaderStruk; ?></div>
-                        </td>
-                    </tr> 
-                </table>               
-                <table width="100%" style="border:solid 1px #000;">     
+                <div style="page-break-after: always;">
+                    <div style="font-size:12px;color:#000;font-weight:800;"><?php echo $NamaStore; ?></div>
+                    <div style="font-size:12px;color:#000;"><?php echo $HeaderStruk; ?></div>
+                </div>
+                
+                <table width="100%" style="border:solid 1px #FF9900;">     
                     <thead>
-                    <tr style="font-size:12px;font-weight:800;">
-                        <th style="border-bottom:solid 1px #000;">No Struk / Nama Barang</th>
-                        <th style="border-bottom:solid 1px #000;">Nama Kasir / Harga</th>
-                        <th style="border-bottom:solid 1px #000;">Tanggal / Qty Jual</th>
-                        <th style="border-bottom:solid 1px #000;">Total Struk</th>
-                        <th style="border-bottom:solid 1px #000;">Pembayaran / Diskon</th>
-                        <th style="border-bottom:solid 1px #000;">Customer / Gross Sales</th>
-                        <th style="border-bottom:solid 1px #000;">Netto Sales</th>
-                    </tr>
+                        <tr style="font-size:12px;font-weight:800;">
+                            <th style="border-bottom:solid 1px #000;">No Struk / Nama Barang</th>
+                            <th style="border-bottom:solid 1px #000;">Nama Kasir / Harga</th>
+                            <th style="border-bottom:solid 1px #000;">Tanggal / Qty Jual</th>
+                            <th style="border-bottom:solid 1px #000;">Total Struk</th>
+                            <th style="border-bottom:solid 1px #000;">Pembayaran / Diskon</th>
+                            <th style="border-bottom:solid 1px #000;">Customer / Gross Sales</th>
+                            <th style="border-bottom:solid 1px #000;">Netto Sales</th>
+                        </tr>
                     </thead>
                     <tbody>
                     <?php
                     /*==========================*/
+                    $GrandTotalSales=0;
+                    $GrandTotalGross=0;
+                    $GrandTotalDiskon=0;
+                    $GrandTotalNetSales=0;
+
                     $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
@@ -182,6 +252,11 @@ $hash16 = CreateUniqueHash16();
                             $VarTotalGross+=$DetailGrossSales;
                             $VarTotalDiskon+=$DetailVarDiskon;
                             $VarTotalNetSales+=$DetailNettoSales;
+
+                            $GrandTotalSales+=$VarTotalSales;
+                            $GrandTotalGross+=$VarTotalGross;
+                            $GrandTotalDiskon+=$VarTotalDiskon;
+                            $GrandTotalNetSales+=$VarTotalNetSales;
                             ?>
                             <tr style="font-size:12px;">
                                 <td class=""><?php   echo $DetailKodeBarang; ?> <?php   echo getNamaBarangByKodeBarang($DetailKodeBarang); ?></td>     
@@ -195,18 +270,27 @@ $hash16 = CreateUniqueHash16();
                             <?php
                         }
                         ?>
-                            <tr style="font-size:12px;">  
-                                <td style="text-align:right;font-weight:800;" colspan="3">TOTAL</td>         
-                                <td style="text-align:right"><?php   echo number_format($VarTotalSales,2); ?></td>         
-                                <td style="text-align:right"><?php   echo number_format($VarTotalDiskon,2); ?></td>
-                                <td style="text-align:right"><?php   echo number_format($VarTotalGross,2); ?></td>
-                                <td style="text-align:right"><?php   echo number_format($VarTotalNetSales,2); ?></td>
-                            </tr>
-                            <?php
+                        <tr style="font-size:12px;background:#CCCCCC;">  
+                            <td style="text-align:right;font-weight:800;" colspan="3">TOTAL</td>         
+                            <td style="text-align:right"><?php   echo number_format($VarTotalSales,2); ?></td>         
+                            <td style="text-align:right"><?php   echo number_format($VarTotalDiskon,2); ?></td>
+                            <td style="text-align:right"><?php   echo number_format($VarTotalGross,2); ?></td>
+                            <td style="text-align:right"><?php   echo number_format($VarTotalNetSales,2); ?></td>
+                        </tr>
+                        <?php
                     }
                     ?>
+                    <tr style="font-size:12px;">  
+                        <td style="text-align:right;font-weight:800;" colspan="3">GRAND TOTAL</td>         
+                        <td style="text-align:right"><?php   echo number_format($GrandTotalSales,2); ?></td> 
+                        <td style="text-align:right"><?php   echo number_format($GrandTotalDiskon,2); ?></td>        
+                        <td style="text-align:right"><?php   echo number_format($GrandTotalGross,2); ?></td>
+                        <td style="text-align:right"><?php   echo number_format($GrandTotalNetSales,2); ?></td>
+                    </tr>
+                    <?php                    
+                    ?>
                     </tbody>
-                </table>  
+                </table>              
             </div>
 
         </div>
@@ -231,7 +315,7 @@ function PrintDoc() {
     var toPrint = document.getElementById('PrintArea');
     var popupWin = window.open('', '_blank', 'width=800,height=600,location=no,left=50px');
     popupWin.document.open();
-    popupWin.document.write('<html><title>Preview Print</title><link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print"/></head><body onload="window.print();window.close();">')
+    popupWin.document.write('<html><title>Preview Print</title><body onload="window.print();window.close();">')
     popupWin.document.write(toPrint.innerHTML);
     popupWin.document.write('</body></html>');
     popupWin.document.close();

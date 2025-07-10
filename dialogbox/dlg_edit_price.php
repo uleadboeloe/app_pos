@@ -2,7 +2,8 @@
     <div class="row-fluid">
         <div class="span12">
             <input type="hidden" id="Nomor" value="0" />
-            <input type="hidden" id="IsPromo" />
+            <input type="text" id="IsPromo" readonly/>
+            <input type="hidden" id="NoId" />
             <div class="control-group" style="margin-bottom: 0px;">
                 <label class="control-label">Kode Barang</label>
                 <div class="controls"><input class="span12" id="KodeBarang" type="text" value="" readonly/></div>

@@ -13,18 +13,26 @@ $(function () {
     buttons: {
       OK: function () {
         // update status temp trx
-        var onhold_order_no = window.sessionStorage.getItem("onhold_order_no");
+        //var onhold_order_no = window.sessionStorage.getItem("onhold_order_no");
+        var onhold_order_no = $("#hold_transaksi").val();
+        window.sessionStorage.setItem("onhold_order_no", onhold_order_no);
+        window.sessionStorage.setItem("onhold_status", "RECALL");
+
         var isrecalled = window.sessionStorage.getItem("isrecalled") || "0";
+        var statusrecalled =
+          window.sessionStorage.getItem("onhold_status") || "";
         window.sessionStorage.setItem("isrecalled", "1");
         console.log("onhold no: " + onhold_order_no);
         console.log("isrecalled: " + isrecalled);
+        console.log("status recalled: " + statusrecalled);
+
         $.ajax({
           type: "GET",
           url: "ajax/temp_trx_update_status.php",
           data: { order_no: onhold_order_no, status: "CURRENT" },
           success: function (response) {
             refreshTable();
-            window.sessionStorage.setItem("onhold_order_no","");
+            window.sessionStorage.setItem("onhold_order_no", "");
           },
         });
 
@@ -36,6 +44,7 @@ $(function () {
     },
   });
 
+  /*
   $("#BtnRecall").click(function () {
     var point_member = window.sessionStorage.getItem("poin_member_id") || "0";
     point_member = point_member.replaceAll(".", "");
@@ -51,6 +60,31 @@ $(function () {
         pointmember: point_member,
         nilaivoucher: nilai_voucher,
       },
+
+      success: function (response) {
+        console.log("response recall: " + response);
+        if (Number(response) > 0) {
+          $("#DialogConfirmRecall").dialog("open");
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: "Tidak Ada Transaksi Hold yang bisa di recall",
+            icon: "error",
+          });
+        }
+      },
+    });
+  });
+  */
+
+  $("#BtnRecall").click(function () {
+    $.ajax({
+      type: "POST",
+      url: "ajax/temp_trx_total_amount_hold.php",
+      data: {
+        status: "ONHOLD",
+      },
+
       success: function (response) {
         console.log("response recall: " + response);
         if (Number(response) > 0) {

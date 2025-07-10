@@ -1,6 +1,7 @@
 lib/mysql_connect.php
 lib/mysql_pdo.php
 lib/sqlsrv_connect.php
+lib/enc.php
 admin/library/connection.php
 admin/qrcode_user/
 admin/qrcode_member/
@@ -13,3 +14,5 @@ admin/testing/
 admin/fileupload/images/
 config.json
 file_master/
+admin/run.service.upload.sales.bat
+admin/run.services.promo.bat

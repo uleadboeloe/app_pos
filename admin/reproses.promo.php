@@ -149,10 +149,7 @@ if (empty($ResultDataValue)) {
         if($StoreCode == ""){
             $StoreCode = $KodeStoreOffline;
         }
-        
-        if($Source){
-            echo "<div style='color:#FF0099;'>DATA PROMO BC IN LINE#KODE PROMO" . $KodePromo . "#" . $NamaPromo . "#" . $StartDate . "#" . $EndDate . "#" . $KriteriaPromo . "#" . $ValuePromo . "</div>";
-        }        
+      
         /*
         echo $KodePromo . "#" . $NamaPromo . "#" . $StoreCode . "#" . $StartDate . "#" . $EndDate . "#" . $PromoParameter . "#" . $KriteriaPromo;
         echo "#" . $FlagFreeItem . "#" . $FreeItem . "#" . $QtyFreeItem . "#" . $ValuePromo . "#" . $LineNo . "<br>";
@@ -173,6 +170,11 @@ if (empty($ResultDataValue)) {
             $executeSQL=mysqli_query($koneksidb, $strInsert); 
             //echo "<div style='color:#FF0990;'>INSERT ITEMDB : <br>" . $strInsert . "</div>";
         }
+
+                
+        if($Source){
+            echo "<div style='color:#FF0099;'>DATA PROMO BC IN LINE#KODE PROMO" . $KodePromo . "#" . $NamaPromo . "#" . $Barcode . "#" . $StartDate . "#" . $EndDate . "#" . $KriteriaPromo . "#" . $ValuePromo . "</div>";
+        }  
 
         $strQuery="SELECT * FROM dbo_promo_detail WHERE barcode = '" . $Barcode . "'";
         $callstrQuery=mysqli_query($koneksidb, $strQuery);

@@ -65,6 +65,8 @@ $(function () {
         var qty = $("#Qty").val();
         if (qty === "" || Number(qty) <= 0) qty = window.qty;
 
+        var is_promo = $("#IsPromo").val();
+
         /*addtional log aktivitas*/
         var log_description = "Simpan Edit Harga#" + current_order_no;
         var log_tipe = "DANGER";
@@ -97,6 +99,7 @@ $(function () {
             disc: disc,
             uom: window.uom,
             qty: qty,
+            is_promo: is_promo,
           },
           success: function (data) {
             window.kodeBarang = "";

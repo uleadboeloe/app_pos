@@ -78,6 +78,39 @@ if(isset($_SESSION['SESS_user_id'])){
         </div>
         </form>
 
+        <form name="formProses" name="frmLaporan" id="frmLaporan" method="post" action="proses-tanggallaporan" enctype="multipart/form-data">
+        <div class="grid grid-cols-2 my-2 gap-4 sm:gap-5 lg:gap-6">
+            <div class="col-span-12 sm:col-span-12">
+                <div class="card p-4 sm:p-5">
+                    <div class="space-y-4">
+                        <input type="hidden" id="txtRandomCode" name="txtRandomCode" value="<?php echo $hash16;   ?>" readonly>
+                        <input type="hidden" id="txtKodeKasir" name="txtKodeKasir" value="<?php echo $_SESSION['SESS_kode_kasir'];   ?>" readonly>
+                        <label class="block">
+                            <span class="text-purple-500 font-bold">Tanggal Laporan <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>                                    
+                            <label class="relative mt-1.5 flex">
+                                <input type="text" id="txtStartDate" name="txtStartDate" x-flatpickr
+                                class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                placeholder="Choose date..." required/>
+                                <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                                    <i class="fa-regular fa-building text-base"></i>
+                                </span>
+                            </label>
+                        </label>                        
+
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <label class="block">
+                                <span class="relative mt-1.5 flex">						
+                                    <input type="submit" name="btnSubmit" id="btnSubmit" value="Proses Laporan"
+                                    class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                                </span>
+                            </label>
+                        </div>                          
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>        
+
       
       </main>
     </div>

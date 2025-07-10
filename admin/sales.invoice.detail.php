@@ -171,6 +171,7 @@ $hash16 = CreateUniqueHash16();
                                                             <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Nama Barang</th>
                                                             <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Harga Barang</th>
                                                             <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Qty</th>
+                                                            <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Satuan</th>
                                                             <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Diskon</th>
                                                             <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Total</th>
                                                             <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Netto Sales</th>
@@ -186,14 +187,21 @@ $hash16 = CreateUniqueHash16();
                                                             $NomorStruk = $recDetail['no_struk'];
                                                             $KodeKasir = $recDetail['posting_user'];
                                                             $KodeBarang = $recDetail['kode_barang'];
-                                                            $NamaBarang = getNamaBarangBySkuBarang($recDetail['kode_barang']);
-                                                            $RcodeBarang = getRandomCodeBySkuBarang($recDetail['kode_barang']);
+                                                            $NamaBarang = getNamaBarangByKodeBarang($recDetail['kode_barang']);
+                                                            $RcodeBarang = getRandomCodeByKodeBarang($recDetail['kode_barang']);
                                                             $QtySales = $recDetail['qty_sales'];
                                                             $HargaSales = $recDetail['harga'];
                                                             $QtyVoid = $recDetail['qty_voided'];
                                                             $TotalSales = $recDetail['total_sales'];
                                                             $varDiskon = $recDetail['var_diskon'];
                                                             $Netto = $recDetail['netto_sales'];
+                                                            
+                                                            $FlTimbang = getTimbangByKodeBarang($KodeBarang);
+                                                            if($FlTimbang == 1){
+                                                                $Satuan = "KG";
+                                                            }else{
+                                                                $Satuan = $recDetail['satuan'];
+                                                            }
                                                             ?>
                                                             <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5">
@@ -203,8 +211,9 @@ $hash16 = CreateUniqueHash16();
                                                                 </td>
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NamaBarang; ?></td>             
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($HargaSales,0); ?></td>   
-                                                                <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($QtySales,0); ?> # <?php   echo number_format($QtyVoid,0); ?></td>         
-                                                                <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($varDiskon,0); ?></td>       
+                                                                <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo $QtySales; ?> # <?php   echo $QtyVoid; ?></td>                
+                                                                <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo $Satuan; ?></td>       
+                                                                <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($varDiskon,0); ?></td>    
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($TotalSales,0); ?></td>         
                                                                 <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($Netto,0); ?></td>       
                                                             </tr>                                                             

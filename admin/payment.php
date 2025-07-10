@@ -194,12 +194,14 @@ $hash16 = CreateUniqueHash16();
                 <tbody>
                 <?php
                 /*==========================*/
+                $SumTotalbayar=0;
                 $StrViewQuery="SELECT sum(total_bayar) as TotalBayar,jenis_bayar from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' group by jenis_bayar";   
                 $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                 while($recView=mysqli_fetch_array($callStrViewQuery))
                 {
                     $TotalBayar = $recView['TotalBayar'];
                     $JenisBayar = $recView['jenis_bayar'];
+                    $SumTotalbayar+=$TotalBayar;
                     ?>
                     <tr style="font-size:12px;">
                         <td class=""><?php   echo $JenisBayar; ?></td>           
@@ -208,6 +210,10 @@ $hash16 = CreateUniqueHash16();
                     <?php
                 }
                 ?>
+                <tr style="font-size:12px;">
+                    <td style="border-top:solid 1px #000;text-align:right">Total</td>           
+                    <td style="border-top:solid 1px #000;text-align:right"><?php   echo number_format($SumTotalbayar,2); ?></td>   
+                </tr>
                 </tbody>
             </table> 
             <hr>         
@@ -222,13 +228,16 @@ $hash16 = CreateUniqueHash16();
                 <tbody>
                 <?php
                 /*==========================*/
-                $StrViewQuery="SELECT sum(total_bayar) as TotalBayar,nama_edc,kode_edc from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' group by jenis_bayar";   
+                $SumTotalEdc=0;
+                $StrViewQuery="SELECT sum(total_bayar) as TotalBayar,nama_edc,kode_edc from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' group by kode_edc";   
                 $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                 while($recView=mysqli_fetch_array($callStrViewQuery))
                 {
                     $TotalBayar = $recView['TotalBayar'];
                     $BankPenerbit = getBankPenerbitMesinEdc($recView['kode_edc']);
                     $MesinEdc = $recView['nama_edc'];
+                    if($MesinEdc !=""){
+                        $SumTotalEdc+=$TotalBayar;
                     ?>
                     <tr style="font-size:12px;">
                         <td class=""><?php   echo $MesinEdc; ?></td>        
@@ -236,8 +245,13 @@ $hash16 = CreateUniqueHash16();
                         <td class="" style="text-align:right"><?php   echo number_format($TotalBayar,2); ?></td>   
                     </tr>
                     <?php
+                    }
                 }
                 ?>
+                <tr style="font-size:12px;">
+                    <td style="border-top:solid 1px #000;text-align:right" colspan="2">Total</td>           
+                    <td style="border-top:solid 1px #000;text-align:right"><?php   echo number_format($SumTotalEdc,2); ?></td>   
+                </tr>
                 </tbody>
             </table>            
             <hr>         
@@ -252,6 +266,7 @@ $hash16 = CreateUniqueHash16();
                 <tbody>
                 <?php
                 /*==========================*/
+                $SumTotalKartu=0;
                 $StrViewQuery="SELECT sum(total_struk) as TotalBayar,jenis_bayar,nama_kartu from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' group by jenis_bayar";   
                 $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                 while($recView=mysqli_fetch_array($callStrViewQuery))
@@ -259,6 +274,8 @@ $hash16 = CreateUniqueHash16();
                     $TotalBayar = $recView['TotalBayar'];
                     $NamaBank = $recView['nama_kartu'];
                     $JenisBayar = $recView['jenis_bayar'];
+                    if($JenisBayar !="CASH"){
+                        $SumTotalKartu+=$TotalBayar;
                     ?>
                     <tr style="font-size:12px;">
                         <td class=""><?php   echo $JenisBayar; ?></td>    
@@ -266,8 +283,13 @@ $hash16 = CreateUniqueHash16();
                         <td class="" style="text-align:right"><?php   echo number_format($TotalBayar,2); ?></td>   
                     </tr>
                     <?php
+                    }
                 }
                 ?>
+                <tr style="font-size:12px;">
+                    <td style="border-top:solid 1px #000;text-align:right" colspan="2">Total</td>           
+                    <td style="border-top:solid 1px #000;text-align:right"><?php   echo number_format($SumTotalKartu,2); ?></td>   
+                </tr>
                 </tbody>
             </table>                 
         </div>
