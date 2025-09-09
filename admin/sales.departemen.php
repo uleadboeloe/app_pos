@@ -8,6 +8,7 @@ include_once "library/parameter.php";
 include_once "library/fungsi.php";
 include_once "library/fungsi.sales.php";
 include_once "../lib_dbo/user_functions.php";
+include_once "../lib/general_lib.php";
 $hash16 = CreateUniqueHash16();
 ?>
 <!DOCTYPE html>
@@ -23,6 +24,7 @@ $hash16 = CreateUniqueHash16();
 <!-- CSS Assets -->
 <link rel="stylesheet" href="assets/lineone/css/app.css" />
 <link rel="stylesheet" href="assets/css/custom.css" />
+<script type="text/javascript" src="assets/js/export.excel.js"></script>
 <!-- Javascript Assets -->
 <script src="assets/lineone/js/app.js" defer></script>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -57,7 +59,11 @@ $hash16 = CreateUniqueHash16();
         <div class="col-span-12 p-2 lg:col-span-12">
             <div class="flex items-center justify-between py-2 px-4">
                 <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Sales Per Departemen</h2>
+                <div class="flex">
+                <iframe id="txtArea1" style="display:none"></iframe>
+                <button id="btnExport" onclick="fnExcelReport();" class="btn space-x-2 mr-1 bg-warning font-medium text-white hover:bg-warning-focus focus:bg-warning-focus active:bg-warning-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"> Export List Sales Departemen</button>
                 <button class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" onclick="PrintDoc()">Print Detail</button>
+                </div>
             </div>
             <div class="card p-5 mt-3" id="PrintArea">
                 <div style="display:none;">
@@ -74,8 +80,9 @@ $hash16 = CreateUniqueHash16();
                         </td>
                     </tr> 
                 </table>    
-                </div>                
-                <table id="table1" class="is-hoverable w-full" width="100%">     
+                </div> 
+
+                <table class="is-hoverable w-full" width="100%" id="table1">     
                     <thead>
                     <tr>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Sub Divisi</th>
@@ -92,8 +99,6 @@ $hash16 = CreateUniqueHash16();
                     $TotalAllNetto = 0;
                     $TotalAllQty = 0;
                     $TotalAllSales = 0;
-
-
                     /*==========================*/
                     $StrViewQuery="SELECT * from dbo_subkategori where fl_active = 1 order by noid ASC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
@@ -121,20 +126,75 @@ $hash16 = CreateUniqueHash16();
                         </tr>
                         <?php                      
                     }
-                    ?>
+                    ?>                 
                     </tbody>
                 </table>  
                 <table class="is-hoverable w-full" width="100%">     
                     <thead>
                     <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                        <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right" style="font-size:12px;text-align:right;">TOTAL ALL</td>  
-                        <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right" style="font-size:12px;text-align:right;"><?php   echo number_format($TotalAllSales,2); ?></td>  
-                        <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right" style="font-size:12px;text-align:right;"><?php   echo number_format($TotalAllGross,2); ?></td>  
-                        <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right" style="font-size:12px;text-align:right;"><?php   echo number_format($TotalAllDiskon,2); ?></td>  
-                        <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right" style="font-size:12px;text-align:right;"><?php   echo number_format($TotalAllNetto,2); ?></td> 
+                        <th class="whitespace-nowrap px-4 py-3 sm:px-5 text-right" style="font-size:12px;text-align:right;">TOTAL ALL</th>  
+                        <th class="whitespace-nowrap px-4 py-3 sm:px-5 text-right" style="font-size:12px;text-align:right;"><?php   echo number_format($TotalAllSales,2); ?></th>  
+                        <th class="whitespace-nowrap px-4 py-3 sm:px-5 text-right" style="font-size:12px;text-align:right;"><?php   echo number_format($TotalAllGross,2); ?></th>  
+                        <th class="whitespace-nowrap px-4 py-3 sm:px-5 text-right" style="font-size:12px;text-align:right;"><?php   echo number_format($TotalAllDiskon,2); ?></th>  
+                        <th class="whitespace-nowrap px-4 py-3 sm:px-5 text-right" style="font-size:12px;text-align:right;"><?php   echo number_format($TotalAllNetto,2); ?></th> 
                     </tr>
-                    </thead>  
-                </table>          
+                    </thead>   
+                </table>      
+                
+                <table width="100%" id="exportExcel">
+                    <thead>
+                    <tr>
+                        <th>Sub Divisi</th>
+                        <th>Total Sales</th>
+                        <th>Gross Sales</th>
+                        <th>Diskon</th>
+                        <th>Netto</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $TotalAllGross = 0;
+                    $TotalAllDiskon = 0;
+                    $TotalAllNetto = 0;
+                    $TotalAllQty = 0;
+                    $TotalAllSales = 0;
+                    /*==========================*/
+                    $StrViewQuery="SELECT * from dbo_subkategori where fl_active = 1 order by noid ASC";   
+                    $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                    while($recView=mysqli_fetch_array($callStrViewQuery))
+                    {
+                        $KodeSubkategori = $recView['kode_subkategori'];
+                        $NamaSubKategori = $recView['nama_subkategori'];
+                        $TotalSalesSubKategori = getTotalSalesPerSubKategoriPerTanggal($KodeSubkategori,$currdatedb);
+                        $TotalGrossSubKategori = getTotalGrossPerSubKategoriPerTanggal($KodeSubkategori,$currdatedb);
+                        $TotalDiskonSubKategori = getTotalDiskonPerSubKategoriPerTanggal($KodeSubkategori,$currdatedb);
+                        $TotalNettoSubKategori = getTotalNettoPerSubKategoriPerTanggal($KodeSubkategori,$currdatedb);
+                        $TotalQtySubKategori = getTotalQtyPerSubKategoriPerTanggal($KodeSubkategori,$currdatedb);
+                        $TotalAllGross+=$TotalGrossSubKategori;
+                        $TotalAllDiskon+=$TotalDiskonSubKategori;
+                        $TotalAllNetto+=$TotalNettoSubKategori;
+                        $TotalAllQty+=$TotalQtySubKategori;
+                        $TotalAllSales+=$TotalSalesSubKategori;
+                        ?>
+                        <tr>
+                            <td><?php   echo $KodeSubkategori; ?> - <?php   echo $NamaSubKategori; ?></td>  
+                            <td><?php   echo number_format($TotalSalesSubKategori,2); ?></td>  
+                            <td><?php   echo number_format($TotalGrossSubKategori,2); ?></td>  
+                            <td><?php   echo number_format($TotalDiskonSubKategori,2); ?></td>  
+                            <td><?php   echo number_format($TotalNettoSubKategori,2); ?></td> 
+                        </tr>
+                        <?php                      
+                    }
+                    ?>   
+                    <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+                        <td>TOTAL ALL</th>  
+                        <td<?php   echo number_format($TotalAllSales,2); ?></th>  
+                        <td><?php   echo number_format($TotalAllGross,2); ?></th>  
+                        <td><?php   echo number_format($TotalAllDiskon,2); ?></th>  
+                        <td><?php   echo number_format($TotalAllNetto,2); ?></th> 
+                    </tr>                                  
+                    </tbody>  
+                </table>                    
             </div>
         </div>
     </main>

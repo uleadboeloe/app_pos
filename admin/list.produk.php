@@ -57,6 +57,7 @@ $hash16 = CreateUniqueHash16();
         <div class="col-span-12 p-2 lg:col-span-12">
             <div class="flex items-center justify-between py-3 px-4">
                 <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Search Produk</h2>
+                <a href="list-produk-market" class="h-8 p-1 rounded-lg space-x-2 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">List Produk</a>
             </div>
 
             <form name="formProses" name="frmMasterProduk" id="frmMasterProduk" method="post" action="list.produk.php?search=true" enctype="multipart/form-data">

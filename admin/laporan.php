@@ -9,7 +9,7 @@ include_once "library/fungsi.php";
 include_once "../lib_dbo/user_functions.php";
 include_once "../lib/general_lib.php";
 
-if(isset($_SESSION['SESS_user_id'])){
+if(isset($_SESSION['ADMSESS_user_id'])){
   $hash16 = CreateUniqueHash16();
   $ReportEndDate = date("Y-m-d", strtotime( "$currdatedb +15 Day" ));    
 ?>
@@ -52,7 +52,7 @@ if(isset($_SESSION['SESS_user_id'])){
                 <div class="card p-4 sm:p-5">
                     <div class="space-y-4">
                         <input type="hidden" id="txtRandomCode" name="txtRandomCode" value="<?php echo $hash16;   ?>" readonly>
-                        <input type="hidden" id="txtKodeKasir" name="txtKodeKasir" value="<?php echo $_SESSION['SESS_kode_kasir'];   ?>" readonly>
+                        <input type="hidden" id="txtKodeKasir" name="txtKodeKasir" value="<?php echo $_SESSION['ADMSESS_kode_kasir'];   ?>" readonly>
                         <label class="block">
                             <span class="text-purple-500 font-bold">Periode Laporan <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>                                    
                             <label class="relative mt-1.5 flex">
@@ -84,7 +84,7 @@ if(isset($_SESSION['SESS_user_id'])){
                 <div class="card p-4 sm:p-5">
                     <div class="space-y-4">
                         <input type="hidden" id="txtRandomCode" name="txtRandomCode" value="<?php echo $hash16;   ?>" readonly>
-                        <input type="hidden" id="txtKodeKasir" name="txtKodeKasir" value="<?php echo $_SESSION['SESS_kode_kasir'];   ?>" readonly>
+                        <input type="hidden" id="txtKodeKasir" name="txtKodeKasir" value="<?php echo $_SESSION['ADMSESS_kode_kasir'];   ?>" readonly>
                         <label class="block">
                             <span class="text-purple-500 font-bold">Tanggal Laporan <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>                                    
                             <label class="relative mt-1.5 flex">

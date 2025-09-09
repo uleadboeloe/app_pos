@@ -7,7 +7,7 @@ include_once "library/connection.php";
 include_once "library/parameter.php";
 include_once "library/fungsi.php";
 
-if(isset($_SESSION['SESS_user_id'])){
+if(isset($_SESSION['ADMSESS_user_id'])){
     $ftp_server = "ftp.amanahmart.id";
     $ftp_username = "IT";
     $ftp_password = "It@123";
@@ -64,7 +64,7 @@ if(isset($_SESSION['SESS_user_id'])){
             $callstrQuery=mysqli_query($koneksidb, $strQuery);
             $Jumbar=mysqli_num_rows($callstrQuery);
             if($Jumbar == 0){
-                $strInsert="INSERT INTO dbo_kategori(`kode_kategori`,`nama_kategori`,`posting_date`,`posting_user`) VALUES ('$Kode','$LabelName','$datedb','" . $_SESSION['SESS_user_id'] . "')";
+                $strInsert="INSERT INTO dbo_kategori(`kode_kategori`,`nama_kategori`,`posting_date`,`posting_user`) VALUES ('$Kode','$LabelName','$datedb','" . $_SESSION['ADMSESS_user_id'] . "')";
                 $executeSQL=mysqli_query($koneksidb, $strInsert); 
                 echo $strInsert . "<br>";
             }

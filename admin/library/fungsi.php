@@ -105,6 +105,46 @@ function getStoreName($IDX) {
 	}
 	return $varResult;
 }
+/*CLOUD*/
+function getStoreNameOnCLoud($IDX) {
+	$strSQL="SELECT nama_store FROM `dbo_table_store` where kode_store = '" . $IDX . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston__"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['nama_store'];
+		}
+	}else{
+		$varResult = "";
+	}
+	return $varResult;
+}
+function getNamaKasirOnCloud($IDX) {
+	$strSQL="SELECT nama_user FROM `dbo_table_user` where kode_kasir = '" . $IDX . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston__"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['nama_user'];
+		}
+	}else{
+		$varResult = "";
+	}
+	return $varResult;
+}
+
+function getNamaUser($IDX) {
+	$strSQL="SELECT nama_user FROM `dbo_table_user` where kode_kasir = '" . $IDX . "'";
+	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston__"], $strSQL);
+	$JumBar=mysqli_num_rows($CallstrSQL);
+	if ($JumBar>0){
+		while($rec=mysqli_fetch_array($CallstrSQL)){
+			$varResult = $rec['nama_user'];
+		}
+	}
+	return $varResult;
+}
+/*CLOUD*/
 function getHeaderStruk($IDX) {
 	$strSQL="SELECT header_struk FROM `dbo_store` where kode_store = '" . $IDX . "'";
 	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
@@ -496,7 +536,7 @@ function getTotalPoinMember($IDX) {
 	return $varResult;
 }
 
-function getNamaUser($IDX) {
+function getNamaUserCloud($IDX) {
 	$strSQL="SELECT nama_user FROM `dbo_user` where kode_kasir = '" . $IDX . "'";
 	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
 	$JumBar=mysqli_num_rows($CallstrSQL);
@@ -993,16 +1033,18 @@ function cekValuePromoBarang($IDX,$UOMX){
         LEFT JOIN dbo_promo_detail c ON b.sku_barang = c.`sku_barang` AND p.uom = c.`uom`
         LEFT JOIN dbo_promo d ON c.`kode_promo` = d.`kode_promo`
         WHERE b.kode_barang LIKE '%" . $IDX . "%' AND p.uom = '" . $UOMX . "'";
-	$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
-	$JumBar=mysqli_num_rows($CallstrSQL);
-	if ($JumBar>0){
-		while($rec=mysqli_fetch_array($CallstrSQL)){
-			$varResult = $rec['value_promo'];
+		$CallstrSQL=mysqli_query($GLOBALS["___mysqli_ston_"], $strSQL);
+		$JumBar=mysqli_num_rows($CallstrSQL);
+		if ($JumBar>0){
+			while($rec=mysqli_fetch_array($CallstrSQL)){
+				$varResult = $rec['value_promo'];
+			}
+		}else{
+			$varResult = "";
 		}
-	}
-	if ($varResult === null) {
-		$varResult = "";
-	}
+		if ($varResult === null) {
+			$varResult = "";
+		}
 
 	return $varResult;		
 }

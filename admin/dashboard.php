@@ -8,7 +8,7 @@ include_once "library/parameter.php";
 include_once "library/fungsi.php";
 include_once "../lib/general_lib.php";
 
-if(isset($_SESSION['SESS_user_id'])){
+if(isset($_SESSION['ADMSESS_user_id'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,20 +56,20 @@ if(isset($_SESSION['SESS_user_id'])){
       <!-- Main Content Wrapper -->
       <main class="main-content w-full px-[var(--margin-x)] pb-8">
         <?php
-        $TotalStruk = getCountSalesHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
-        $Pembulatan = getTotalPembulatanHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
+        $TotalStruk = getCountSalesHarianStore($currdatedb,$_SESSION['ADMSESS_kode_store']);
+        $Pembulatan = getTotalPembulatanHarianStore($currdatedb,$_SESSION['ADMSESS_kode_store']);
         if($Pembulatan < 0){
             $Pembulatan = $Pembulatan*-1;
             $StatusPembulatan = "-";
         }else{
             $StatusPembulatan = "+";
         }
-        $GrossSales = getTotalGrossHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
-        $TotalKembalian = getTotalKembalianHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
-        $TotalCash = getTotalCashHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
-        $TotalNonCash = getTotalNonCashHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
-        $TotalDiskon = getTotalDiskonHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
-        $NetSales = getTotalNettoHarianStore($currdatedb,$_SESSION['SESS_kode_store']);
+        $GrossSales = getTotalGrossHarianStore($currdatedb,$_SESSION['ADMSESS_kode_store']);
+        $TotalKembalian = getTotalKembalianHarianStore($currdatedb,$_SESSION['ADMSESS_kode_store']);
+        $TotalCash = getTotalCashHarianStore($currdatedb,$_SESSION['ADMSESS_kode_store']);
+        $TotalNonCash = getTotalNonCashHarianStore($currdatedb,$_SESSION['ADMSESS_kode_store']);
+        $TotalDiskon = getTotalDiskonHarianStore($currdatedb,$_SESSION['ADMSESS_kode_store']);
+        $NetSales = getTotalNettoHarianStore($currdatedb,$_SESSION['ADMSESS_kode_store']);
         ?>        
       <div class="flex gap-2">
           <div class="w-1/3 border-2 border-green-600 card bg-gradient-to-r from-blue-500 to-blue-300 px-4 pb-4 sm:px-5">
@@ -136,8 +136,14 @@ if(isset($_SESSION['SESS_user_id'])){
 
       <!--Row 2 Baris-->
       <div class="mt-4 grid grid-cols-12 bg-slate-200 transition-all duration-[.25s] sm:mt-5 lg:mt-6">
-          <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-8">
-                <div class='font-bold text-primary uppercase'>OPEN REGISTER</div>
+
+    
+      </div>
+
+      <div class="mt-4 grid grid-cols-12 bg-slate-200 transition-all duration-[.25s] sm:mt-5 lg:mt-6">
+          <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-12">
+                <div class='font-bold text-primary uppercase my-2'>DAFTAR REGISTER</div>
+                <div class="table-responsive">
                 <table id="table1" class="is-hoverable w-full" width="100%">     
                     <thead>
                     <tr>
@@ -153,7 +159,7 @@ if(isset($_SESSION['SESS_user_id'])){
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_register where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb . "' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_register where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal = '" . $currdatedb . "' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {
@@ -188,15 +194,12 @@ if(isset($_SESSION['SESS_user_id'])){
                     ?>
                     </tbody>
                 </table>
+                </div>
           </div>
-          <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-4">
-              <div id="display_log"></div>
-          </div>      
-      </div>
 
-      <div class="mt-4 grid grid-cols-12 bg-slate-200 transition-all duration-[.25s] sm:mt-5 lg:mt-6">
           <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-12">
-                <div class='font-bold text-primary uppercase'>List Sales Harian</div>
+                <div class='font-bold text-primary uppercase my-2'>DAFTAR PENJUALAN HARIAN</div>
+                <div class="table-responsive">
                 <table id="table2" class="is-hoverable w-full" width="100%">     
                     <thead>
                     <tr>
@@ -212,12 +215,12 @@ if(isset($_SESSION['SESS_user_id'])){
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb . "' and is_voided in ('0','2') order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal = '" . $currdatedb . "' and is_voided in ('0','2') order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {
                         $NomorStruk = $recView['no_struk'];
-                        $KodeKasir = $recView['kode_kasir'];
+                        $KodeKasirs = $recView['kode_kasir'];
                         $Tanggal = $recView['tanggal'];
                         $Jam = $recView['jam'];
                         $DisplayDate = date("d-m-Y", strtotime($Tanggal)) . " " . $Jam;
@@ -230,7 +233,7 @@ if(isset($_SESSION['SESS_user_id'])){
                         ?>
                         <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NomorStruk; ?></td>     
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasirs; ?> -  <?php   echo getNamaUser($KodeKasirs); ?></td>     
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDate; ?></td>         
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($totalStruk,2); ?></td>      
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $jenisBayar; ?></td>
@@ -244,7 +247,12 @@ if(isset($_SESSION['SESS_user_id'])){
                     ?>
                     </tbody>
                 </table>
+                </div>
           </div>
+
+          <div class="card col-span-12 p-4 m-4 sm:px-5 lg:col-span-12">
+              <div id="display_log"></div>
+          </div>            
       </div>
     
       

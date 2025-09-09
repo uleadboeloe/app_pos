@@ -45,11 +45,11 @@ if($valid)
 
     session_regenerate_id();
 
-    $_SESSION['SESS_user_id'] = $user_id;
-    $_SESSION['SESS_user_name'] = $user_name;
-    $_SESSION['SESS_kode_store'] = $kode_store;
-    $_SESSION['SESS_kode_kasir'] = $kode_kasir;
-    $_SESSION['SESS_hak_akses'] = $hak_akses;
+    $_SESSION['ADMSESS_user_id'] = $user_id;
+    $_SESSION['ADMSESS_user_name'] = $user_name;
+    $_SESSION['ADMSESS_kode_store'] = $kode_store;
+    $_SESSION['ADMSESS_kode_kasir'] = $kode_kasir;
+    $_SESSION['ADMSESS_hak_akses'] = $hak_akses;
     $_SESSION['sts'] = 'OK';
 
     session_write_close();

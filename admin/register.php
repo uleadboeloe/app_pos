@@ -7,6 +7,7 @@ include_once "library/connection.php";
 include_once "library/parameter.php";
 include_once "library/fungsi.php";
 include_once "../lib_dbo/user_functions.php";
+include_once "../lib/general_lib.php";
 $hash16 = CreateUniqueHash16();
 ?>
 <!DOCTYPE html>
@@ -74,7 +75,7 @@ $hash16 = CreateUniqueHash16();
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_register where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_register where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {

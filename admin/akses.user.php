@@ -59,7 +59,7 @@ $hash16 = CreateUniqueHash16();
                 <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Akses User</h2>
             </div>
 
-            <form name="formProses" name="frmMasterProduk" id="frmMasterProduk" method="post" action="proses-user">
+            <form name="formProses" name="frmMasterProduk" id="frmMasterProduk" method="post" action="proses-cloud-user">
                 <div class="grid grid-cols-2 my-2 gap-4 sm:gap-5 lg:gap-6">
                     <div class="col-span-12 sm:col-span-12">
                         <div class="card p-4 sm:p-5">
@@ -74,8 +74,8 @@ $hash16 = CreateUniqueHash16();
                                             class="form-select h-12 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs+ hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                                                 <option value="">Pilih Store</option>
                                                 <?php
-                                                $strSQL="SELECT kode_store,nama_store FROM `dbo_store` where fl_active = 1";
-                                                $CallstrSQL=mysqli_query($koneksidb, $strSQL);
+                                                $strSQL="SELECT kode_store,nama_store FROM `dbo_table_store` where fl_active = 1";
+                                                $CallstrSQL=mysqli_query($koneksicloud, $strSQL);
                                                 while($rec=mysqli_fetch_array($CallstrSQL)){
                                                 ?>
                                                 <option value="<?php    echo $rec['kode_store']; ?>"><?php    echo $rec['kode_store']; ?> - <?php    echo $rec['nama_store']; ?></option>
@@ -87,7 +87,7 @@ $hash16 = CreateUniqueHash16();
                                     </label>  
 
                                     <label class="block">
-                                        <span class="text-purple-500 font-bold">Kode Kasir <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib, Maksimal 3 Karakter</div></span>
+                                        <span class="text-purple-500 font-bold">Kode Kasir <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
                                         <span class="relative mt-1.5 flex">						
                                             <input placeholder="Masukan Kode Kasir" type="number" id="txtKodeKasir" name="txtKodeKasir" maxlength="3" required
                                             class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
@@ -110,7 +110,7 @@ $hash16 = CreateUniqueHash16();
                                     </div> 
 
                                     <label class="block">
-                                        <span class="text-purple-500 font-bold">Password User <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
+                                        <span class="text-purple-500 font-bold">Password <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
                                         <span class="relative mt-1.5 flex">						
                                             <input placeholder="Masukan Password User" type="password" id="txtPassword" name="txtPassword" required
                                             class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
@@ -131,13 +131,22 @@ $hash16 = CreateUniqueHash16();
                                                 <i class="fa-regular fa-building text-base"></i>
                                             </span>
                                         </span>
-                                    </label>                           
-
+                                    </label>     
+                                    <label class="block">
+                                        <span class="text-purple-500 font-bold">Alamat Email <div class="badge rounded-full bg-warning/10 text-warning dark:bg-accent-light/15 dark:text-accent-light">Opsional</div></span>
+                                        <span class="relative mt-1.5 flex">						
+                                            <input placeholder="Masukan Alamat Email" type="text" id="txtAlamatEmail" name="txtAlamatEmail"
+                                            class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
+                                            <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                                                <i class="fa-regular fa-building text-base"></i>
+                                            </span>
+                                        </span>
+                                    </label>
                                     <label class="block">
                                         <span class="text-purple-500 font-bold">Jabatan <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
                                         <span class="relative mt-1.5 flex">
                                             <select id="txtJabatan" name="txtJabatan" required
-                                            class="form-select mt-1 h-12 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs+ hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                                            class="form-select h-12 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs+ hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                                                 <option value="">Pilih Jabatan</option>
                                                 <?php
                                                 $strSQL="SELECT job_title FROM `dbo_jobtitle` where fl_active = 1";
@@ -178,35 +187,38 @@ $hash16 = CreateUniqueHash16();
                     <tr>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode User</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Nama User</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode Store</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Jabatan</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Nomor Kontak</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Last Login</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_user where fl_active = 1 and hak_akses < 9 order by kode_store, kode_kasir";
+                    $StrViewQuery="SELECT * from dbo_table_user where fl_active = 1 and hak_akses < 9 order by kode_store, kode_kasir";
                     //echo $StrSalesDetails . "<hr>";     
-                    $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                    $callStrViewQuery=mysqli_query($koneksicloud, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {
                         $RandomCode = $recView['random_code'];
                         $KodeStore = $recView['kode_store'];
-                        $NamaStore = getStoreName($KodeStore);
+                        $NamaStore = getStoreNameOnCLoud($KodeStore);
                         $UserID = $recView['userid'];
                         $KodeKasir = $recView['kode_kasir'];
                         $NamaUser = $recView['nama_user'];
-                        $AlamatUser = $recView['alamat_user'];
                         $JobTitle = $recView['job_title'];
-                        $NoIdentitas = $recView['nomor_identitas'];
                         $AlamatEmail = $recView['alamat_email'];
                         $NoKontak = $recView['nomor_kontak'];
+                        $LastLogin = $recView['last_login'];
                         ?>
                         <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
                         <td class="whitespace-nowrap px-4 py-3 sm:px-5"><a href="detail-user@<?php   echo $RandomCode; ?>" class="font-bold text-primary hover:text-orange-500"><?php   echo $KodeKasir; ?></a></td>   
-                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NamaUser; ?></td>     
-                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $JobTitle; ?></td>           
-                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NoKontak; ?></td>     
+                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NamaUser; ?></td>
+                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeStore; ?> - <?php   echo $NamaStore; ?></td>     
+                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $JobTitle; ?></td>
+                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NoKontak; ?></td>  
+                        <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $LastLogin; ?></td>     
                         </tr>
                         <?php
                     }

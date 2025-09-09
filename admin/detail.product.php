@@ -180,19 +180,7 @@ $hash16 = CreateUniqueHash16();
                                     <div class="mt-3">
                                         <p class="text-indigo-300">Produk Description</p>
                                         <p class="text-base font-semibold"><?php echo $varKeterangan1;   ?><br><?php echo $varKeterangan2;   ?></p>
-                                    </div>
-                                    <div class="mt-3">
-                                        <p class="text-indigo-300">Kode Barcode / Kemasan / Harga</p>
-                                        <p class="text-base font-medium"><?php echo $varBarcode;   ?> - <?php echo $varUomBarcode;   ?>  - <?php echo number_format($varPrice,2);   ?></p>
-                                    </div> 
-                                    <div class="mt-3">
-                                        <p class="text-indigo-300">Kode Barcode / Kemasan / Harga</p>
-                                        <p class="text-base font-medium"><?php echo $varBarcode2;   ?> - <?php echo $varUomBarcode2;   ?>  - <?php echo number_format($varPrice2,2);   ?></p>
-                                    </div> 
-                                    <div class="mt-3">
-                                        <p class="text-indigo-300">Kode Barcode / Kemasan / Harga</p>
-                                        <p class="text-base font-medium"><?php echo $varBarcode3;   ?> - <?php echo $varUomBarcode3;   ?>  - <?php echo number_format($varPrice3,2);   ?></p>
-                                    </div>                                                                         
+                                    </div>                                                                    
                                     <div class="mt-3">
                                         <p class="text-indigo-300">Departemen</p>
                                         <p class="text-base font-medium"><?php echo $varDivisi;   ?> - <?php echo getDeptNameByCode($varDivisi);   ?></p>
@@ -205,6 +193,21 @@ $hash16 = CreateUniqueHash16();
                                         <p class="text-indigo-300">Sub Kategori</p>
                                         <p class="text-base font-medium"><?php echo $varSubDept;   ?> - <?php echo getSubKategoriNameByCode($varSubDept);   ?></p>
                                     </div>
+
+                                    <div class="card border border-slate-200 pt-4 dark:border-navy-500">
+                                        <div class="">
+                                            <p class="text-indigo-300">Kode Barcode / Kemasan / Harga</p>
+                                            <p class="text-base font-medium"><?php echo $varBarcode;   ?> - <?php echo $varUomBarcode;   ?>  - <?php echo number_format($varPrice,2);   ?></p>
+                                        </div> 
+                                        <div class="mt-3">
+                                            <p class="text-indigo-300">Kode Barcode / Kemasan / Harga</p>
+                                            <p class="text-base font-medium"><?php echo $varBarcode2;   ?> - <?php echo $varUomBarcode2;   ?>  - <?php echo number_format($varPrice2,2);   ?></p>
+                                        </div> 
+                                        <div class="mt-3">
+                                            <p class="text-indigo-300">Kode Barcode / Kemasan / Harga</p>
+                                            <p class="text-base font-medium"><?php echo $varBarcode3;   ?> - <?php echo $varUomBarcode3;   ?>  - <?php echo number_format($varPrice3,2);   ?></p>
+                                        </div>   
+                                    </div>                                      
                                 </div> 
                                 <div class="w-1/3 p-2">
                                     <div class="mt-3">
@@ -239,7 +242,9 @@ $hash16 = CreateUniqueHash16();
                         </div>
                     </div>
                 </div>  
-
+                <?php
+                if($_SESSION['ADMSESS_hak_akses'] > 8){
+                ?>
                 <div class="col-span-12 p-2 lg:col-span-12">
                     <div class="flex items-center justify-between py-2 px-4">
                         <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Tambah Price Level</h2>
@@ -315,7 +320,6 @@ $hash16 = CreateUniqueHash16();
                 </div>  
 
                 <div class="col-span-12 p-2 lg:col-span-12">
-
                     <div class="flex items-center justify-between py-2 px-4">
                         <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Detail Promo Price Level</h2>
                     </div>
@@ -375,7 +379,10 @@ $hash16 = CreateUniqueHash16();
                         </tbody>
                         </table>
                     </div>
-                </div>   
+                </div> 
+                <?php
+                }
+                ?>  
 
                 <div class="col-span-12 p-2 lg:col-span-12">
                     <div class="flex items-center justify-between py-2 px-4">
@@ -431,7 +438,6 @@ $hash16 = CreateUniqueHash16();
                 </div>                
                 <?php           
             }
-          
         }
         ?>
     </main>

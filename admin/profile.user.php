@@ -7,6 +7,7 @@ include_once "library/connection.php";
 include_once "library/parameter.php";
 include_once "library/fungsi.php";
 include_once "../lib_dbo/user_functions.php";
+include_once "../lib/general_lib.php";
 $hash16 = CreateUniqueHash16();
 ?>
 <!DOCTYPE html>
@@ -54,23 +55,106 @@ $hash16 = CreateUniqueHash16();
     <?php   include "sidebar.php";  ?>
     <!-- Main Content Wrapper -->
     <main class="main-content w-full px-[var(--margin-x)] pb-8 bg-green-100">
-        <div class="col-span-12 p-2 lg:col-span-12">
+        <div class="grid flex grid-cols-1">
             <div class="flex items-center justify-between py-3 px-4">
                 <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Profile User</h2>
             </div>
-
+            
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <form name="formProses" name="frmMasterProduk" id="frmMasterProduk" method="post" action="update-password">
-                <div class="grid grid-cols-2 my-2 gap-4 sm:gap-5 lg:gap-6">
-                    <div class="col-span-12 sm:col-span-12">
-                        <div class="card p-4 sm:p-5">
+                <div class="grid grid-cols-1">
+                    <div class="card p-4 my-2 sm:p-5">
+                        <div class="space-y-4">
+                            <input type="hidden" id="txtRandomCode" name="txtRandomCode" value="<?php echo $hash16;   ?>" readonly>
+                            <input type="hidden" id="txtKodeKasir" name="txtKodeKasir" value="<?php echo $_SESSION['ADMSESS_kode_kasir'];   ?>" readonly>
+                            <div class="grid grid-cols-1">
+                                <label class="block">
+                                    <p class="text-orange-500 my-2 font-bold">Ubah Password untuk Menjaga Keamanan Akun Anda</p>
+                                    <span class="text-purple-500 font-semibold">New Password</span>
+                                    <span class="relative mt-1.5 flex">						
+                                        <input placeholder="Masukan Password" type="password" id="txtPassword" name="txtPassword" required
+                                        class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
+                                        <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                                            <i class="fa-regular fa-building text-base"></i>
+                                        </span>
+                                    </span> 
+                                </label>                                                                                               
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
+                                <label class="block">
+                                    <span class="relative mt-1.5 flex">						
+                                        <input type="submit" name="btnSubmit" id="btnSubmit" value="Ubah Password"
+                                        class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                                    </span>
+                                </label>
+                            </div>   
+                        </div>
+                    </div>
+                </div>  
+            </form>
+
+            <form name="formProses" name="frmMasterProduk" id="frmMasterProduk" method="post" action="reset-login-user-cloud">
+                <div class="grid grid-cols-1">
+                    <div class="card p-4 my-2 sm:p-5">
+                        <div class="space-y-4">
+                            <input type="hidden" id="txtRandomCode" name="txtRandomCode" value="<?php echo $hash16;   ?>" readonly>
+                            <div class="grid grid-cols-1">
+                                <label class="block">
+                                    <p class="text-orange-500 my-2 font-bold">Reset User Kasir yang Sedang Aktif dikarenakan Force Close Program</p>
+                                    <span class="text-purple-500 font-semibold">KODE KASIR</span>
+                                    <span class="relative mt-1.5 flex">
+                                        <select id="txtKodeKasir" name="txtKodeKasir" required 
+                                        class="form-select h-12 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs+ hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                                            <option value="">Pilih Kode Kasir</option>
+                                            <?php
+                                            $strSQL="SELECT userid,nama_user,kode_store FROM `dbo_table_user` where fl_active = 1 and kode_store = '$KodeStoreOffline'";
+                                            $CallstrSQL=mysqli_query($koneksicloud, $strSQL);
+                                            while($rec=mysqli_fetch_array($CallstrSQL)){
+                                            ?>
+                                            <option value="<?php    echo $rec['userid']; ?>"><?php    echo $rec['userid']; ?> - <?php    echo $rec['nama_user']; ?></option>
+                                            <?php
+                                            }
+                                            ?>                                                
+                                        </select>
+                                    </span>
+                                </label>  
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2">
+                                <label class="block">
+                                    <span class="relative mt-1.5 flex">						
+                                        <input type="submit" name="btnSubmit" id="btnSubmit" value="RESET LOGIN USER"
+                                        class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                                    </span>
+                                </label>
+                            </div>   
+                        </div>
+                    </div>
+                </div>  
+            </form>   
+            
+            <?php
+            if(isset($_SESSION['ADMSESS_user_id'])){
+            $StrViewQuery="SELECT * from dbo_user where userid  = '" . $_SESSION['ADMSESS_user_id'] . "'";    
+            $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+            while($recView=mysqli_fetch_array($callStrViewQuery))
+            {
+                $HakAkses = $recView['hak_akses'];
+                if($HakAkses > 1){
+                ?>
+                <form name="formProses" name="frmMasterProduk" id="frmMasterProduk" method="post" action="reset-approval-code">
+                    <div class="grid grid-cols-1">
+                        <div class="card p-4 my-2 sm:p-5">
                             <div class="space-y-4">
                                 <input type="hidden" id="txtRandomCode" name="txtRandomCode" value="<?php echo $hash16;   ?>" readonly>
-                                <input type="hidden" id="txtKodeKasir" name="txtKodeKasir" value="<?php echo $_SESSION['SESS_kode_kasir'];   ?>" readonly>
-                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
+                                <input type="hidden" id="txtUserId" name="txtUserId" value="<?php echo $_SESSION['ADMSESS_user_id'];   ?>" readonly>
+                                <div class="grid grid-cols-1">
                                     <label class="block">
-                                        <span class="text-purple-500 font-bold">Ubah Password Baru <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
+                                        <p class="text-orange-500 my-2 font-bold">Ubah Code Untuk Proses Approval</p>
+                                        <span class="text-purple-500 font-semibold">Approval Code</span>
                                         <span class="relative mt-1.5 flex">						
-                                            <input placeholder="Masukan Password User" type="password" id="txtPassword" name="txtPassword" required
+                                            <input placeholder="Masukan Password" type="text" id="txtApprovalCode" name="txtApprovalCode" value="<?php echo $recView['approval_code'];   ?>" disabled
                                             class="form-input peer h-12 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
                                             <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                                                 <i class="fa-regular fa-building text-base"></i>
@@ -82,65 +166,32 @@ $hash16 = CreateUniqueHash16();
                                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
                                     <label class="block">
                                         <span class="relative mt-1.5 flex">						
-                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="Ubah Password"
+                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="Ubah Approval Code"
                                             class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
                                         </span>
                                     </label>
-                                </div>   
+                                </div>    
                             </div>
                         </div>
-                    </div>
-                </div>  
-            </form>
-
-            <form name="formProses" name="frmMasterProduk" id="frmMasterProduk" method="post" action="reset-login-user">
-                <div class="grid grid-cols-2 my-2 gap-4 sm:gap-5 lg:gap-6">
-                    <div class="col-span-12 sm:col-span-12">
-                        <div class="card p-4 sm:p-5">
-                            <div class="space-y-4">
-                                <input type="hidden" id="txtRandomCode" name="txtRandomCode" value="<?php echo $hash16;   ?>" readonly>
-                                <label class="block">
-                                    <span class="text-purple-500 font-bold">Kode Kasir <div class="badge rounded-full bg-primary/10 text-primary dark:bg-accent-light/15 dark:text-accent-light">Wajib</div></span>
-                                    <span class="relative mt-1.5 flex">
-                                        <select id="txtKodeKasir" name="txtKodeKasir" required 
-                                        class="form-select h-12 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs+ hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
-                                            <option value="">Pilih Kode Kasir</option>
-                                            <?php
-                                            $strSQL="SELECT userid,nama_user FROM `dbo_user` where fl_active = 1";
-                                            $CallstrSQL=mysqli_query($koneksidb, $strSQL);
-                                            while($rec=mysqli_fetch_array($CallstrSQL)){
-                                            ?>
-                                            <option value="<?php    echo $rec['userid']; ?>"><?php    echo $rec['userid']; ?> - <?php    echo $rec['nama_user']; ?></option>
-                                            <?php
-                                            }
-                                            ?>                                                
-                                        </select>
-                                    </span>
-                                </label>  
-
-                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
-                                    <label class="block">
-                                        <span class="relative mt-1.5 flex">						
-                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="RESET LOGIN USER"
-                                            class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
-                                        </span>
-                                    </label>
-                                </div>   
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-            </form>   
+                    </div>  
+                </form>                  
+                <?php  
+                }        
+            }
+            }
+            ?> 
+            </div>
+  
 
             <?php
-            if(isset($_SESSION['SESS_kode_kasir'])){
-                $StrViewQuery="SELECT * from dbo_user where userid  = '" . $_SESSION['SESS_kode_kasir'] . "'";
-                //echo $StrViewQuery . "<hr>";     
-                $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
-                while($recView=mysqli_fetch_array($callStrViewQuery))
-                {
-                    $varNoid = $recView['noid'];
-                    ?>
+            if(isset($_SESSION['ADMSESS_user_id'])){
+            $StrViewQuery="SELECT * from dbo_user where userid  = '" . $_SESSION['ADMSESS_user_id'] . "'";    
+            $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+            while($recView=mysqli_fetch_array($callStrViewQuery))
+            {
+                $HakAkses = $recView['hak_akses'];
+                if($HakAkses > 1){
+                ?>
                 <div class="grid grid-cols-2 my-2 gap-4 sm:gap-5 lg:gap-6">                    
                     <div class="col-span-12 lg:col-span-12">
                         <div class="flex items-center justify-between py-2 px-4">
@@ -154,17 +205,13 @@ $hash16 = CreateUniqueHash16();
                         <div class="rounded-lg bg-white py-5 sm:py-6">
                             <div class="voucher-bg px-4 text-primary sm:px-5">
                                 <div class="flex" id="PrintArea">
-                                    <div class="w-80 p-2"><img src="<?php echo $recView['qrcode_user'];   ?>" class="mt-3 w-80"></div>
+                                    <div class="w-80 p-2"><img src="<?php echo $recView['qrcode_user'];   ?>" width="100%"></div>
                                     <div class="w-full p-2">
                                         <div class="mt-3">
                                             <p class="text-indigo-300">Nama User</p>
-                                            <p class="text-3xl font-semibold tracking-wide"><?php echo $recView['nama_user'];   ?></p>
-                                        </div>
-                                        <div class="mt-3">
+                                            <p class="text-3xl font-semibold tracking-wide print:text-orange-300"><?php echo $recView['nama_user'];   ?></p>
                                             <p class="text-indigo-300">Nomor Whatsapp</p>
                                             <p class="text-3xl font-semibold tracking-wide"><?php echo $recView['nomor_kontak'];   ?></p>
-                                        </div>
-                                        <div class="mt-3">
                                             <p class="text-indigo-300">Jabatan</p>
                                             <p class="text-3xl font-semibold tracking-wide"><?php echo $recView['job_title'];   ?></p>
                                         </div>                                                                        
@@ -174,8 +221,9 @@ $hash16 = CreateUniqueHash16();
                         </div>  
                     </div>  
                 </div>           
-                    <?php           
-                }
+                <?php  
+                }        
+            }
             }
             ?>              
         </div>

@@ -8,10 +8,10 @@ include_once "library/parameter.php";
 include_once "library/fungsi.php";
 include_once "../lib_dbo/user_functions.php";
 
-if(isset($_SESSION['SESS_user_id'])){
+if(isset($_SESSION['ADMSESS_user_id'])){
 $hash16 = CreateUniqueHash16();
 
-    $StrViewQuery="SELECT * from dbo_user where userid = '" . $_SESSION['SESS_user_id'] . "'";   
+    $StrViewQuery="SELECT * from dbo_user where userid = '" . $_SESSION['ADMSESS_user_id'] . "'";   
     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
     while($recView=mysqli_fetch_array($callStrViewQuery))
     {
@@ -90,7 +90,7 @@ $hash16 = CreateUniqueHash16();
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal  between '" . $varStartDate. "' and '" . $varEndDate. "' and jenis_bayar = 'CASH' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_payment where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal  between '" . $varStartDate. "' and '" . $varEndDate. "' and jenis_bayar = 'CASH' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {
@@ -147,7 +147,7 @@ $hash16 = CreateUniqueHash16();
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal between '" . $varStartDate. "' and '" . $varEndDate. "' and jenis_bayar <> 'CASH' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_payment where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal between '" . $varStartDate. "' and '" . $varEndDate. "' and jenis_bayar <> 'CASH' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {
@@ -209,7 +209,7 @@ $hash16 = CreateUniqueHash16();
                 <tbody>
                 <?php
                 /*==========================*/
-                $StrViewQuery="SELECT sum(total_bayar) as TotalBayar,jenis_bayar from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' group by jenis_bayar";   
+                $StrViewQuery="SELECT sum(total_bayar) as TotalBayar,jenis_bayar from dbo_payment where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' group by jenis_bayar";   
                 $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                 while($recView=mysqli_fetch_array($callStrViewQuery))
                 {

@@ -8,10 +8,10 @@ include_once "library/parameter.php";
 include_once "library/fungsi.php";
 include_once "../lib_dbo/user_functions.php";
 
-if(isset($_SESSION['SESS_user_id'])){
+if(isset($_SESSION['ADMSESS_user_id'])){
 $hash16 = CreateUniqueHash16();
 
-    $StrViewQuery="SELECT * from dbo_user where userid = '" . $_SESSION['SESS_user_id'] . "'";   
+    $StrViewQuery="SELECT * from dbo_user where userid = '" . $_SESSION['ADMSESS_user_id'] . "'";   
     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
     while($recView=mysqli_fetch_array($callStrViewQuery))
     {
@@ -36,6 +36,7 @@ $hash16 = CreateUniqueHash16();
 <!-- CSS Assets -->
 <link rel="stylesheet" href="assets/lineone/css/app.css" />
 <link rel="stylesheet" href="assets/css/custom.css" />
+<script type="text/javascript" src="assets/js/export.excel.js"></script>
 <!-- Javascript Assets -->
 <script src="assets/lineone/js/app.js" defer></script>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -70,7 +71,11 @@ $hash16 = CreateUniqueHash16();
         <div class="col-span-12 p-2 lg:col-span-12">
             <div class="flex items-center justify-between py-2 px-4">
                 <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">Sales Invoice Per Periode <?php    echo $varStartDateIndo; ?> sd <?php echo $varEndDateIndo;   ?></h2>
+                <div class="flex">
+                <iframe id="txtArea1" style="display:none"></iframe>
+                <button id="btnExport" onclick="fnExcelReport();" class="btn space-x-2 mr-1 bg-warning font-medium text-white hover:bg-warning-focus focus:bg-warning-focus active:bg-warning-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"> Export to Excel List Sales</button>
                 <button class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" onclick="PrintDoc()">Print Detail</button>
+                </div>
             </div>
             <div class="card p-5 mt-3">
                 <table id="table1" class="is-hoverable w-full" width="100%">     
@@ -88,7 +93,7 @@ $hash16 = CreateUniqueHash16();
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal between '" . $varStartDate. "' and '" . $varEndDate. "' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal between '" . $varStartDate. "' and '" . $varEndDate. "' order by noid DESC";   
                     //echo $StrViewQuery;
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
@@ -119,7 +124,56 @@ $hash16 = CreateUniqueHash16();
                     }
                     ?>
                     </tbody>
-                </table>              
+                </table>           
+                
+                <table id="exportExcel" style="display:none;">     
+                    <thead>
+                    <tr>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">No Strukr</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Kode / Nama Kasir</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Tanggal</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Total Struk</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Pembayaran</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Customer</th>
+                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    /*==========================*/
+                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal between '" . $varStartDate. "' and '" . $varEndDate. "' order by noid DESC";   
+                    //echo $StrViewQuery;
+                    $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
+                    while($recView=mysqli_fetch_array($callStrViewQuery))
+                    {
+                        $NomorStruk = $recView['no_struk'];
+                        $KodeKasir = $recView['kode_kasir'];
+                        $Tanggal = $recView['tanggal'];
+                        $Jam = $recView['jam'];
+                        $DisplayDate = date("d-m-Y", strtotime($Tanggal)) . " " . $Jam;
+                        $totalBayar = $recView['total_bayar'];
+                        $totalStruk = $recView['total_struk'];
+                        $kembalian = $recView['kembalian'];
+                        $jenisBayar = $recView['jenis_bayar'];
+                        $KodeCustomer = $recView['kode_customer'];
+                        ?>
+                        <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $NomorStruk; ?></td>     
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeKasir; ?> - <?php   echo getNamaUser($KodeKasir); ?></td>     
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDate; ?></td>         
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($totalStruk,2); ?></td>         
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $jenisBayar; ?></td>
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeCustomer; ?></td>        
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                <a href="sales-invoice@<?php   echo $NomorStruk; ?>" class="btn h-8 rounded bg-success px-3 text-xs font-medium text-white hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">Show Detail</a>
+                            </td>
+                        </tr>
+                        <?php                     
+                    }
+                    ?>
+                    </tbody>
+                </table>
+
             </div>
 
             
@@ -152,7 +206,7 @@ $hash16 = CreateUniqueHash16();
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {

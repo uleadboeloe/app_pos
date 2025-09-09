@@ -13,7 +13,7 @@ $Timestamp = str_replace(":","",$datedb);
 $Timestamp = str_replace(" ","-",$Timestamp);
 $Timestampx = str_replace("-","",$Timestamp);
 
-$Userid = $_SESSION['SESS_user_id'];
+$Userid = $_SESSION['ADMSESS_user_id'];
 $sourcex = (trim($_POST['source']));
 $itemid = (trim($_POST['itemid']));
 

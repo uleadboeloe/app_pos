@@ -9,10 +9,10 @@ include_once "library/fungsi.php";
 include_once "library/fungsi.sales.php";
 include_once "../lib_dbo/user_functions.php";
 
-if(isset($_SESSION['SESS_user_id'])){
+if(isset($_SESSION['ADMSESS_user_id'])){
 $hash16 = CreateUniqueHash16();
 
-    $StrViewQuery="SELECT * from dbo_user where userid = '" . $_SESSION['SESS_user_id'] . "'";   
+    $StrViewQuery="SELECT * from dbo_user where userid = '" . $_SESSION['ADMSESS_user_id'] . "'";   
     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
     while($recView=mysqli_fetch_array($callStrViewQuery))
     {

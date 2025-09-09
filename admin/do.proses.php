@@ -14,10 +14,10 @@ $Timestamp = str_replace(":","",$datedb);
 $Timestamp = str_replace(" ","-",$Timestamp);
 $Timestampx = str_replace("-","",$Timestamp);
 
-$Userid = $_SESSION['SESS_user_id'];
-$Username = $_SESSION['SESS_user_name'];
+$Userid = $_SESSION['ADMSESS_user_id'];
+$Username = $_SESSION['ADMSESS_user_name'];
 
-if(isset($_SESSION['SESS_user_id'])){
+if(isset($_SESSION['ADMSESS_user_id'])){
     $txtSourcex = (trim($_GET['source']));
 
     switch ($txtSourcex){
@@ -729,7 +729,7 @@ if(isset($_SESSION['SESS_user_id'])){
             $JumbarLine=mysqli_num_rows($callstrQueryLine);
             if($JumbarLine > 0){   
 
-                $strInsert="UPDATE dbo_register set respon_skasir = '$txtKomentarAdminx',setoran_diterima = '$txtTerimaSetoranx', respon_user = '" . $_SESSION['SESS_kode_kasir'] . "', respon_date = '$datedb', status_respon = '1' ";
+                $strInsert="UPDATE dbo_register set respon_skasir = '$txtKomentarAdminx',setoran_diterima = '$txtTerimaSetoranx', respon_user = '" . $_SESSION['ADMSESS_kode_kasir'] . "', respon_date = '$datedb', status_respon = '1' ";
                 $strInsert=$strInsert . " WHERE kode_register = '" . $txtNoRegisterx . "'";
                 $executeSQL=mysqli_query($koneksidb, $strInsert); 
                 //echo $strInsert;
@@ -852,7 +852,57 @@ if(isset($_SESSION['SESS_user_id'])){
                 }
             }            
         break;      
-        
+        case "reset-approval":
+            $txtUserIdx = (trim($_POST['txtUserId']));
+            $txtRandomCodex = (trim($_POST['txtRandomCode']));
+            $txtApproveCode = $txtUserIdx . "-" . $txtRandomCodex;
+            
+            $strQuery="SELECT * FROM dbo_user WHERE userid = '" . $txtUserIdx . "'";
+            $callstrQuery=mysqli_query($koneksidb, $strQuery);
+            $Jumbar=mysqli_num_rows($callstrQuery);
+            if($Jumbar == 1){
+
+                    /*GENERATE QRCODE LOGO*/
+                    $tempdir="qrcode_user/";
+                    $file_name = $txtApproveCode.".png";
+                    $record_value = $txtApproveCode;
+                    $file_path = $tempdir.$file_name;
+                    $forecolor = "0,0,0";
+                    $backcolor = "255,255,255";
+                    $logo = "assets/images/barcodelogo.png";
+                    /* param (1)qrcontent,(2)filename,(3)errorcorrectionlevel,(4)pixelwidth,(5)margin,(6)saveandprint,(7)forecolor,(8)backcolor */
+                    QRcode::png($record_value, $file_path, "H", 6, 1, 0, $forecolor, $backcolor, $logo);
+                    $FileBarcode = $tempdir.$file_name;
+                    /*GENERATE QRCODE LOGO*/
+
+                    /*CREATEBARCODE*/
+                    // Deteksi apakah protokolnya http atau https
+                    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+                    // Buat URL ke barcode generator
+                    $file_gambar = $protocol . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/barcode.php?text=" . urlencode($txtApproveCode) . "&print=true&size=100&orientation=horizontal&code_type=code128";
+                    $folderPath = __DIR__ . '/qrcode_user/barcodes/';
+                    if (!file_exists($folderPath)) {
+                        mkdir($folderPath, 0777, true); // buat folder jika belum ada
+                    }
+                    $filename = $folderPath . $txtApproveCode . '.png';
+                    // Ambil data gambar dari URL
+                    $barcode_data = file_get_contents($file_gambar);
+                    if ($barcode_data !== false) {
+                        file_put_contents($filename, $barcode_data);
+                    }
+                    /*CREATEBARCODE*/
+
+
+                $strInsert="UPDATE dbo_user set approval_code = '$txtApproveCode', qrcode_user = '$FileBarcode' where userid = '" . $txtUserIdx . "'";
+                $executeSQL=mysqli_query($koneksidb, $strInsert); 
+
+                if($executeSQL === false){
+                    header("Location: profile-showmsg!save-failed");
+                }else{
+                    header("Location: profile-showmsg!save-success");
+                }
+            }    
+        break;
         case "HIDDEN":
             case "E":                             
                 $txtNormalPricex = (trim($_POST['txtNormalPrice']));

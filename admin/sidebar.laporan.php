@@ -56,7 +56,7 @@ if(isset($_GET['msgcode'])){
                 <!-- Profile -->
                 <div x-data="usePopper({placement:'right-end',offset:12})" @click.outside="if(isShowPopper) isShowPopper = false" class="flex">
                     <button @click="isShowPopper = !isShowPopper" x-ref="popperRef" class="avatar h-12 w-12">
-                        <img class="rounded-full" src="assets/images/logo.png" alt="avatar"/>
+                        <img class="rounded-lg" src="assets/images/logo.png" alt="avatar"/>
                         <span class="absolute right-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-success dark:border-navy-700"></span>
                     </button>
 
@@ -64,7 +64,7 @@ if(isset($_GET['msgcode'])){
                         <div class="popper-box w-64 rounded-lg border border-slate-150 bg-white shadow-soft dark:border-navy-600 dark:bg-navy-700">
                             <div class="flex items-center space-x-4 bg-slate-100 py-5 px-4 dark:bg-navy-800">
                                 <div class="avatar h-14 w-14">
-                                <img class="rounded-full" src="assets/images/logo.png" alt="avatar"/>
+                                <img class="rounded-lg" src="assets/images/logo.png" alt="avatar"/>
                                 </div>
                                 <div>
                                 <a href="#" class="text-base font-medium text-green-600 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light">
@@ -163,7 +163,7 @@ if(isset($_GET['msgcode'])){
             </li>                              
             </ul>
             <?php
-            if($_SESSION['SESS_hak_akses'] > 3){
+            if($_SESSION['ADMSESS_hak_akses'] > 3){
             ?>               
             <div class="my-3 mx-4 h-px bg-slate-200 dark:bg-navy-500"></div>
             <ul class="flex flex-1 flex-col px-4 font-inter">

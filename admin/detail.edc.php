@@ -90,7 +90,7 @@ $hash16 = CreateUniqueHash16();
                                 <tbody>
                                 <?php
                                 /*==========================*/
-                                $StrViewPayment="SELECT * from dbo_payment where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and kode_edc = '" . $varNoid . "' order by noid DESC";   
+                                $StrViewPayment="SELECT * from dbo_payment where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and kode_edc = '" . $varNoid . "' order by noid DESC";   
                                 //echo $StrViewPayment . "<hr>";
                                 $callStrViewPayment=mysqli_query($koneksidb, $StrViewPayment);
                                 while($recViewPayment=mysqli_fetch_array($callStrViewPayment))

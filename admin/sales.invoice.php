@@ -7,6 +7,7 @@ include_once "library/connection.php";
 include_once "library/parameter.php";
 include_once "library/fungsi.php";
 include_once "../lib_dbo/user_functions.php";
+include_once "../lib/general_lib.php";
 $hash16 = CreateUniqueHash16();
 ?>
 <!DOCTYPE html>
@@ -60,11 +61,12 @@ $hash16 = CreateUniqueHash16();
                 <h2 class="font-bold text-xl uppercase tracking-wide text-slate-700 dark:text-navy-100">List Sales Harian</h2>
                 <div class="flex">
                 <iframe id="txtArea1" style="display:none"></iframe>
-                <button id="btnExport" onclick="fnExcelReport();" class="btn space-x-2 mr-1 bg-warning font-medium text-white hover:bg-warning-focus focus:bg-warning-focus active:bg-warning-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"> Export to Excel List Sales</button>
+                <button id="btnExport" onclick="fnExcelReport();" class="btn space-x-2 mr-1 bg-warning font-medium text-white hover:bg-warning-focus focus:bg-warning-focus active:bg-warning-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"> Export List Sales</button>
                 <button class="btn space-x-2 mr-1 bg-success font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" onclick="PrintDoc()">Print Detail</button>
                 </div>
             </div>
             <div class="card p-5 mt-3">
+                <div class="table-responsive">
                 <table id="table1" class="is-hoverable w-full" width="100%">     
                     <thead>
                     <tr>
@@ -74,17 +76,14 @@ $hash16 = CreateUniqueHash16();
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Total Bayar</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Total Struk</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Pembulatan</th>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Penerimaan</th>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Cust Bayar</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Pembayaran</th>
-                        <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Customer</th>
                         <th class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {
@@ -108,11 +107,8 @@ $hash16 = CreateUniqueHash16();
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $DisplayDate; ?></td>         
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($totalBayar,2); ?></td>   
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($totalStruk,2); ?></td>   
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($Pembulatan,2); ?></td>  
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right">P <?php   echo number_format($TotalPayment,2); ?></td>   
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right">P <?php   echo number_format($TotalCustomerBayar,2); ?></td>         
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $jenisBayar; ?></td>
-                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $KodeCustomer; ?></td>        
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5 text-right"><?php   echo number_format($Pembulatan,2); ?></td>       
+                            <td class="whitespace-nowrap px-4 py-3 sm:px-5"><?php   echo $jenisBayar; ?></td>      
                             <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                                 <a href="sales-invoice@<?php   echo $NomorStruk; ?>" class="btn h-8 rounded bg-success px-3 text-xs font-medium text-white hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">Show Detail</a>
                             </td>
@@ -121,8 +117,9 @@ $hash16 = CreateUniqueHash16();
                     }
                     ?>
                     </tbody>
-                </table>  
-                
+                </table>
+                </div>
+
                 <table id="exportExcel" style="display:none;">     
                     <thead>
                     <tr>
@@ -140,7 +137,7 @@ $hash16 = CreateUniqueHash16();
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {
@@ -207,7 +204,7 @@ $hash16 = CreateUniqueHash16();
                     $GrandTotalDiskon=0;
                     $GrandTotalNetSales=0;
 
-                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['SESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
+                    $StrViewQuery="SELECT * from dbo_header where kode_store = '" . $_SESSION['ADMSESS_kode_store'] . "' and tanggal = '" . $currdatedb. "' order by noid DESC";   
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))
                     {

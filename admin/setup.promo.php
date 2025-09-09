@@ -243,7 +243,7 @@ $PromoEndDate = date("Y-m-d", strtotime( "$currdatedb +3 Day" ));
                     <tbody>
                     <?php
                     /*==========================*/
-                    $StrViewQuery="SELECT * from dbo_promo where fl_active in('1','0') and promo_parameter <> 'E' and kode_store in('" . $_SESSION['SESS_kode_store'] . "','') order by promo_start_date desc";
+                    $StrViewQuery="SELECT * from dbo_promo where fl_active in('1','0') and promo_parameter <> 'E' and kode_store in('" . $_SESSION['ADMSESS_kode_store'] . "','') order by promo_start_date desc";
                     //echo $StrSalesDetails . "<hr>";     
                     $callStrViewQuery=mysqli_query($koneksidb, $StrViewQuery);
                     while($recView=mysqli_fetch_array($callStrViewQuery))

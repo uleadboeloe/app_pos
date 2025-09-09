@@ -7,7 +7,7 @@ include_once "library/connection.php";
 include_once "library/parameter.php";
 include_once "library/fungsi.php";
 
-if(isset($_SESSION['SESS_user_id'])){
+if(isset($_SESSION['ADMSESS_user_id'])){
     $StrViewQuery="SELECT * from dbo_barang where fl_active=1";
     //$StrViewQuery="SELECT * from dbo_barang where fl_timbang=0 and nama_barang like '%Wardah%'";
     //echo $StrSalesDetails . "<hr>";     
