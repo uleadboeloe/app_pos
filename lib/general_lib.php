@@ -2,7 +2,9 @@
     include "hni_api_lib.php";
 
     $ppn = 0; // PPN 10%
-    $nilaipoin = 100; // nilai 1000 = 1 poin
+    $nilaipoin = 0; // nilai 1000 = 1 poin
+    $ImagesLogo = "images/logo_struk.png";   
+    $KodeStoreOffline = "A103"; 
     $cryptkey = '9cuQ6qWG4nUSriFU8aFZAdCPxRObRPYv'; // 32 karakter untuk AES-256
 
     function getConfig($key) {
