@@ -7,7 +7,9 @@ session_start();
 include("lib/mysql_pdo.php");
 include("lib/mysql_connect.php");	
 include("lib/general_lib.php");
+include("lib/cloud_connect.php");
 include("admin/library/fungsi.php");
+include("admin/library/parameter.php");
 include("admin/library/qrcode/qrlib.php");
 
 if(!isset($_GET['koderegister'])){
@@ -33,140 +35,133 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
 <!--[if IE 8]>    <html class="lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html> <!--<![endif]-->
 <head>
-	<title>InsanPOS</title>
-	<link rel="shortcut icon" type="image/png" href="pos.png">
-	
-	<!-- Meta -->
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="mobile-web-app-capable" content="yes">
-	<!-- Bootstrap -->
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
-	
-	<!-- Glyphicons -->
-	<link rel="stylesheet" href="theme/css/glyphicons.css" />
-	
-	<!-- JQueryUI v1.9.2 -->
-	<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+<title>InsanPOS</title>
+<link rel="shortcut icon" type="image/png" href="pos.png">
 
-	<!-- JQuery -->
-	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-  	<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+<!-- Meta -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- Bootstrap -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<!-- Glyphicons -->
+<link rel="stylesheet" href="theme/css/glyphicons.css" />
+<!-- JQueryUI v1.9.2 -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 
-	<!-- google-code-prettify -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css" type="text/css" rel="stylesheet" />
-	
-	<!-- Theme -->
-	<link rel="stylesheet" href="theme/css/style.min.css?1362656653" />
-	<!-- Theme Eddy -->
-	<link rel="stylesheet" href="theme/css/preview.css" />    
-	
-	<!-- LESS 2 CSS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.js"></script>
+<!-- google-code-prettify -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css" type="text/css" rel="stylesheet" />
+<!-- Theme -->
+<link rel="stylesheet" href="theme/css/style.min.css?1362656653" />
+<!-- Theme Eddy -->
+<link rel="stylesheet" href="theme/css/preview.css" />    
 
-	<!-- DataTables -->
-	<link rel="stylesheet" media="screen" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
-	<script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+<!-- LESS 2 CSS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.js"></script>
 
-    <!-- Moment.js -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+<!-- DataTables -->
+<link rel="stylesheet" media="screen" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
 
-	<!-- SELECT2 -->
-	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+<!-- SELECT2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <link rel="stylesheet" href="admin/assets/lineone/css/app.css" />
-    <link rel="stylesheet" href="admin/assets/css/custom.css" />
-    <!-- Javascript Assets -->
-    <script src="admin/assets/lineone/js/app.js" defer></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="admin/assets/lineone/css/app.css" />
+<link rel="stylesheet" href="admin/assets/css/custom.css" />
+<!-- Javascript Assets -->
+<script src="admin/assets/lineone/js/app.js" defer></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
-	<style>
-		label, input { display:block; }
-		input.text { margin-bottom:12px; width:95%; padding: .4em; }
-		fieldset { padding:0; border:0; margin-top:25px; }
-		h1 { font-size: 1.2em; margin: .6em 0; }
-		.ui-dialog .ui-state-error { padding: .3em; }
-		.validateTips { border: 1px solid transparent; padding: 0.3em; }
-		.iconcolor { color: #7A7474; }
-	</style>
+<style>
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+    fieldset { padding:0; border:0; margin-top:25px; }
+    h1 { font-size: 1.2em; margin: .6em 0; }
+    .ui-dialog .ui-state-error { padding: .3em; }
+    .validateTips { border: 1px solid transparent; padding: 0.3em; }
+    .iconcolor { color: #7A7474; }
 
-	<style>
-		.ui-widget-header{
-			border-width: 0px 0px 1px 0px;
-			border-color: #dddddd;
-			background: #fff;
-			color: #000;
-		}
-		p {
-			font-size: 15px;
-		}
-		
-		table {
-			user-select: none; 
-			-webkit-user-select: none; 
-			-moz-user-select: none; 
-			-ms-user-select: none; 
-		}
+    .ui-widget-header{
+        border-width: 0px 0px 1px 0px;
+        border-color: #dddddd;
+        background: #fff;
+        color: #000;
+    }
+    p {
+        font-size: 15px;
+    }
+    
+    table {
+        user-select: none; 
+        -webkit-user-select: none; 
+        -moz-user-select: none; 
+        -ms-user-select: none; 
+    }
 
-		/* table tr td { height: 40px; } */
-		table td { line-height: 40px !important; }
-		.keypad { line-height: 0px !important; }
-		.keypad-divider { line-height: 20px !important; }
+    /* table tr td { height: 40px; } */
+    table td { line-height: 40px !important; }
+    .keypad { line-height: 0px !important; }
+    .keypad-divider { line-height: 20px !important; }
 
-		.td-no-line-height { line-height: 0px !important; }
-		
-		.qtybtn {
-			border: none;
-			color: white;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			padding: 0px 15px;
-			border-radius: 12px;
-			cursor: pointer;
-		}
+    .td-no-line-height { line-height: 0px !important; }
+    
+    .qtybtn {
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        padding: 0px 15px;
+        border-radius: 12px;
+        cursor: pointer;
+    }
 
-		.qtybtnmin {
-			background-color:rgb(209, 103, 32);
-		}
-		.qtybtnplus {
-			background-color:rgb(18, 92, 64);
-		}
-		.qtybtndel {
-			background-color:rgb(192, 0, 0);
-		}
+    .qtybtnmin {
+        background-color:rgb(209, 103, 32);
+    }
+    .qtybtnplus {
+        background-color:rgb(18, 92, 64);
+    }
+    .qtybtndel {
+        background-color:rgb(192, 0, 0);
+    }
 
-		#scrollable {
-            width: 100%;
-            height: 345px;
-            overflow: hidden;
-            position: relative;
-            /* cursor: grab; */
-        }
-        #listscanneditems {
-            width: 100%;
-            height: 100%;
-        }
-		#TxtSubTotal, #TxtPPN, #TxtGrandTotal {
-			font-weight: bold;
-		}
+    #scrollable {
+        width: 100%;
+        height: 345px;
+        overflow: hidden;
+        position: relative;
+        /* cursor: grab; */
+    }
+    #listscanneditems {
+        width: 100%;
+        height: 100%;
+    }
+    #TxtSubTotal, #TxtPPN, #TxtGrandTotal {
+        font-weight: bold;
+    }
 
-        .TextMiring{
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            z-index: 50;
-            transform: translate(-50%,-50%);
-            -ms-transform: translate(-50%,-50%);
-            transform: rotate(45deg);
-            transform-origin: 0 0; /* Menentukan titik rotasi (sudut kiri atas) */ 
-        }        
-	</style>
+    .TextMiring{
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        z-index: 50;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: rotate(45deg);
+        transform-origin: 0 0; /* Menentukan titik rotasi (sudut kiri atas) */ 
+    }        
+</style>
 </head>
 
 <!-- Start Content -->
@@ -254,7 +249,8 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
             $PC1000= $rec[0]["c1000k"]*1000;
             $PC500= $rec[0]["c500k"]*500;
             $PC200= $rec[0]["c200k"]*200;
-            $TotalPecahanLogam = $PC1000+$PC500+$PC200;
+            $PC100= $rec[0]["c100k"]*100;
+            $TotalPecahanLogam = $PC1000+$PC500+$PC200+$PC100;
             $TotalPecahanKasir = $TotalPecahanKertas+$TotalPecahanLogam;
             $TotalSetoranKasir = $TotalPecahanKertas+$TotalPecahanLogam+$ModalAwal;
             $TotalSetoran = $ModalAwal+$SetoranAkhir;
@@ -265,7 +261,10 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
                 $StatusSelisih = "Setoran Lebih";
             }
 
-            $db->exec("UPDATE dbo_user set is_login = 0 where userid = '" . $KodeKasir . "'");
+            //$db->exec("UPDATE dbo_user set is_login = 0 where userid = '" . $KodeKasir . "'");
+            $strUpdateLogUser="UPDATE dbo_table_user set is_login = 0 where userid = '" . $KodeKasir . "'";
+            $executeSQLx=mysqli_query($koneksicloud, $strUpdateLogUser); 
+
             $HeaderStruk = getHeaderStruk($kode_store);
             $FooterStruk = getFooterStruk($kode_store);
             ?>            
@@ -302,11 +301,9 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
             <!-- End of Header -->
             <div class="row-fluid">
                 <div id="PrintArea">
-                    <div class="span2">&nbsp;</div>
-                    <div class="span8" align="center"> 
-                        <?php 
-                        echo "<img src='admin/assets/images/logo_struk.png' alt='logo' width='70%'/>";    
-                        ?>
+                    <div class="span4">&nbsp;</div>
+                    <div class="span4" align="center"> 
+                        <img src="<?php echo $ImagesLogo;    ?>" alt="Logo InsanPOS" width="30%">
                         <div style="color:#000;font-size:10px;"><?php echo $HeaderStruk;    ?></div>
                         <hr>
                         <table width="100%" style="font-size: 12px; color: #000;">
@@ -320,7 +317,7 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
                             </tr>
                             <tr>
                                 <td width="50%">Kode / Nama Kasir :</td>
-                                <td width="50%" align="right" style="font-size: 12px; color: #000;"><?php echo $KodeKasir;    ?> / <?php echo getNamaUser($KodeKasir);    ?></td>
+                                <td width="50%" align="right" style="font-size: 12px; color: #000;"><?php echo $KodeKasir;    ?> / <?php echo getNamaKasirOnCloud($KodeKasir);    ?></td>
                             </tr>
                             <tr>
                                 <td width="50%">Store :</td>
@@ -328,14 +325,14 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
                             </tr>
                             <tr>
                                 <td width="50%">Kode / Supervisor :</td>
-                                <td width="50%" align="right" style="font-size: 12px; color: #000;"><?php echo $KodeSPV;    ?> / <?php echo getNamaUser($KodeSPV);    ?></td>
+                                <td width="50%" align="right" style="font-size: 12px; color: #000;"><?php echo $KodeSPV;    ?> / <?php echo getNamaKasirOnCloud($KodeSPV);    ?></td>
                             </tr>                                                
                         </table> 
                         <hr>
                         Pecahan Uang Kertas:
                         <table id="tableFooter" width="100%">
                             <tr>
-                                <td width="40%" style="font-size: 12px; color: #000;">Pecahan 100.000 X</td>
+                                <td width="40%" style="font-size: 12px; color: #000;">Pecahan 100.000</td>
                                 <td width="30%" align="right" style="font-size: 12px; color: #000;"><?php echo $rec[0]["c100000"];    ?></td>
                                 <td width="40%" align="right" style="font-size: 12px; color: #000;"><?php echo number_format($rec[0]["c100000"]*100000,2);    ?></td>
                             </tr>
@@ -390,6 +387,11 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
                                 <td width="40%" style="font-size: 12px; color: #000;">Pecahan 200</td>
                                 <td width="30%" align="right" style="font-size: 12px; color: #000;"><?php echo $rec[0]["c200k"];    ?></td>
                                 <td width="30%" align="right" style="font-size: 12px; color: #000;"><?php echo number_format($rec[0]["c200k"]*200,2);    ?></td>
+                            </tr>
+                            <tr>
+                                <td width="40%" style="font-size: 12px; color: #000;">Pecahan 100</td>
+                                <td width="30%" align="right" style="font-size: 12px; color: #000;"><?php echo $rec[0]["c100k"];    ?></td>
+                                <td width="30%" align="right" style="font-size: 12px; color: #000;"><?php echo number_format($rec[0]["c100k"]*100,2);    ?></td>
                             </tr>
                             <tr>
                                 <td width="60%" colspan="2" align="right" style="font-size: 12px; color: #000;">Total Pecahan Logam</td>
@@ -500,7 +502,7 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
                         }
                         ?>
                     </div>
-                    <div class="span2">&nbsp;</div>
+                    <div class="span4">&nbsp;</div>
                 </div>            
             </div>
             <?php

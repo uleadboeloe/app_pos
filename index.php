@@ -113,12 +113,20 @@
                             <input type="password" name="mypassword" class="input-block-level" placeholder="Password"> 
                             <hr>
 							<?php
-								if (isset($_SESSION['ls'])) 
-                    				if ($ls == "nok") echo '<p style="color:#FF0000">User Id / Password Tidak Sesuai!</p><p style="color:#FF0000">Pastikan User tidak dalam keadaan Aktif</p>';
+							if (isset($_SESSION['ls'])){
+								if ($ls == "nok") echo '<p style="color:#FF0000">User Id / Password Tidak Sesuai!</p><p style="color:#FF0000">Pastikan User tidak dalam keadaan Aktif</p>';
+								if ($ls == "storeinvalid") echo '<p style="color:#FF0000">User Id Tidak Bisa digunakan di toko ini</p><p style="color:#FF0000">Silahkan Hubungi Administrator</p>';
+								if ($ls == "passinvalid") echo '<p style="color:#FF0000">Password Tidak Sesuai</p><p style="color:#FF0000">Silahkan Hubungi Administrator</p>';
+								if ($ls == "userna") echo '<p style="color:#FF0000">User Id Tidak Ditemukan</p><p style="color:#FF0000">Silahkan Hubungi Administrator</p>';
+								if ($ls == "useractive") echo '<p style="color:#FF0000">User Id Sedang Aktif, Tidak Bisa Digunakan</p><p style="color:#FF0000">User hanya bisa di gunakan di 1 Device</p>';
+							}
                     		?>
                         </div>
-                        <button class="btn btn-large btn-warning" type="submit">Sign in</button>
-						<a href="admin" target="blank_" class="btn btn-large btn-success">Admin</a>
+                        <button class="btn btn-warning" type="submit">Sign in</button>
+						<a href="admin" target="blank_" class="btn btn-success">Admin</a>
+						<a href="logout" class="btn btn-primary">
+							Clear Cache
+						</a>
                     </form>
 		    	</div>
             </div>
@@ -144,4 +152,10 @@ function toggleFullScreen() {
         }
     }
 }
+
+          Swal.fire({
+            title: "Error",
+            text: "Silahkan Input Transaksi Terlebih Dahulu",
+            icon: "error",
+          });
 </script>

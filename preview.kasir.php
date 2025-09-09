@@ -8,6 +8,7 @@ include("lib/mysql_pdo.php");
 include("lib/mysql_connect.php");	
 include("lib/general_lib.php");
 include("admin/library/fungsi.php");
+include("admin/library/parameter.php");
 include("admin/library/qrcode/qrlib.php");
 
 if(!isset($_GET['nobon'])){
@@ -232,6 +233,7 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                 $TangalSales = $rec[0]["tanggal"];
                 $JamSales = $rec[0]["jam"];
                 $ShowTanggalSales = date("d-m-Y", strtotime($TangalSales)) . " " . date("H:i:s", strtotime($rec[0]["jam"]));
+                //$ShowTanggalSales = "2025-07-24 15:30:12";
                 $KodeKasir = $rec[0]["kode_kasir"];
                 $NamaKasir = $rec[0]["nama_kasir"];
                 $TotalBayar = $rec[0]["total_bayar"];
@@ -318,9 +320,9 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                 <!-- End of Header -->
                 <div class="row-fluid" >
                     <div id="PrintArea">
-                        <div class="span2">&nbsp;</div>
-                        <div class="span8" align="center"> 
-                            <img src="admin/assets/images/logo_struk.png" alt="Logo InsanPOS" width="40%">
+                        <div class="span4">&nbsp;</div>
+                        <div class="span4" align="center"> 
+                            <img src="<?php echo $ImagesLogo;    ?>" alt="Logo InsanPOS" width="30%">
                             <div style="color:#000;font-size:12px;">
                                 <?php echo $NamaStore;    ?>
                             </div>
@@ -346,7 +348,7 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                                     </tr> 
                                     <?php
                                 }
-                                ?>             
+                                ?>   
                             </table> 
                             <hr>
                             <div>
@@ -415,11 +417,11 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                                 </table>
                             </div>
                             <hr>
-                            <table width="100%" style="color:#000;font-size:12px;">
+                            <table width="100%" style="color:#000;font-size:12px;">     
                                 <tr>
                                     <td width="30%" align="right">Total Qty</td>
                                     <td width="70%" align="right" style="text-align:right;font-size:10px;"><?php echo number_format($TotalQtySales,0);    ?></td>
-                                </tr>                            
+                                </tr>                                                        
                                 <tr>
                                     <td width="30%" align="right">Total Belanja</td>
                                     <td width="70%" align="right" style="text-align:right;font-size:10px;"><?php echo number_format($TotalStruk,0);    ?></td>
@@ -512,7 +514,7 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                             }
                             ?>
                         </div>
-                        <div class="span2">&nbsp;</div>
+                        <div class="span4">&nbsp;</div>
                     </div>            
                 </div>
                 <?php
