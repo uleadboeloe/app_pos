@@ -311,7 +311,10 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                                 <tr>
                                     <td class="td-no-line-height"><span id="BtnBack" onclick="window.location.href ='kasir.php'" class="btn btn-block btn-default btn-icon glyphicons home"><i></i>BACK TO POS</span></td>
                                     <td class="td-no-line-height">&nbsp;</td>
+                                    <td class="td-no-line-height"><span id="BtnPrint" onclick="window.location.href='intent://printid#<?php echo $NoBon;    ?>^<?php echo $KodeStore;    ?>^<?php echo $KodeKasir;    ?>^PRINTKASIR'" class="btn btn-block btn-default btn-icon glyphicons print"><i></i>PRINT STRUK ANDROID</span></td>
+                                    <td class="td-no-line-height">&nbsp;</td>
                                     <td class="td-no-line-height"><span id="BtnPrint" onclick="PrintDoc();" class="btn btn-block btn-default btn-icon glyphicons print"><i></i>PRINT STRUK</span></td>
+                                    
                                 </tr>
                             </table>
                         </div>
@@ -534,21 +537,12 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
 <script type="text/javascript">
 function PrintDoc() {
     var toPrint = document.getElementById('PrintArea');
-    var popupWin = window.open('', '_blank', 'width=800,height=600,location=no,left=50px');
+    var popupWin = window.open('', 'width=800,height=600,location=no,left=50px');
     popupWin.document.open();
     popupWin.document.write('<html><title><?php echo $NoBon; ?></title><link rel="stylesheet" type="text/css" href="theme/css/print.css" media="print"/></head><body onload="window.print();window.close();">')
     popupWin.document.write(toPrint.innerHTML);
     popupWin.document.write('</body></html>');
     popupWin.document.close();
-}
-function showAlert() {
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        html: 'SUKSES MENCETAK STRUK',
-        showConfirmButton: false,
-        timer: 2000
-    });
 }
 </script>
 

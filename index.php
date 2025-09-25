@@ -1,9 +1,9 @@
 <?php
-	error_reporting(E_ALL);
-	ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-	session_start();
-	if (isset($_SESSION['ls'])) $ls = $_SESSION['ls'];
+session_start();
+if (isset($_SESSION['ls'])) $ls = $_SESSION['ls'];
 ?>
 
 <!DOCTYPE html>
@@ -123,10 +123,12 @@
                     		?>
                         </div>
                         <button class="btn btn-warning" type="submit">Sign in</button>
-						<a href="admin" target="blank_" class="btn btn-success">Admin</a>
+						<a href="admin" class="btn btn-success">Admin</a>
 						<a href="logout" class="btn btn-primary">
 							Clear Cache
 						</a>
+						<hr>
+						<a id="BtnPrint" onclick="window.location.href='intent://printid#nomor_dokumen^kode_store^kode_kasir^PRINTSTRUK'" class="btn btn-block btn-default btn-icon glyphicons print"><i></i>PRINT STRUK</a>
                     </form>
 		    	</div>
             </div>

@@ -1,5 +1,5 @@
 <?php
-$HostName	= "localhost:3309";
+$HostName	= "localhost";
 $HostUser	= "root";
 $HostPass	= "";
 $HostDb	= "insanpos_db";
@@ -10,7 +10,7 @@ if (! $koneksidb) {
 }
 mysqli_select_db($GLOBALS["___mysqli_ston_"], $HostDb) or die ("Database Tidak Ditemukan, Silahkan Hubungi Customer Service Kami!");
 
-$CloudHost	= "116.193.191.182";
+$CloudHost	= "localhost";
 $CloudUser	= "rootrmt";
 $CloudPass	= "rootrmt";
 $CloudDbs	= "ins_services";

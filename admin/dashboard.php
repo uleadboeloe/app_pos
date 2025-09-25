@@ -137,7 +137,7 @@ if(isset($_SESSION['ADMSESS_user_id'])){
       <!--Row 2 Baris-->
       <div class="mt-4 grid grid-cols-12 bg-slate-200 transition-all duration-[.25s] sm:mt-5 lg:mt-6">
 
-    
+      <span id="BtnPrint" onclick="window.location.href='intent://printid#1231231234^TASKGLOBAL'" class="btn btn-block btn-default btn-icon glyphicons print"><i></i>PRINT STRUK ANDROID</span>
       </div>
 
       <div class="mt-4 grid grid-cols-12 bg-slate-200 transition-all duration-[.25s] sm:mt-5 lg:mt-6">
