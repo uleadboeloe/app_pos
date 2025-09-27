@@ -67,9 +67,7 @@ if (isset($_SESSION['ls'])) $ls = $_SESSION['ls'];
 		.ui-dialog .ui-state-error { padding: .3em; }
 		.validateTips { border: 1px solid transparent; padding: 0.3em; }
 		.iconcolor { color: #7A7474; }
-	</style>
 
-	<style>
 		.ui-widget-header{
 			border-width: 0px 0px 1px 0px;
 			border-color: #dddddd;
@@ -122,13 +120,10 @@ if (isset($_SESSION['ls'])) $ls = $_SESSION['ls'];
 							}
                     		?>
                         </div>
-                        <button class="btn btn-warning" type="submit">Sign in</button>
-						<a href="admin" class="btn btn-success">Admin</a>
-						<a href="logout" class="btn btn-primary">
+                        <button class="btn btn-warning" type="submit" style="padding:15px;">Sign in</button>
+						<a href="logout" class="btn btn-primary" style="padding:15px;">
 							Clear Cache
 						</a>
-						<hr>
-						<a id="BtnPrint" onclick="window.location.href='intent://printid#nomor_dokumen^kode_store^kode_kasir^PRINTSTRUK'" class="btn btn-block btn-default btn-icon glyphicons print"><i></i>PRINT STRUK</a>
                     </form>
 		    	</div>
             </div>
@@ -136,28 +131,8 @@ if (isset($_SESSION['ls'])) $ls = $_SESSION['ls'];
 		</div> <!-- content -->
 		
 	</div> <!-- wrapper -->
-
 </div> 
 <!-- container-fluid -->
-
 </body>
 
 </html>
-
-<script>
-function toggleFullScreen() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
-    }
-}
-
-          Swal.fire({
-            title: "Error",
-            text: "Silahkan Input Transaksi Terlebih Dahulu",
-            icon: "error",
-          });
-</script>

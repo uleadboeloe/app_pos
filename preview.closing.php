@@ -186,7 +186,7 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
 			$FileBarcode = $tempdir.$file_name;
 			/*GENERATE QRCODE*/
 
-            /*CREATEBARCODE*/
+            /*CREATEBARCODE
             // Deteksi apakah protokolnya http atau https
             $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
             // Buat URL ke barcode generator
@@ -202,6 +202,7 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
             if ($barcode_data !== false) {
                 file_put_contents($filename, $barcode_data);
             }
+            */
             
             if(isset($_GET['msgcode'])){
                 echo "<input type='hidden' id='txtMsg' name='txtMsg' value='" . $_GET['msgcode'] . "' class='text-primary' />";
@@ -261,9 +262,9 @@ $kode_store = $encryptedKodeToko ? decryptData($encryptedKodeToko, $cryptkey) : 
                 $StatusSelisih = "Setoran Lebih";
             }
 
-            //$db->exec("UPDATE dbo_user set is_login = 0 where userid = '" . $KodeKasir . "'");
-            $strUpdateLogUser="UPDATE dbo_table_user set is_login = 0 where userid = '" . $KodeKasir . "'";
-            $executeSQLx=mysqli_query($koneksicloud, $strUpdateLogUser); 
+            $db->exec("UPDATE dbo_user set is_login = 0 where userid = '" . $KodeKasir . "'");
+            //$strUpdateLogUser="UPDATE dbo_table_user set is_login = 0 where userid = '" . $KodeKasir . "'";
+            //$executeSQLx=mysqli_query($koneksicloud, $strUpdateLogUser); 
 
             $HeaderStruk = getHeaderStruk($kode_store);
             $FooterStruk = getFooterStruk($kode_store);

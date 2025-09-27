@@ -21,6 +21,7 @@ $myuserid = stripslashes($myuserid);
 $mypassword = stripslashes($mypassword);
 $Passwords = crypt($txtPasswordx, $Salt);
 
+/*
 $strSQL1="SELECT * FROM `dbo_table_user` where userid = '" . $myuserid . "'";
 $CallstrSQL1=mysqli_query($koneksicloud, $strSQL1);
 $JumBar1=mysqli_num_rows($CallstrSQL1);
@@ -45,8 +46,6 @@ if ($JumBar1>0){
                     $strUpdateLogUser="UPDATE dbo_table_user set is_login = 1, last_login = '$datedb' where userid = '" . $myuserid . "'";
                     $executeSQLx=mysqli_query($koneksicloud, $strUpdateLogUser); 
 
-                    /*
-                    */
                     $strxQuery="SELECT * FROM dbo_user WHERE kode_store = '" . $varKodeStore . "' and kode_kasir = '" . $kode_kasir . "'";
                     $callstrxQuery=mysqli_query($koneksidb, $strxQuery);
                     $Jumbarx=mysqli_num_rows($callstrxQuery);
@@ -119,6 +118,7 @@ if ($JumBar1>0){
 }
 
 exit();
+*/
 
 // pretty much secure from sql injection
 $stmt = $db->prepare("SELECT * FROM dbo_user WHERE userid = :userid AND fl_active = 1 and is_login = 0");

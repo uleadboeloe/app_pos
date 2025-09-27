@@ -305,16 +305,15 @@ $lastno_struk_no = $ns[0]["nomor_akhir"];
                         </div>
                     </div>
                     <div class="span5">
-                        <!-- Header Buttons -->
+                        <!-- Header Buttons
+                        <span id="BtnPrint" onclick="PrintDoc();" class="btn btn-block btn-default btn-icon glyphicons print"><i></i>PRINT STRUK</span>
+                        -->
                         <div style="padding: 7px 35px 0px 10px; float: right;">
                             <table>
                                 <tr>
                                     <td class="td-no-line-height"><span id="BtnBack" onclick="window.location.href ='kasir.php'" class="btn btn-block btn-default btn-icon glyphicons home"><i></i>BACK TO POS</span></td>
                                     <td class="td-no-line-height">&nbsp;</td>
-                                    <td class="td-no-line-height"><span id="BtnPrint" onclick="window.location.href='intent://printid#<?php echo $NoBon;    ?>^<?php echo $KodeStore;    ?>^<?php echo $KodeKasir;    ?>^PRINTKASIR'" class="btn btn-block btn-default btn-icon glyphicons print"><i></i>PRINT STRUK ANDROID</span></td>
-                                    <td class="td-no-line-height">&nbsp;</td>
-                                    <td class="td-no-line-height"><span id="BtnPrint" onclick="PrintDoc();" class="btn btn-block btn-default btn-icon glyphicons print"><i></i>PRINT STRUK</span></td>
-                                    
+                                    <td class="td-no-line-height"><span id="BtnPrint" onclick="window.location.href='intent://printid#<?php echo $NoBon;    ?>^<?php echo $KodeStore;    ?>^<?php echo $KodeKasir;    ?>^PRINTKASIR'" class="btn btn-block btn-default btn-icon glyphicons print"><i></i>PRINT STRUK ANDROID</span></td>                                    
                                 </tr>
                             </table>
                         </div>

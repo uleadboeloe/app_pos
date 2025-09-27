@@ -49,9 +49,9 @@ if(isset($_SESSION['SESS_user_id'])){
         $NoBon = $result['noid_proses'];
         $RecSourceID = $result['source_proses'];
         ?>
-        <input type="text" name="txtUserIDDevice" id="txtUserIDDevice" value="<?php   echo $NoBon; ?>">
-        <input type="text" name="txtUserIDDevice" id="txtUserIDDevice" value="<?php   echo $kode_kasir; ?>">
-        <input type="text" name="txtPushIDDevice" id="txtPushIDDevice" value="<?php   echo $RecSourceID; ?>">
+        <input type="hidden" name="txtUserIDDevice" id="txtUserIDDevice" value="<?php   echo $NoBon; ?>">
+        <input type="hidden" name="txtUserIDDevice" id="txtUserIDDevice" value="<?php   echo $kode_kasir; ?>">
+        <input type="hidden" name="txtPushIDDevice" id="txtPushIDDevice" value="<?php   echo $RecSourceID; ?>">
         <?php
         $strQuery = $db->prepare("SELECT * FROM dbo_header WHERE kode_kasir = :kode_kasir and no_struk = :nofaktur and is_voided in ('0','2')");
         $strQuery->execute(array(':nofaktur' => $NoBon, ':kode_kasir' => $kode_kasir));
@@ -149,7 +149,7 @@ if(isset($_SESSION['SESS_user_id'])){
                     </table> 
                     <hr>
                     <div>
-                        <table id="tableData" style="color:#000;font-size:12px;">
+                        <table id="tableData" width="100%" style="color:#000;font-size:12px;">
                             <tr>
                                 <th>DESKRIPSI</th>
                                 <th>QTY</th>
